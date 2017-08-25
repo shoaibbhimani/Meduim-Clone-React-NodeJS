@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import logo from "../logo.svg";
+import reduxlogo from "../redux.svg";
 import "../App.css";
 
 class App extends Component {
@@ -10,10 +11,14 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <img src={reduxlogo} className="App-logo reduxlogo" alt="logo" />
+          <h2>Welcome to React and Redux Starter Kit </h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          To get started, edit <code>src/container/App.js</code> and save to
+          reload. <br />
+          <br />
+          <div>Redux Logger and Promise Middleware Enabled</div>
         </p>
       </div>
     );
@@ -22,8 +27,18 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    userStore: state.userStore
+    todos: state.todos
   };
 };
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProp = dispatch => {
+  return {
+    addTodo: () => {
+      dispatch({
+        type: "ADD_TODO",
+        payload: "dasd"
+      });
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProp)(App);

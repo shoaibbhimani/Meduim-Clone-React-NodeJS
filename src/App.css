@@ -7,6 +7,11 @@
   height: 80px;
 }
 
+.reduxlogo {
+  width: 116px;
+  height: 63px;
+}
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -19,6 +24,10 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
