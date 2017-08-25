@@ -31,14 +31,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProp = dispatch => {
-  return {
-    addTodo: () => {
-      dispatch({
-        type: "ADD_TODO",
-        payload: "dasd"
-      });
-    }
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProp)(App);
+export default connect(mapStateToProps, null)(App);
