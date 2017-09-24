@@ -14,7 +14,9 @@ https://www.udemy.com/learn-reactjs-fundamentals-in-hindi-urdu/?couponCode=REACT
 
 What you Learn in this Course
 
-Learn and Understand Fundamentals of React
-you will learn React Router version 4 and version 3
-you will Mobx - State management library we will make 2 Project using React, React Router V4 & Mobx
-Learn and Understanding Redux if you don't like my course you can have 30 days refund policy of Udemy so you really don't have anything to loose
+- Learn and Understand Fundamentals of React
+- you will learn React Router version 4 and version 3
+- you will Mobx - State management library we will make 2 Project using React, React Router V4 & Mobx
+- Learn and Understanding Redux 
+
+if you don't like my course you can have 30 days refund policy of Udemy so you really don't have anything to loose
