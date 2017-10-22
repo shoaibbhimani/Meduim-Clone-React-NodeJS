@@ -1,34 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Route, withRouter } from "react-router-dom";
 
-import logo from "../logo.svg";
-import reduxlogo from "../redux.svg";
 import "../App.css";
+import Header from "../components/header.js";
+import Posts from "../container/Posts";
+import PostDetails from "./PostDetails.js";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <img src={reduxlogo} className="App-logo reduxlogo" alt="logo" />
-          <h2>Welcome to React and Redux Starter Kit </h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/container/App.js</code> and save to
-          reload. <br />
-          <br />
-          <div>Redux Logger and Promise Middleware Enabled</div>
-        </p>
+        <Header />
+        <Route exact path="/" component={Posts} />
+        <Route path="/:postid" component={PostDetails} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    todos: state.todos
-  };
-};
-
-export default connect(mapStateToProps, null)(App);
+export default withRouter(connect(null, null)(App));
