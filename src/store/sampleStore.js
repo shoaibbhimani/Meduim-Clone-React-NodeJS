@@ -36,11 +36,11 @@ export default [
 				name: "Shoaib Bhimani"
 			}
 		],
-		likes: 12,
-		date: "23/09/2017",
+		likes: 24,
+		date: "30/09/2017",
 		author: {
 			avatar: "https://avatars1.githubusercontent.com/u/9435068?v=4",
-			name: "Shoaib Bhimani"
+			name: "Zaid Bhimani"
 		},
 		tags: [],
 		id: 2

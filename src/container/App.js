@@ -8,15 +8,15 @@ import Posts from "../container/Posts";
 import PostDetails from "./PostDetails.js";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Route exact path="/" component={Posts} />
-        <Route path="/:postid" component={PostDetails} />
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<Header />
+				<Route exact path="/" component={Posts} />
+				<Route path="/:postid" component={PostDetails} />
+			</div>
+		);
+	}
 }
 
 export default withRouter(connect(null, null)(App));
