@@ -1,0 +1,4 @@
+const POSTS = "posts";
+const INCREMENT_LIKES = "INCREMENT_LIKES";
+
+export { POSTS, INCREMENT_LIKES };

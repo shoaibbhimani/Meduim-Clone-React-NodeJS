@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
+import likesIcon from "../svg-icons/like.svg";
+
 import PostHeader from "../components/PostHeader";
 
 const PostsDetailsWrapper = styled.section`
@@ -24,6 +26,13 @@ const PostContent = styled.section`
 
 const PostImage = styled.img``;
 
+const SocialMediaIcons = styled.section`
+	position: absolute;
+	top: 60%;
+	left: 15%;
+	cursor: pointer;
+`;
+
 class PostsDetails extends React.Component {
 	render() {
 		const { match, posts } = this.props;
@@ -31,6 +40,9 @@ class PostsDetails extends React.Component {
 		const post = posts.filter(post => post.id === postid)[0];
 		return (
 			<PostsDetailsWrapper>
+				<SocialMediaIcons>
+					<img src={likesIcon} />
+				</SocialMediaIcons>
 				<PostHeader post={post} />
 				<PostTitle>{post.title}</PostTitle>
 				<section>

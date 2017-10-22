@@ -2,23 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
+//Components
 import PostItem from "../components/PostItem";
+
+//Action Creators
+import { incrementLikes } from "../action-creators/post-action-creator.js";
 
 const PostWrapper = styled.section`padding: 12px;`;
 
 class Posts extends React.Component {
-	componentDidMount() {
-		this.props.loadPosts();
-	}
 	render() {
-		const { posts } = this.props;
+		const { posts, incrementLikes } = this.props;
 		return (
 			<section className="row">
 				<section className="col-md-7">
 					<PostWrapper>
 						<ul>
 							{posts.map((post, index) => (
-								<PostItem key={index} post={post} />
+								<PostItem
+									incrementLikes={incrementLikes}
+									key={index}
+									index={index}
+									post={post}
+								/>
 							))}
 						</ul>
 					</PostWrapper>
@@ -37,12 +43,4 @@ const mapStateToProps = state => {
 	};
 };
 
-const mapDispatchToProps = () => {
-	return {
-		loadPosts: () => {
-			return [];
-		}
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, { incrementLikes })(Posts);
