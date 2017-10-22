@@ -39,7 +39,7 @@ const CommentIcon = styled.span`
 `;
 
 const PostItem = ({ post, incrementLikes, index }) => {
-	const IncrementLikes = () => {
+	const likeIconHandler = () => {
 		incrementLikes({ index });
 	};
 	return (
@@ -66,7 +66,7 @@ const PostItem = ({ post, incrementLikes, index }) => {
 					style={{
 						float: "left"
 					}}
-					onClick={IncrementLikes}
+					onClick={likeIconHandler}
 				>
 					<LikeIcon>
 						<img src={likesIcon} />

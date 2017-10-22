@@ -2,9 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
+//Images
 import likesIcon from "../svg-icons/like.svg";
 
+//Components
 import PostHeader from "../components/PostHeader";
+
+import { incrementLikes } from "../action-creators/post-action-creator.js";
 
 const PostsDetailsWrapper = styled.section`
 	width: 60%;
@@ -35,13 +39,22 @@ const SocialMediaIcons = styled.section`
 
 class PostsDetails extends React.Component {
 	render() {
-		const { match, posts } = this.props;
+		const { match, posts, incrementLikes } = this.props;
 		const postid = parseInt(match.params.postid, 10);
-		const post = posts.filter(post => post.id === postid)[0];
+		const postIndex = posts.findIndex(post => post.id === postid);
+		const post = posts[postIndex];
+		const IconHandler = () => {
+			incrementLikes({ index: postIndex });
+		};
 		return (
 			<PostsDetailsWrapper>
 				<SocialMediaIcons>
-					<img src={likesIcon} />
+					<section>
+						<img onClick={IconHandler} src={likesIcon} />
+					</section>
+					<section style={{ textAlign: "center" }}>
+						{post.likes}
+					</section>
 				</SocialMediaIcons>
 				<PostHeader post={post} />
 				<PostTitle>{post.title}</PostTitle>
@@ -66,4 +79,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps, null)(PostsDetails);
+export default connect(mapStateToProps, { incrementLikes })(PostsDetails);
