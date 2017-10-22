@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import PostItem from "../components/postitem.js";
-
 class PostsDetails extends React.Component {
 	render() {
 		const { match, posts } = this.props;
