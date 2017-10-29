@@ -8,6 +8,8 @@ import likesIcon from "../svg-icons/like.svg";
 //Components
 import PostHeader from "../components/PostHeader";
 
+import Comment from "./Comment.js"
+
 import { incrementLikes } from "../action-creators/post-action-creator.js";
 
 const PostsDetailsWrapper = styled.section`
@@ -41,8 +43,12 @@ class PostsDetails extends React.Component {
 	render() {
 		const { match, posts, incrementLikes } = this.props;
 		const postid = parseInt(match.params.postid, 10);
+		//Get Index
 		const postIndex = posts.findIndex(post => post.id === postid);
+		//get Post
 		const post = posts[postIndex];
+
+
 		const IconHandler = () => {
 			incrementLikes({ index: postIndex });
 		};
@@ -68,6 +74,8 @@ class PostsDetails extends React.Component {
 					)}
 				</section>
 				<PostContent>{post.content}</PostContent>
+
+				<Comment comments={post.comments} />
 			</PostsDetailsWrapper>
 		);
 	}

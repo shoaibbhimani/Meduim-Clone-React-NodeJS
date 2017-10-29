@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => (
 	<div>
-		<h2>
+		<h2 style={{ textAlign:"center"}}>
 			<NavLink to="/">
 				Welcome to React and Redux Starter Kit{" "}
 			</NavLink>{" "}

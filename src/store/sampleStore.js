@@ -10,7 +10,13 @@ export default [
 		comments: [
 			{
 				avatar: "https://avatars1.githubusercontent.com/u/9435068?v=4",
-				name: "Shoaib Bhimani"
+				name: "Shoaib Bhimani",
+				text:"Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat. Vivamus suscipit tortor eget felis porttitor volutpat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."
+			},
+			{
+				avatar: "https://avatars2.githubusercontent.com/u/30372319?v=4",
+				name: "Zaid Bhimani",
+				text:"Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat. Vivamus suscipit tortor eget felis porttitor volutpat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui."
 			}
 		],
 		likes: 12,
@@ -33,7 +39,8 @@ export default [
 		comments: [
 			{
 				avatar: "https://avatars1.githubusercontent.com/u/9435068?v=4",
-				name: "Shoaib Bhimani"
+				name: "Shoaib Bhimani",
+				text:"I like this post"
 			}
 		],
 		likes: 24,
