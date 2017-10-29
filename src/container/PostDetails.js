@@ -8,9 +8,14 @@ import likesIcon from "../svg-icons/like.svg";
 //Components
 import PostHeader from "../components/PostHeader";
 
-import Comment from "./Comment.js"
+import Comment from "./Comment.js";
 
-import { incrementLikes } from "../action-creators/post-action-creator.js";
+import {
+	incrementLikes,
+	addComments
+} from "../action-creators/post-action-creator.js";
+
+import { ADD_COMMENTS } from "../actions-types";
 
 const PostsDetailsWrapper = styled.section`
 	width: 60%;
@@ -40,6 +45,15 @@ const SocialMediaIcons = styled.section`
 `;
 
 class PostsDetails extends React.Component {
+	addComments = ({ text, index }) => {
+		const { userInfo } = this.props;
+		this.props.addComments({
+			text,
+			index,
+			userInfo:userInfo
+		});
+	};
+
 	render() {
 		const { match, posts, incrementLikes } = this.props;
 		const postid = parseInt(match.params.postid, 10);
@@ -47,7 +61,6 @@ class PostsDetails extends React.Component {
 		const postIndex = posts.findIndex(post => post.id === postid);
 		//get Post
 		const post = posts[postIndex];
-
 
 		const IconHandler = () => {
 			incrementLikes({ index: postIndex });
@@ -75,7 +88,11 @@ class PostsDetails extends React.Component {
 				</section>
 				<PostContent>{post.content}</PostContent>
 
-				<Comment comments={post.comments} />
+				<Comment
+					comments={post.comments}
+					addComments={this.addComments}
+					postIndex={postIndex}
+				/>
 			</PostsDetailsWrapper>
 		);
 	}
@@ -83,8 +100,11 @@ class PostsDetails extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		posts: state.posts
+		posts: state.posts,
+		userInfo: state.userInfo
 	};
 };
 
-export default connect(mapStateToProps, { incrementLikes })(PostsDetails);
+export default connect(mapStateToProps, { incrementLikes, addComments })(
+	PostsDetails
+);

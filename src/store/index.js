@@ -5,6 +5,7 @@ import promiseMiddleware from "redux-promise-middleware";
 //Reducers
 import todos from "./todos_reducer.js";
 import posts from "./posts_reducer.js";
+import userInfo from "./user_reducer.js"
 
 //you apply any middleware here
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware(), logger)(
@@ -14,7 +15,8 @@ const createStoreWithMiddleware = applyMiddleware(promiseMiddleware(), logger)(
 //Glue Store and Reducers together
 const store = combineReducers({
 	todos,
-	posts
+	posts,
+	userInfo
 });
 
 export default createStoreWithMiddleware(

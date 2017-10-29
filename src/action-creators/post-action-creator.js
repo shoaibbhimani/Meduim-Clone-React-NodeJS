@@ -1,4 +1,4 @@
-import { INCREMENT_LIKES } from "../actions-types";
+import { INCREMENT_LIKES, ADD_COMMENTS } from "../actions-types";
 
 const incrementLikes = ({ index }) => {
 	return {
@@ -7,4 +7,15 @@ const incrementLikes = ({ index }) => {
 	};
 };
 
-export { incrementLikes };
+const addComments = ({ index, text, userInfo }) => {
+  return {
+  	type:ADD_COMMENTS,
+  	payload:{
+  		text,
+  		index,
+  		...userInfo
+  	}
+  }
+}
+
+export { incrementLikes, addComments };
