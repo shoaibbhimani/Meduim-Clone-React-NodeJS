@@ -5,7 +5,6 @@ const md5 = require("md5");
 const jwt = require("jsonwebtoken");
 
 const User = mongoose.model("User");
-
 const keys = require("../config/keys");
 
 router.post("/google", async (req, res, next) => {
@@ -26,8 +25,6 @@ router.post("/google", async (req, res, next) => {
 
     user = await userInstance.save();
   }
-
-  console.log(user.id);
 
   const token = await jwt.sign(
     {

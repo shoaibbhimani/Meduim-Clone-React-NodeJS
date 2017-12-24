@@ -17,7 +17,8 @@ const userScheme = new Schema({
   },
   firstName: String,
   lastName: String,
-  avatar: String
+  avatar: String,
+  likes: [Number]
 });
 
-module.exports = mongoose.model("User", userScheme);
+mongoose.model("User", userScheme);
