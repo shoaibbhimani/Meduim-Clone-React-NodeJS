@@ -16,6 +16,7 @@ router.get("/", auth.isAuthenticated, async (req, res) => {
 
 router.post("/", auth.isAuthenticated, async (req, res) => {
   const { title, body, thumbnail } = req.body;
+
   const blogInstance = new Blog({
     user_id: req.user_id,
     title,

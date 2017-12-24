@@ -3,16 +3,18 @@ const { Schema } = mongoose;
 
 const commentSchema = new Schema({
   commentUserId: {
-    type: Number,
-    required: true
+    type: Schema.ObjectId,
+    ref: "User",
+    required: "You must supply an author"
   },
   commentText: {
     type: String,
     required: true
   },
-  postId: {
-    type: Number,
-    required: true
+  blogId: {
+    type: Schema.ObjectId,
+    ref: "Blog",
+    required: "You must supply an Blog"
   }
 });
 
