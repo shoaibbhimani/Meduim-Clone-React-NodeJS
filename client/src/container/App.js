@@ -7,8 +7,11 @@ import Header from "../components/header.js";
 import Posts from "../container/Posts";
 import PostDetails from "./PostDetails.js";
 
+import Proptypes from "../propTypes.js";
+
 class App extends Component {
 	render() {
+		const { contact } = this.props;
 		return (
 			<div>
 				<Header />
@@ -18,5 +21,7 @@ class App extends Component {
 		);
 	}
 }
+
+App.propTypes = Proptypes.AppPropTypes;
 
 export default withRouter(connect(null, null)(App));
