@@ -17,16 +17,21 @@ router.get("/", auth.isAuthenticated, async (req, res) => {
 router.post("/", auth.isAuthenticated, async (req, res) => {
   const { title, body, thumbnail } = req.body;
 
-  const blogInstance = new Blog({
+  const blog = new Blog({
     user_id: req.user_id,
     title,
     body,
     thumbnail
-  });
-
-  const blog = blogInstance.save();
+  }).save();
 
   res.send({ blog });
+});
+
+router.delete("/:blogId", auth.isAuthenticated, async (req, res) => {
+  await Blog.deleteOne({
+    _id: req.params.blogId
+  });
+  res.send(200);
 });
 
 module.exports = router;
