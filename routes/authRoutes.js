@@ -9,12 +9,12 @@ const keys = require("../config/keys");
 
 router.post("/", async (req, res) => {
   const { googleId, firstName, lastName, email } = req.body;
+  console.log("keys", keys);
 
   let user = await User.findOne({
     googleId
   });
 
-  console.log("keys", keys);
 
   if (!user) {
     const userInstance = new User({
