@@ -2,10 +2,15 @@
   "name": "server",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "8.1.1",
+    "npm": "5.0.3"
+  },
   "scripts": {
     "start": "node start.js",
     "server": "nodemon start.js",
-    "dev": "concurrently \"cd client && yarn start\" \"yarn run server\"",
+    "client":"cd client && yarn start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn build"
   },
   "dependencies": {
