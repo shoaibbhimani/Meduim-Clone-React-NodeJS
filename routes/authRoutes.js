@@ -14,6 +14,8 @@ router.post("/", async (req, res) => {
     googleId
   });
 
+  console.log("keys", keys);
+
   if (!user) {
     const userInstance = new User({
       googleId,
@@ -28,6 +30,8 @@ router.post("/", async (req, res) => {
       console.log("Err", err);
     }
   }
+
+
 
   const token = await jwt.sign(
     {
