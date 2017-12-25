@@ -4,7 +4,7 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login-component';
 
 import '../App.css';
-import Header from './Header.js';
+import Header from './Header';
 import Posts from '../container/Posts';
 import PostDetails from './PostDetails.js';
 import CreatePost from "./CreatePost"
