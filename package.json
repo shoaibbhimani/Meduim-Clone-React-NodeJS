@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node start.js",
     "server": "nodemon start.js",
-    "dev": "concurrently \"cd client && yarn start\" \"yarn run server\""
+    "dev": "concurrently \"cd client && yarn start\" \"yarn run server\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn build"
   },
   "dependencies": {
     "axios": "^0.17.1",
