@@ -47,4 +47,6 @@ export const getUserData = (data, callback) => {
   };
 };
 
+export const forgetUser = () => ({ type: TYPES.FORGOT_USER });
+
 export const setUserData = data => ({ type: TYPES.USER_DATA, payload: data });

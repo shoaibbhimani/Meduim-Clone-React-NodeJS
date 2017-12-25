@@ -21,6 +21,7 @@ const userReducer = (state = initialState, action) => {
       });
       return { ...action.payload, isAuthenticated: true };
     case TYPES.FORGOT_USER:
+      UtilityMethod.deleteLocalStorage();
       return { ...initialState };
     default:
       return state;
