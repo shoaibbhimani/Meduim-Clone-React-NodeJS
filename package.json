@@ -11,7 +11,7 @@
     "server": "nodemon start.js",
     "client":"cd client && yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && yarn install --production[false] && yarn build"
   },
   "dependencies": {
     "axios": "^0.17.1",
