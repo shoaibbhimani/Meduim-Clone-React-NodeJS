@@ -22,18 +22,7 @@ export const addComments = ({ index, text, userInfo }) => {
   };
 };
 
-export const getPost = () => {
-  return dispatch => {
-    APIClient.getPost()
-      .then(({ data }) => {
-        dispatch({ type: TYPES.POSTS, payload: data.posts });
-      })
-      .catch(error => {
-        dispatch({ type: "ERROR", payload: error });
-      });
-  };
-};
-
+//Auth
 export const getUserData = (data, callback) => {
   return dispatch => {
     APIClient.googleAuth(data)
@@ -50,3 +39,28 @@ export const getUserData = (data, callback) => {
 export const forgetUser = () => ({ type: TYPES.FORGOT_USER });
 
 export const setUserData = data => ({ type: TYPES.USER_DATA, payload: data });
+
+//Blogs
+export const getPost = () => {
+    return dispatch => {
+        APIClient.getPost()
+            .then(({ data }) => {
+                dispatch({ type: TYPES.POSTS, payload: data.posts });
+            })
+            .catch(error => {
+                dispatch({ type: "ERROR", payload: error });
+            });
+    };
+};
+
+export const createPost = (data, callback) => {
+  return dispatch => {
+      APIClient.createPost(data)
+        .then(() => {
+           callback();
+        })
+  }
+};
+
+
+

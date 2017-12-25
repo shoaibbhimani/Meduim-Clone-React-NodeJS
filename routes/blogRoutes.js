@@ -9,7 +9,7 @@ const Blog = mongoose.model("Blog");
 router.get("/", auth.isAuthenticated, async (req, res) => {
   const posts = await Blog.find({
     user_id: req.user_id
-  });
+  }).sort({ fields:"desc"});
 
   res.send({ posts });
 });

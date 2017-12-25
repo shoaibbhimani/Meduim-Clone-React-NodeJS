@@ -7,6 +7,7 @@ import '../App.css';
 import Header from './Header.js';
 import Posts from '../container/Posts';
 import PostDetails from './PostDetails.js';
+import CreatePost from "./CreatePost"
 
 import { PrivateRoute } from '../UIComponent';
 
@@ -30,20 +31,34 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Switch>
-          <Route exact path="/" render={() => <h2>Index Page</h2>} />
-          <PrivateRoute
-            exact
-            path="/myBlogs"
-            isAuthenticated={isAuthenticated}
-            component={Posts}
-          />,
-          <PrivateRoute
-            path="/:postid"
-            isAuthenticated={isAuthenticated}
-            component={PostDetails}
-          />
-        </Switch>
+        <Route exact path="/" render={() => <h2>Index Page</h2>} />
+          {
+              isAuthenticated && <Switch>
+                <PrivateRoute
+                    exact
+                    {...this.props}
+                    path="/myblogs"
+                    isAuthenticated={isAuthenticated}
+                    component={Posts}
+                />
+                <PrivateRoute
+                    exact
+                    path="/create_post"
+                    {...this.props}
+                    isAuthenticated={isAuthenticated}
+                    component={CreatePost}
+                />
+                <PrivateRoute
+                    exact
+                    {...this.props}
+                    path="/blog/:postid"
+                    isAuthenticated={isAuthenticated}
+                    component={PostDetails}
+                />
+
+              </Switch>
+          }
+
       </div>
     );
   }
