@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const User = mongoose.model("User");
 const keys = require("../config/keys");
 
-router.post("/google", async (req, res, next) => {
+router.post("/", async (req, res) => {
   const { googleId, firstName, lastName, email } = req.body;
 
   let user = await User.findOne({
@@ -22,8 +22,11 @@ router.post("/google", async (req, res, next) => {
       email,
       avatar: `https://gravatar.com/avatar/${md5(email)}?s=200`
     });
-
-    user = await userInstance.save();
+    try {
+      user = await userInstance.save();
+    } catch (err) {
+      console.log("Err", err);
+    }
   }
 
   const token = await jwt.sign(
@@ -33,7 +36,7 @@ router.post("/google", async (req, res, next) => {
     keys.token
   );
 
-  res.send({ token, user });
+  res.send({ jwt: token, user });
 });
 
 module.exports = router;

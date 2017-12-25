@@ -7,11 +7,11 @@ const auth = require("../middlewares/auth");
 const Blog = mongoose.model("Blog");
 
 router.get("/", auth.isAuthenticated, async (req, res) => {
-  const blogs = await Blog.find({
+  const posts = await Blog.find({
     user_id: req.user_id
   });
 
-  res.send({ blogs });
+  res.send({ posts });
 });
 
 router.post("/", auth.isAuthenticated, async (req, res) => {

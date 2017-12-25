@@ -6,10 +6,10 @@ import * as t from "prop-types";
 
 //Components
 import PostHeader from "./PostHeader";
+import Comments from "./Comments"
 
 //Icons
 import likesIcon from "../svg-icons/like.svg";
-import commentsIcon from "../svg-icons/comment.svg";
 
 const PostItemWrapper = styled.li`display: inline;`;
 
@@ -31,33 +31,26 @@ const LikeIcon = styled.span`
 	}
 `;
 
-const CommentIcon = styled.span`
-	& img {
-		width: 20px;
-		height: 20px;
-	}
-`;
-
 const PostItem = ({ post, incrementLikes, index }) => {
 	const likeIconHandler = () => {
 		incrementLikes({ index });
 	};
 	return (
 		<PostItemWrapper>
-			<PostHeader post={post} />
+			{/*<PostHeader post={post} />*/}
 			{post.thumbnail && (
 				<PostImageWrapper className="clearfix">
 					<PostImage
 						className="img-responsive"
-						src={`https://cdn-images-1.medium.com/fit/t/800/240/1*jVnqkmLgnIbuVlFYl5-T_Q.png`}
+						src={post.thumbnail}
 					/>
 				</PostImageWrapper>
 			)}
 
 			<PostTitle>{post.title}</PostTitle>
-			<PostExcerpt>{post.excerpt}</PostExcerpt>
+			<PostExcerpt>{post.content}</PostExcerpt>
 			<PostLink>
-				<Link to={`/${post.id}`}>
+				<Link to={`/${post._id}`}>
 					<p>Read more</p>
 				</Link>
 			</PostLink>
@@ -73,18 +66,7 @@ const PostItem = ({ post, incrementLikes, index }) => {
 					</LikeIcon>
 					<span style={{ marginLeft: "2.5px" }}>{post.likes}</span>
 				</section>
-				<section
-					style={{
-						float: "right"
-					}}
-				>
-					<CommentIcon>
-						<img src={commentsIcon} />
-					</CommentIcon>
-					<span style={{ marginLeft: "2.5px" }}>
-						{post.comments.length}
-					</span>
-				</section>
+
 			</section>
 
 			<hr />
