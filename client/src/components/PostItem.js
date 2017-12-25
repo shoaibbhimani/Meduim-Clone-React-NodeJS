@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import * as t from 'prop-types';
+import { ReactMdePreview } from "react-mde"
 
 //Components
 import PostHeader from './PostHeader';
@@ -50,7 +51,7 @@ class PostItem extends Component {
         )}
 
         <PostTitle>{post.title}</PostTitle>
-        <PostExcerpt>{post.body}</PostExcerpt>
+          <ReactMdePreview markdown={post.body}/>
         <PostLink>
           <Link to={`/${post._id}`}>
             <p>Read more</p>
