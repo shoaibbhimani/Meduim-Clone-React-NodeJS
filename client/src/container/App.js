@@ -4,7 +4,7 @@ import { Route, withRouter, Switch } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login-component';
 
 import '../App.css';
-import Header from './header.js';
+import Header from './Header.js';
 import Posts from '../container/Posts';
 import PostDetails from './PostDetails.js';
 
@@ -31,7 +31,7 @@ class App extends Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path="/" render={() => <h2>dsadsad</h2>} />
+          <Route exact path="/" render={() => <h2>Index Page</h2>} />
           <PrivateRoute
             exact
             path="/myBlogs"

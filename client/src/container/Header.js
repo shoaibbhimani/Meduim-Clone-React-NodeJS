@@ -2,18 +2,18 @@ import React from 'react';
 import { GoogleLogin } from 'react-google-login-component';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import styled from "styled-components"
+import styled from 'styled-components';
 
 import * as actions from '../action-creators';
 import * as APIClient from '../apiclient';
-import * as CSSConstant from "../CSSConstant"
+import * as CSSConstant from '../CSSConstant';
 
 const NavBar = styled.nav`
- background: none;
- font-family: ${CSSConstant.raleway};
- & a {
-  color: black;
- }
+  background: none;
+  font-family: ${CSSConstant.raleway};
+  & a {
+    color: black;
+  }
 `;
 
 const GoogleContainer = styled.li`
@@ -55,7 +55,7 @@ class Header extends React.Component {
       <NavBar>
         <div className="nav-wrapper">
           <Link to="/" className="brand-logo center">
-            React-NodeJS-Medium-Clone
+            <h5>React-Redux-NodeJS-Medium-Clone</h5>
           </Link>
           <ul className="left hide-on-med-and-down">
             {!isAuthenticated ? (
@@ -76,7 +76,10 @@ class Header extends React.Component {
                 <li key={2}>
                   <Link to="/setting">Setting</Link>
                 </li>,
-                <li onClick={this.logout} key={3}>
+                <li key={3}>
+                  <Link to="/create_post">Add Post</Link>
+                </li>,
+                <li key={4} onClick={this.logout} >
                   <a href="#">Log Out</a>
                 </li>,
               ]

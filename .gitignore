@@ -10,7 +10,7 @@
 /build
 
 dev.js
-
+.idea
 # misc
 .DS_Store
 .env.local
