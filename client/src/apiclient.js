@@ -10,3 +10,5 @@ export const getPost = () => axios.get("/api/blogs");
 export const createPost = (params) => axios.post("api/blogs", {
     ...params
 });
+
+export const getAllPost = () => axios.get("/api/blogs/getAllPost");

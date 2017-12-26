@@ -55,6 +55,7 @@ class PostItem extends Component {
         <PostLink>
           <Link to={`/${post._id}`}>
             <p>Read more</p>
+            <p>{post.user_id.email}</p>
           </Link>
         </PostLink>
         <section className="clearfix">

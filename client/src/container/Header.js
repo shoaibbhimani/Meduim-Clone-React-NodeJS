@@ -3,9 +3,9 @@ import { GoogleLogin } from 'react-google-login-component';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import * as t from "prop-types"
 
 import * as actions from '../action-creators';
-import * as APIClient from '../apiclient';
 import * as CSSConstant from '../CSSConstant';
 
 const NavBar = styled.nav`
@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 
 class Header extends React.Component {
   onSuccess = googleUser => {
-    const { getUserData, history } = this.props;
+    const { getUserData, history, toggleAuthentication } = this.props;
     getUserData(
       {
         googleId: googleUser.getId(),
@@ -39,6 +39,7 @@ class Header extends React.Component {
         email: googleUser.getBasicProfile().getEmail(),
       },
       () => {
+        toggleAuthentication(false);
         history.push('/myblogs');
       },
     );
@@ -74,12 +75,15 @@ class Header extends React.Component {
                   <Link to="/myblogs">My Blogs</Link>
                 </li>,
                 <li key={2}>
-                  <Link to="/setting">Setting</Link>
+                  <Link to="/allblog">All Blog</Link>
                 </li>,
                 <li key={3}>
+                  <Link to="/setting">Setting</Link>
+                </li>,
+                <li key={4}>
                   <Link to="/create_post">Add Post</Link>
                 </li>,
-                <li key={4} onClick={this.logout} >
+                <li key={5} onClick={this.logout}>
                   <a href="#">Log Out</a>
                 </li>,
               ]
@@ -90,5 +94,13 @@ class Header extends React.Component {
     );
   }
 }
+
+
+Header.propTypes = {
+  toggleAuthentication: t.func.isRequired,
+  isAuthenticated: t.bool.isRequired,
+  history: t.object,
+  getUserData: t.func.isRequired
+};
 
 export default withRouter(connect(mapStateToProps, actions)(Header));

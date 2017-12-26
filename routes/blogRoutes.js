@@ -14,6 +14,11 @@ router.get("/", auth.isAuthenticated, async (req, res) => {
   res.send({ posts });
 });
 
+router.get("/getAllPost", async (req, res) => {
+   const posts = await Blog.find({}).populate("user_id").sort({ created: 1});
+   res.send({ posts })
+});
+
 router.post("/", auth.isAuthenticated, async (req, res) => {
   const { title, body, thumbnail } = req.body;
 
