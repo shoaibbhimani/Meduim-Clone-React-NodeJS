@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 
 class Header extends React.Component {
   onSuccess = googleUser => {
-    const { getUserData, history, toggleAuthentication } = this.props;
+    const { getUserData, history, toggleAuthentication, setUserData } = this.props;
     getUserData(
       {
         googleId: googleUser.getId(),

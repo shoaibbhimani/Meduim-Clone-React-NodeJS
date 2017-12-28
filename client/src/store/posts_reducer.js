@@ -18,7 +18,7 @@ const initialState = [];
 const postsReducers = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.POSTS:
-      return [...action.payload];
+      return [...action.payload.posts];
       break;
     default:
       return initialState;

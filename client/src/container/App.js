@@ -43,11 +43,11 @@ class App extends Component {
   };
 
   render() {
-    const { isAuthenticated  } = this.props;
+    const { isAuthenticated, setUserData  } = this.props;
     const { isAuthenticating } = this.state;
     return (
       <div>
-        <Header toggleAuthentication={this.toggleAuthentication} />
+        <Header setUserData={setUserData} toggleAuthentication={this.toggleAuthentication} />
         <Route exact path="/" render={() => <h2>Index Page</h2>} />
 
         {!isAuthenticating && (

@@ -45,7 +45,7 @@ export const getPost = () => {
   return dispatch => {
     APIClient.getPost()
       .then(({ data }) => {
-        dispatch({ type: TYPES.USER_DATA, payload: data });
+        dispatch({ type: TYPES.POSTS, payload: data });
       })
       .catch(error => {
         dispatch({ type: 'ERROR', payload: error });
