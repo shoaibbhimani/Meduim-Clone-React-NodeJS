@@ -1,30 +1,31 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login-component';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Route, withRouter, Switch, Redirect } from "react-router-dom";
+import { GoogleLogin } from "react-google-login-component";
 
-import '../App.css';
-import Header from './Header';
-import Posts from '../container/Posts';
-import PostDetails from './PostDetails.js';
-import CreatePost from './CreatePost';
-import AllPost from './AllPost';
+import "../App.css";
+import Header from "./Header";
+import Posts from "../container/Posts";
+import PostDetails from "./PostDetails.js";
+import CreatePost from "./CreatePost";
+import AllPost from "./AllPost";
+import EditBlog from "./EditBlog";
 
-import { PrivateRoute } from '../UIComponent';
-
-import * as UtilityMethod from '../UtilityMethod';
-import * as actions from '../action-creators';
+import PrivateRoute from "../UIComponent/PrivateRoute";
+import * as UtilityMethod from "../UtilityMethod";
+import * as actions from "../action-creators";
 
 const mapStateToProps = state => ({
   isAuthenticated: state.user.isAuthenticated,
   isAuthenticating: state.user.isAuthenticating,
+  isAllPostLoading: state.allPosts.isLoading
 });
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isAuthenticating: true,
+      isAuthenticating: true
     };
   }
 
@@ -36,20 +37,23 @@ class App extends Component {
     }
   }
 
-  toggleAuthentication = (value) => {
+  toggleAuthentication = value => {
     this.setState({
       isAuthenticating: value
     });
   };
 
   render() {
-    const { isAuthenticated, setUserData  } = this.props;
+    const { isAuthenticated, setUserData, isAllPostLoading } = this.props;
     const { isAuthenticating } = this.state;
     return (
       <div>
-        <Header setUserData={setUserData} toggleAuthentication={this.toggleAuthentication} />
+        <Header
+          setUserData={setUserData}
+          toggleAuthentication={this.toggleAuthentication}
+        />
         <Route exact path="/" render={() => <h2>Index Page</h2>} />
-
+        <Route exact path="/allblog" component={AllPost} />
         {!isAuthenticating && (
           <Switch>
             <PrivateRoute
@@ -74,11 +78,10 @@ class App extends Component {
               component={PostDetails}
             />
             <PrivateRoute
-              exact
               {...this.props}
-              path="/allblog"
+              path="/editblog/:postinfo"
               isAuthenticated={isAuthenticated}
-              component={AllPost}
+              component={EditBlog}
             />
           </Switch>
         )}

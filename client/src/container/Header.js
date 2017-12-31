@@ -1,12 +1,12 @@
-import React from 'react';
-import { GoogleLogin } from 'react-google-login-component';
-import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import styled from 'styled-components';
-import * as t from "prop-types"
+import React from "react";
+import { GoogleLogin } from "react-google-login-component";
+import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
+import styled from "styled-components";
+import * as t from "prop-types";
 
-import * as actions from '../action-creators';
-import * as CSSConstant from '../CSSConstant';
+import * as actions from "../action-creators";
+import * as CSSConstant from "../CSSConstant";
 
 const NavBar = styled.nav`
   background: none;
@@ -25,23 +25,28 @@ const GoogleContainer = styled.li`
 `;
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.user.isAuthenticated,
+  isAuthenticated: state.user.isAuthenticated
 });
 
 class Header extends React.Component {
   onSuccess = googleUser => {
-    const { getUserData, history, toggleAuthentication, setUserData } = this.props;
+    const {
+      getUserData,
+      history,
+      toggleAuthentication,
+      setUserData
+    } = this.props;
     getUserData(
       {
         googleId: googleUser.getId(),
         firstName: googleUser.getBasicProfile().getGivenName(),
         lastName: googleUser.getBasicProfile().getFamilyName(),
-        email: googleUser.getBasicProfile().getEmail(),
+        email: googleUser.getBasicProfile().getEmail()
       },
       () => {
         toggleAuthentication(false);
-        history.push('/myblogs');
-      },
+        history.push("/myblogs");
+      }
     );
   };
 
@@ -59,8 +64,11 @@ class Header extends React.Component {
             <h5>React-Redux-NodeJS-Medium-Clone</h5>
           </Link>
           <ul className="left hide-on-med-and-down">
+            <li>
+              <Link to="/allblog">All Blog</Link>
+            </li>
             {!isAuthenticated ? (
-              <GoogleContainer>
+              <GoogleContainer key={0}>
                 <GoogleLogin
                   socialId="83911294138-5vtlktil0du2ihh2lipki6jmtmefbc2l.apps.googleusercontent.com"
                   scope="profile"
@@ -74,9 +82,6 @@ class Header extends React.Component {
                 <li key={1}>
                   <Link to="/myblogs">My Blogs</Link>
                 </li>,
-                <li key={2}>
-                  <Link to="/allblog">All Blog</Link>
-                </li>,
                 <li key={3}>
                   <Link to="/setting">Setting</Link>
                 </li>,
@@ -85,7 +90,7 @@ class Header extends React.Component {
                 </li>,
                 <li key={5} onClick={this.logout}>
                   <a href="#">Log Out</a>
-                </li>,
+                </li>
               ]
             )}
           </ul>
@@ -94,7 +99,6 @@ class Header extends React.Component {
     );
   }
 }
-
 
 Header.propTypes = {
   toggleAuthentication: t.func.isRequired,

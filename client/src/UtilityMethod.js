@@ -22,3 +22,15 @@ export const setLocalStorage = ({ user, jwt }) => {
 export const setGlobalAxiosHeader = jwt => {
   axios.defaults.headers.common["Authorization"] = jwt;
 };
+
+/**
+ * Remove Special Character !@#$%^&*()-+=
+ * @param {string} value - List of Item you want to add item to.
+ */
+
+export const lowerCaseRemoveSpecialChar = value => {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, '');
+};

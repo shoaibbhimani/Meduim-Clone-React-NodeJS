@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import PostItem from '../components/PostItem';
-
 import * as actions from '../action-creators';
 
 const PostWrapper = styled.section`padding: 12px;`;
 
 const mapStateToProps = state => {
   return {
-    allPosts: state.allPosts,
+    allPosts: state.allPosts.allPosts
   };
 };
 
@@ -30,6 +29,7 @@ class AllPost extends React.Component {
                 incrementLikes={incrementLikes}
                 key={index}
                 index={index}
+                allPostSection={true}
                 post={post}
               />
             ))}
