@@ -9,13 +9,13 @@ const Blog = mongoose.model("Blog");
 router.get("/", auth.isAuthenticated, async (req, res) => {
   const posts = await Blog.find({
     user_id: req.user_id
-  }).sort({ created: 1 });
+  }).sort({ created: -1 });
 
   res.send({ posts });
 });
 
 router.get("/getAllPost", async (req, res) => {
-   const posts = await Blog.find({}).populate("user_id").sort({ created: 1});
+   const posts = await Blog.find({}).populate("user_id").sort({ created: -1 });
    res.send({ posts })
 });
 
