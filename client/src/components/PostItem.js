@@ -8,6 +8,7 @@ import { ReactMdePreview } from "react-mde";
 //Components
 import PostHeader from "./PostHeader";
 import Comments from "./Comments";
+import * as CSSConstant from "../CSSConstant";
 
 //Icons
 import likesIcon from "../svg-icons/like.svg";
@@ -15,13 +16,24 @@ import * as UtilityMethod from "../UtilityMethod";
 
 //Styles
 const PostItemWrapper = styled.li`
-  border: 2px solid #ccc;
-  display: inline;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 6px;
+  padding: 5px;
+  border-radius: 3px;
+
+  & .mde-preview .mde-preview-content {
+    border: none;
+  }
 `;
 
 const PostTitle = styled.section`
-  font-size: 27px;
+  font-size: 19px;
   text-align: left;
+`;
+
+const PostContent = styled.section`
+  font-family: ${CSSConstant.playfair};
+  color: rgba(0, 0, 0, 0.54) !important;
 `;
 
 const PostImageWrapper = styled.section``;
@@ -93,12 +105,13 @@ class PostItem extends Component {
         )}
 
         <PostTitle>{post.title}</PostTitle>
-        <ReactMdePreview markdown={post.body} />
+        <PostContent>
+          <ReactMdePreview markdown={post.body} />
+        </PostContent>
 
         {!allPostSection && <Link to={`myblogs/${linkPostTitle}`}>Edit</Link>}
         {this.renderAuthorContent()}
         {this.renderLikes()}
-        <hr />
       </PostItemWrapper>
     );
   }

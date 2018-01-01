@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 
 import PostItem from "../../components/PostItem";
 import * as actions from "../../action-creators";
+import * as CSSConstant from "../../CSSConstant";
 
 const PostWrapper = styled.section`
   padding: 12px;
+  font-family: ${CSSConstant.raleway};
 `;
 
 const mapStateToProps = state => {
