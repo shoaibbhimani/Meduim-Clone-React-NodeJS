@@ -54,10 +54,10 @@ class PostItem extends Component {
   };
 
   renderAuthorContent() {
-    const { post } = this.props;
+    const { post, index } = this.props;
     return (
       <PostLink>
-        <Link to={`/${post._id}`}>
+        <Link to={`myblogs/${post.title + "-" + index}`}>
           <p>Read more</p>
           <p>{post.user_id.email}</p>
         </Link>
@@ -82,7 +82,7 @@ class PostItem extends Component {
   render() {
     const { post, index, allPostSection } = this.props;
     const linkPostTitle =
-      UtilityMethod.lowerCaseRemoveSpecialChar(post.title) + "/" + index;
+      UtilityMethod.lowerCaseRemoveSpecialChar(post.title) + "-" + index;
 
     return (
       <PostItemWrapper className="clearfix">
@@ -95,7 +95,7 @@ class PostItem extends Component {
         <PostTitle>{post.title}</PostTitle>
         <ReactMdePreview markdown={post.body} />
 
-        {!allPostSection && <Link to={`/editblog/${linkPostTitle}`}>Edit</Link>}
+        {!allPostSection && <Link to={`myblogs/${linkPostTitle}`}>Edit</Link>}
         {this.renderAuthorContent()}
         {this.renderLikes()}
         <hr />

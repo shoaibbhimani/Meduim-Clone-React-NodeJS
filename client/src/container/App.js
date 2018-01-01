@@ -5,11 +5,10 @@ import { GoogleLogin } from "react-google-login-component";
 
 import "../App.css";
 import Header from "./Header";
-import Posts from "../container/Posts";
+import Posts from "./Post/index";
 import PostDetails from "./PostDetails.js";
 import CreatePost from "./CreatePost";
 import AllPost from "./AllPost";
-import EditBlog from "./EditBlog";
 
 import PrivateRoute from "../UIComponent/PrivateRoute";
 import * as UtilityMethod from "../UtilityMethod";
@@ -52,17 +51,11 @@ class App extends Component {
           setUserData={setUserData}
           toggleAuthentication={this.toggleAuthentication}
         />
-        <Route exact path="/" render={() => <h2>Index Page</h2>} />
-        <Route exact path="/allblog" component={AllPost} />
         {!isAuthenticating && (
           <Switch>
-            <PrivateRoute
-              exact
-              {...this.props}
-              path="/myblogs"
-              isAuthenticated={isAuthenticated}
-              component={Posts}
-            />
+            <Route exact path="/" render={() => <h2>Index Page</h2>} />
+            <Route exact path="/allblog" component={AllPost} />
+            <Route path="/myblogs" component={Posts} />
             <PrivateRoute
               exact
               path="/create_post"
@@ -70,19 +63,7 @@ class App extends Component {
               isAuthenticated={isAuthenticated}
               component={CreatePost}
             />
-            <PrivateRoute
-              exact
-              {...this.props}
-              path="/blog/:postid"
-              isAuthenticated={isAuthenticated}
-              component={PostDetails}
-            />
-            <PrivateRoute
-              {...this.props}
-              path="/editblog/:postinfo"
-              isAuthenticated={isAuthenticated}
-              component={EditBlog}
-            />
+            <Route render={() => <h2>Not Found</h2>} />
           </Switch>
         )}
       </div>

@@ -1,18 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { ReactMdePreview } from "react-mde";
 
 //Images
 import likesIcon from "../svg-icons/like.svg";
 
 //Components
 import PostHeader from "../components/PostHeader";
-
 import Comment from "./Comment.js";
-
-import { incrementLikes, addComments } from "../action-creators";
-
-import { ADD_COMMENTS } from "../actions-types";
+import * as actions from "../action-creators";
 
 const PostsDetailsWrapper = styled.section`
   width: 60%;
@@ -32,7 +29,9 @@ const PostContent = styled.section`
   text-align: left;
 `;
 
-const PostImage = styled.img``;
+const PostImage = styled.img`
+  max-width: 100%;
+`;
 
 const SocialMediaIcons = styled.section`
   position: absolute;
@@ -41,7 +40,32 @@ const SocialMediaIcons = styled.section`
   cursor: pointer;
 `;
 
+const mapStateToProps = state => {
+  return {
+    posts: state.posts.posts,
+    userInfo: state.userInfo
+  };
+};
+
 class PostsDetails extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      postIndex: -1,
+      post: {}
+    };
+  }
+
+  componentDidMount() {
+    const { match, incrementLikes, posts } = this.props;
+    const postIndex = parseInt(match.params.postId.split("-").pop());
+    this.setState({
+      postIndex,
+      post: posts[postIndex]
+    });
+  }
+
   addComments = ({ text, index }) => {
     const { userInfo } = this.props;
     this.props.addComments({
@@ -51,56 +75,70 @@ class PostsDetails extends React.Component {
     });
   };
 
-  render() {
-    return null;
-    const { match, posts, incrementLikes } = this.props;
-    const postid = parseInt(match.params.postid, 10);
-    //Get Index
-    const postIndex = posts.findIndex(post => post.id === postid);
-    //get Post
-    const post = posts[postIndex];
+  IconHandler = () => {
+    const { match, incrementLikes } = this.props;
+    incrementLikes({ index: this.state.postIndex });
+  };
 
-    const IconHandler = () => {
-      incrementLikes({ index: postIndex });
-    };
+  renderPostHeader = () => {
+    return null;
+    return <PostHeader />;
+  };
+
+  renderTitleContentThumbnail = () => {
+    const { post } = this.state;
     return (
-      <PostsDetailsWrapper>
-        <SocialMediaIcons>
-          <section>
-            <img onClick={IconHandler} src={likesIcon} />
-          </section>
-          <section style={{ textAlign: "center" }}>{post.likes}</section>
-        </SocialMediaIcons>
-        <PostHeader post={post} />
+      <section>
         <PostTitle>{post.title}</PostTitle>
         <section>
           {post.thumbnail && (
             <PostImageWrapper className="clearfix">
-              <PostImage
-                src={`https://cdn-images-1.medium.com/fit/t/800/240/1*jVnqkmLgnIbuVlFYl5-T_Q.png`}
-              />
+              <PostImage src={post.thumbnail} />
             </PostImageWrapper>
           )}
         </section>
+        <ReactMdePreview markdown={post.body} />
         <PostContent>{post.content}</PostContent>
+      </section>
+    );
+  };
 
-        <Comment
-          comments={post.comments}
-          addComments={this.addComments}
-          postIndex={postIndex}
-        />
+  renderComments = post => {
+    return null;
+
+    return (
+      <Comment
+        comments={post.comments}
+        addComments={this.addComments}
+        postIndex={this.state.postIndex}
+      />
+    );
+  };
+
+  render() {
+    const { match, posts, incrementLikes } = this.props;
+    const { postIndex } = this.state;
+    const post = posts[postIndex];
+
+    if (!post && postIndex === -1) {
+      return null;
+    }
+
+    return (
+      <PostsDetailsWrapper>
+        <SocialMediaIcons>
+          <section>
+            <img onClick={this.IconHandler} src={likesIcon} />
+          </section>
+          <section style={{ textAlign: "center" }}>{post.likes}</section>
+        </SocialMediaIcons>
+        {this.renderPostHeader()}
+
+        {this.renderTitleContentThumbnail()}
+        {this.renderComments(post)}
       </PostsDetailsWrapper>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts,
-    userInfo: state.userInfo
-  };
-};
-
-export default connect(mapStateToProps, { incrementLikes, addComments })(
-  PostsDetails
-);
+export default connect(mapStateToProps, actions)(PostsDetails);

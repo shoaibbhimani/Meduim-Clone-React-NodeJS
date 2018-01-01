@@ -1,12 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
-//Components
-import PostItem from "../components/PostItem";
-
-//Action Creators
-import * as actions from "../action-creators";
+import PostItem from "../../components/PostItem";
+import * as actions from "../../action-creators";
 
 const PostWrapper = styled.section`
   padding: 12px;
@@ -18,13 +15,9 @@ const mapStateToProps = state => {
   };
 };
 
-class Posts extends React.Component {
-  componentDidMount() {
-    this.props.getPost();
-  }
-
+class PostList extends React.Component {
   render() {
-    const { posts, incrementLikes } = this.props;
+    const { incrementLikes, posts } = this.props;
     return (
       <section className="row">
         <section className="col-md-7">
@@ -47,4 +40,4 @@ class Posts extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, actions)(Posts);
+export default connect(mapStateToProps, actions)(PostList);

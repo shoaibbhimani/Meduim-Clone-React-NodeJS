@@ -1,7 +1,7 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login-component";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import * as t from "prop-types";
 
@@ -60,12 +60,14 @@ class Header extends React.Component {
     return (
       <NavBar>
         <div className="nav-wrapper">
-          <Link to="/" className="brand-logo center">
+          <NavLink to="/" className="brand-logo center">
             <h5>React-Redux-NodeJS-Medium-Clone</h5>
-          </Link>
+          </NavLink>
           <ul className="left hide-on-med-and-down">
             <li>
-              <Link to="/allblog">All Blog</Link>
+              <NavLink activeClassName="active" to="/allblog">
+                All Blog
+              </NavLink>
             </li>
             {!isAuthenticated ? (
               <GoogleContainer key={0}>
@@ -80,16 +82,16 @@ class Header extends React.Component {
             ) : (
               [
                 <li key={1}>
-                  <Link to="/myblogs">My Blogs</Link>
+                  <NavLink to="/myblogs">My Blogs</NavLink>
                 </li>,
                 <li key={3}>
-                  <Link to="/setting">Setting</Link>
+                  <NavLink to="/setting">Setting</NavLink>
                 </li>,
                 <li key={4}>
-                  <Link to="/create_post">Add Post</Link>
+                  <NavLink to="/create_post">Add Post</NavLink>
                 </li>,
                 <li key={5} onClick={this.logout}>
-                  <a href="#">Log Out</a>
+                  <a>Log Out</a>
                 </li>
               ]
             )}
