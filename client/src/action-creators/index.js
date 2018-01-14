@@ -72,3 +72,11 @@ export const createPost = (data, callback) => {
     });
   };
 };
+
+export const editPost = (data, callback) => {
+  return dispatch => {
+    APIClient.editPost(data).then(() => {
+      callback();
+    })
+  }
+}

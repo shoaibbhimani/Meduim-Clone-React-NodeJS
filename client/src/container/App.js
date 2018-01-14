@@ -51,10 +51,11 @@ class App extends Component {
           setUserData={setUserData}
           toggleAuthentication={this.toggleAuthentication}
         />
+        <Route exact path="/allblog" component={AllPost} />
+
         {!isAuthenticating && (
           <Switch>
             <Route exact path="/" render={() => <h2>Index Page</h2>} />
-            <Route exact path="/allblog" component={AllPost} />
             <Route path="/myblogs" component={Posts} />
             <PrivateRoute
               exact
@@ -63,7 +64,6 @@ class App extends Component {
               isAuthenticated={isAuthenticated}
               component={CreatePost}
             />
-            <Route render={() => <h2>Not Found</h2>} />
           </Switch>
         )}
       </div>

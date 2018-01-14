@@ -1,11 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
 
-import PostItem from '../components/PostItem';
-import * as actions from '../action-creators';
+import PostItem from "../components/PostItem";
+import * as actions from "../action-creators";
 
-const PostWrapper = styled.section`padding: 12px;`;
+const PostWrapper = styled.section`
+  padding: 12px;
+`;
 
 const mapStateToProps = state => {
   return {

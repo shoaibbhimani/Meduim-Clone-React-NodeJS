@@ -71,8 +71,8 @@ class PostItem extends Component {
       <PostLink>
         <Link to={`myblogs/${post.title + "-" + index}`}>
           <p>Read more</p>
-          <p>{post.user_id.email}</p>
         </Link>
+        <p>{post.user_id.email}</p>
       </PostLink>
     );
   }
@@ -109,7 +109,7 @@ class PostItem extends Component {
           <ReactMdePreview markdown={post.body} />
         </PostContent>
 
-        {!allPostSection && <Link to={`myblogs/${linkPostTitle}`}>Edit</Link>}
+        {!allPostSection && <Link to={`myBlogs/editBlog/${linkPostTitle}`}>Edit</Link>}
         {this.renderAuthorContent()}
         {this.renderLikes()}
       </PostItemWrapper>
