@@ -11,6 +11,18 @@ const postsReducers = (state = initialState, action) => {
     case TYPES.POSTS:
       return { isLoading:false, posts:[...action.payload.posts] };
       break;
+    case TYPES.EDITPOST:
+      return {
+        isLoading: false,
+        posts: state.posts.map((post, index) => {
+          if(parseInt(action.payload.index) === index){
+             return {
+               ...action.payload.data
+             }
+          }
+          return post;
+        })
+      }  
     default:
       return initialState;
       break;

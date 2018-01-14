@@ -9,3 +9,5 @@ export const USER_DATA = "USER_DATA";
 export const FORGOT_USER = "FORGOT_USER";
 
 export const AUTHENTICATING = "AUTHENTICATING";
+
+export const EDITPOST = 'EDITPOST';

@@ -25,7 +25,9 @@ const initialState = {
   reactMdeValue: { text: '', selection: null },
   title: '',
   thumbnail: '',
-  postId: ''
+  postId: '',
+  index: null,
+  post: {}
 };
 
 class CreatePost extends React.Component {
@@ -38,30 +40,30 @@ class CreatePost extends React.Component {
     const { location, posts, match } = this.props;
     const index = match.params.postId.split("-").pop();
     const post = posts[index];
-
-    console.log("post", post);
-
     this.setState({
       reactMdeValue: { text: post.body , selection: null},
       title: post.title,
       thumbnail: post.thumbnail,
-      postId: post._id
+      postId: post._id,
+      post: post,
+      index
     })
   }
 
   onSubmit = event => {
     event.preventDefault();
-    const { title, thumbnail, reactMdeValue, postId } = this.state;
+    const { title, thumbnail, reactMdeValue, postId, index, post } = this.state;
     const { editPost, history } = this.props;
     editPost({
       params: {
-        title,
+       title,
        thumbnail,
        body: reactMdeValue.text
       },
-      postId
+      post,
+      postId,
+      index
     }, () => {
-      this.props.getPost();
       history.push("/myblogs")
     });
 

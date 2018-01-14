@@ -76,6 +76,11 @@ export const createPost = (data, callback) => {
 export const editPost = (data, callback) => {
   return dispatch => {
     APIClient.editPost(data).then(() => {
+      dispatch({
+        type: TYPES.EDITPOST,
+        payload: { data: { ...data.post, ...data.params }, index: data.index }
+      });
+
       callback();
     })
   }
