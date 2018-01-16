@@ -72,7 +72,7 @@ class Header extends React.Component {
             {!isAuthenticated ? (
               <GoogleContainer key={0}>
                 <GoogleLogin
-                  socialId="83911294138-5vtlktil0du2ihh2lipki6jmtmefbc2l.apps.googleusercontent.com"
+                  socialId={process.env.REACT_APP_SECRET_GOOGLE_CODE}
                   scope="profile"
                   fetchBasicProfile={true}
                   responseHandler={this.onSuccess}

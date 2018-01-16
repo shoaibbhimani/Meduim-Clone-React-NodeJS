@@ -9,12 +9,10 @@ const keys = require("../config/keys");
 
 router.post("/", async (req, res) => {
   const { googleId, firstName, lastName, email } = req.body;
-  console.log("keys", keys);
 
   let user = await User.findOne({
     googleId
   });
-
 
   if (!user) {
     const userInstance = new User({
@@ -30,8 +28,6 @@ router.post("/", async (req, res) => {
       console.log("Err", err);
     }
   }
-
-
 
   const token = await jwt.sign(
     {
