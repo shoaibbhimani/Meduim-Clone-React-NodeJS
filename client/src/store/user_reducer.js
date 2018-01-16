@@ -25,10 +25,18 @@ const userReducer = (state = initialState, action) => {
         jwt: action.payload.jwt,
         user: action.payload.user
       });
-      return { ...action.payload, isAuthenticated: true, isAuthenticating: false };
+      return {
+        ...action.payload,
+        isAuthenticated: true,
+        isAuthenticating: false
+      };
     case TYPES.FORGOT_USER:
       UtilityMethod.deleteLocalStorage();
-      return { ...initialState, isAuthenticated:false, isAuthenticating: false };
+      return {
+        ...initialState,
+        isAuthenticated: false,
+        isAuthenticating: false
+      };
     default:
       return state;
   }

@@ -10,4 +10,4 @@ export const FORGOT_USER = "FORGOT_USER";
 
 export const AUTHENTICATING = "AUTHENTICATING";
 
-export const EDITPOST = 'EDITPOST';
+export const EDITPOST = "EDITPOST";

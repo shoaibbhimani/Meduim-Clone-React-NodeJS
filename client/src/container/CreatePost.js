@@ -1,45 +1,46 @@
-import React from 'react';
-import ReactMde, { ReactMdeCommands } from 'react-mde';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
+import React from "react";
+import ReactMde, { ReactMdeCommands } from "react-mde";
+import styled from "styled-components";
+import { connect } from "react-redux";
 
-import 'normalize.css/normalize.css';
-import 'react-mde/lib/styles/css/react-mde-all.css';
-import 'font-awesome/css/font-awesome.css';
+import "normalize.css/normalize.css";
+import "react-mde/lib/styles/css/react-mde-all.css";
+import "font-awesome/css/font-awesome.css";
 
-import * as actions from '../action-creators';
+import * as actions from "../action-creators";
 
 const CreatePostContainer = styled.section``;
 
-const ButtonContainer = styled.section`
- text-align: center;
-`;
+const ButtonContainer = styled.section`text-align: center;`;
 
 const initialState = {
-    reactMdeValue: { text: '', selection: null },
-    title: '',
-    thumbnail: '',
+  reactMdeValue: { text: "", selection: null },
+  title: "",
+  thumbnail: ""
 };
 
 class CreatePost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = initialState
+    this.state = initialState;
   }
 
   onSubmit = event => {
     event.preventDefault();
     const { title, thumbnail, reactMdeValue } = this.state;
     const { createPost, history } = this.props;
-    createPost({
-      title,
-      thumbnail,
-      body: reactMdeValue.text,
-    }, () => {
-        history.push("/myblogs")
-    });
+    createPost(
+      {
+        title,
+        thumbnail,
+        body: reactMdeValue.text
+      },
+      () => {
+        history.push("/myblogs");
+      }
+    );
 
-    this.setState(initialState)
+    this.setState(initialState);
   };
 
   handleValueChange = value => {
@@ -48,13 +49,13 @@ class CreatePost extends React.Component {
 
   changeThumbnail = event => {
     this.setState({
-      thumbnail: event.target.value,
+      thumbnail: event.target.value
     });
   };
 
   changeTitle = event => {
     this.setState({
-      title: event.target.value,
+      title: event.target.value
     });
   };
 
@@ -87,23 +88,25 @@ class CreatePost extends React.Component {
                 />
               </div>
             </div>
-              <section className="row">
-                  <div className="col l12">
-                      <ReactMde
-                          textAreaProps={{
-                              id: 'ta1',
-                              name: 'ta1',
-                          }}
-                          value={this.state.reactMdeValue}
-                          onChange={this.handleValueChange}
-                          commands={ReactMdeCommands.getDefaultCommands()}
-                      />
-                  </div>
-              </section>
+            <section className="row">
+              <div className="col l12">
+                <ReactMde
+                  textAreaProps={{
+                    id: "ta1",
+                    name: "ta1"
+                  }}
+                  value={this.state.reactMdeValue}
+                  onChange={this.handleValueChange}
+                  commands={ReactMdeCommands.getDefaultCommands()}
+                />
+              </div>
+            </section>
 
-              <ButtonContainer>
-                  <button className="btn btn-large" type="submit">Create Post</button>
-              </ButtonContainer>
+            <ButtonContainer>
+              <button className="btn btn-large" type="submit">
+                Create Post
+              </button>
+            </ButtonContainer>
           </form>
           <div className="col l3" />
         </section>

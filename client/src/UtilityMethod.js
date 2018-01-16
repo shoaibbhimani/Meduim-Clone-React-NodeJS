@@ -32,5 +32,5 @@ export const lowerCaseRemoveSpecialChar = value => {
   return value
     .toLowerCase()
     .trim()
-    .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, '');
+    .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, "");
 };

@@ -7,7 +7,7 @@ import reduxThunk from "redux-thunk";
 import todos from "./todos_reducer.js";
 import posts from "./posts_reducer.js";
 import user from "./user_reducer.js";
-import allPosts from "./all_post_reducers"
+import allPosts from "./all_post_reducers";
 
 //you apply any middleware here
 const createStoreWithMiddleware = applyMiddleware(

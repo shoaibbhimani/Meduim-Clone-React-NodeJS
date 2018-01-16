@@ -1,31 +1,29 @@
-import React from 'react';
-import ReactMde, { ReactMdeCommands } from 'react-mde';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
+import React from "react";
+import ReactMde, { ReactMdeCommands } from "react-mde";
+import styled from "styled-components";
+import { connect } from "react-redux";
 
-import 'normalize.css/normalize.css';
-import 'react-mde/lib/styles/css/react-mde-all.css';
-import 'font-awesome/css/font-awesome.css';
+import "normalize.css/normalize.css";
+import "react-mde/lib/styles/css/react-mde-all.css";
+import "font-awesome/css/font-awesome.css";
 
-import * as actions from '../action-creators';
+import * as actions from "../action-creators";
 
 const CreatePostContainer = styled.section``;
 
-const ButtonContainer = styled.section`
- text-align: center;
-`;
+const ButtonContainer = styled.section`text-align: center;`;
 
 const mapStateToProps = state => {
   return {
     posts: state.posts.posts
-  }
-}
+  };
+};
 
 const initialState = {
-  reactMdeValue: { text: '', selection: null },
-  title: '',
-  thumbnail: '',
-  postId: '',
+  reactMdeValue: { text: "", selection: null },
+  title: "",
+  thumbnail: "",
+  postId: "",
   index: null,
   post: {}
 };
@@ -33,41 +31,44 @@ const initialState = {
 class CreatePost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = initialState
+    this.state = initialState;
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { location, posts, match } = this.props;
     const index = match.params.postId.split("-").pop();
     const post = posts[index];
     this.setState({
-      reactMdeValue: { text: post.body , selection: null},
+      reactMdeValue: { text: post.body, selection: null },
       title: post.title,
       thumbnail: post.thumbnail,
       postId: post._id,
       post: post,
       index
-    })
+    });
   }
 
   onSubmit = event => {
     event.preventDefault();
     const { title, thumbnail, reactMdeValue, postId, index, post } = this.state;
     const { editPost, history } = this.props;
-    editPost({
-      data: {
-        ...post,
-        title,
-        thumbnail,
-        body: reactMdeValue.text,
+    editPost(
+      {
+        data: {
+          ...post,
+          title,
+          thumbnail,
+          body: reactMdeValue.text
+        },
+        postId,
+        index
       },
-      postId,
-      index
-    }, () => {
-      history.push("/myblogs")
-    });
+      () => {
+        history.push("/myblogs");
+      }
+    );
 
-    this.setState(initialState)
+    this.setState(initialState);
   };
 
   handleValueChange = value => {
@@ -76,13 +77,13 @@ class CreatePost extends React.Component {
 
   changeThumbnail = event => {
     this.setState({
-      thumbnail: event.target.value,
+      thumbnail: event.target.value
     });
   };
 
   changeTitle = event => {
     this.setState({
-      title: event.target.value,
+      title: event.target.value
     });
   };
 
@@ -119,8 +120,8 @@ class CreatePost extends React.Component {
               <div className="col l12">
                 <ReactMde
                   textAreaProps={{
-                    id: 'ta1',
-                    name: 'ta1',
+                    id: "ta1",
+                    name: "ta1"
                   }}
                   value={this.state.reactMdeValue}
                   onChange={this.handleValueChange}
@@ -130,7 +131,9 @@ class CreatePost extends React.Component {
             </section>
 
             <ButtonContainer>
-              <button className="btn btn-large" type="submit">Edit Post</button>
+              <button className="btn btn-large" type="submit">
+                Edit Post
+              </button>
             </ButtonContainer>
           </form>
           <div className="col l3" />
@@ -139,7 +142,5 @@ class CreatePost extends React.Component {
     );
   }
 }
-
-
 
 export default connect(mapStateToProps, actions)(CreatePost);

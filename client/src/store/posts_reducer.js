@@ -4,25 +4,25 @@ import * as UtilityMethod from "../UtilityMethod.js";
 const initialState = {
   isLoading: true,
   posts: []
-}
+};
 
 const postsReducers = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.POSTS:
-      return { isLoading:false, posts:[...action.payload.posts] };
+      return { isLoading: false, posts: [...action.payload.posts] };
       break;
     case TYPES.EDITPOST:
       return {
         isLoading: false,
         posts: state.posts.map((post, index) => {
-          if(parseInt(action.payload.index) === index){
-             return {
-               ...action.payload.data
-             }
+          if (parseInt(action.payload.index) === index) {
+            return {
+              ...action.payload.data
+            };
           }
           return post;
         })
-      }  
+      };
     default:
       return initialState;
       break;

@@ -29,9 +29,7 @@ const PostContent = styled.section`
   text-align: left;
 `;
 
-const PostImage = styled.img`
-  max-width: 100%;
-`;
+const PostImage = styled.img`max-width: 100%;`;
 
 const SocialMediaIcons = styled.section`
   position: absolute;

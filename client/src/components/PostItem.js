@@ -37,15 +37,9 @@ const PostContent = styled.section`
 `;
 
 const PostImageWrapper = styled.section``;
-const PostImage = styled.img`
-  float: left;
-`;
-const PostExcerpt = styled.section`
-  text-align: left;
-`;
-const PostLink = styled.section`
-  text-align: left;
-`;
+const PostImage = styled.img`float: left;`;
+const PostExcerpt = styled.section`text-align: left;`;
+const PostLink = styled.section`text-align: left;`;
 const LikeIcon = styled.span`
   & img {
     width: 20px;
@@ -109,7 +103,9 @@ class PostItem extends Component {
           <ReactMdePreview markdown={post.body} />
         </PostContent>
 
-        {!allPostSection && <Link to={`myBlogs/editBlog/${linkPostTitle}`}>Edit</Link>}
+        {!allPostSection && (
+          <Link to={`myBlogs/editBlog/${linkPostTitle}`}>Edit</Link>
+        )}
         {this.renderAuthorContent()}
         {this.renderLikes()}
       </PostItemWrapper>

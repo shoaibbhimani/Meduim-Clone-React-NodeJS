@@ -6,63 +6,61 @@ import * as t from "prop-types";
 import AddComment from "../components/AddComment.js";
 
 const CommentContainer = styled.section`
-	width: 95%;
-	margin: 12px auto;
+  width: 95%;
+  margin: 12px auto;
 `;
 
 const CommentItem = styled.section`
-	padding: 12px 0;
-	margin: 5px 0;
-	border: 1px solid #ebebeb;
+  padding: 12px 0;
+  margin: 5px 0;
+  border: 1px solid #ebebeb;
 `;
 
 const CommentImage = styled.img`
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
-	margin-left: 12px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-left: 12px;
 `;
 
 const CommentName = styled.h6``;
 
 const CommentAvatar = styled.section`
-	width: 20%;
-	float: left;
-	text-align: center;
+  width: 20%;
+  float: left;
+  text-align: center;
 `;
 const CommentText = styled.section`
-	width: 80%;
-	float: left;
+  width: 80%;
+  float: left;
 `;
 
 class Comments extends React.Component {
-	render() {
-		const { comments, addComments, postIndex } = this.props;
-		return (
-			<CommentContainer>
-				{comments.map((commentsItem, index) => (
-					<CommentItem key={index} className="row">
-						<CommentAvatar>
-							<CommentImage src={commentsItem.avatar} />
-							<CommentName>{commentsItem.name}</CommentName>
-						</CommentAvatar>
-						<CommentText>
-							<p style={{ padding: "4px" }}>
-								{commentsItem.text}
-							</p>
-						</CommentText>
-					</CommentItem>
-				))}
-				<AddComment postIndex={postIndex} addComments={addComments} />
-			</CommentContainer>
-		);
-	}
+  render() {
+    const { comments, addComments, postIndex } = this.props;
+    return (
+      <CommentContainer>
+        {comments.map((commentsItem, index) => (
+          <CommentItem key={index} className="row">
+            <CommentAvatar>
+              <CommentImage src={commentsItem.avatar} />
+              <CommentName>{commentsItem.name}</CommentName>
+            </CommentAvatar>
+            <CommentText>
+              <p style={{ padding: "4px" }}>{commentsItem.text}</p>
+            </CommentText>
+          </CommentItem>
+        ))}
+        <AddComment postIndex={postIndex} addComments={addComments} />
+      </CommentContainer>
+    );
+  }
 }
 
 Comments.propTypes = {
-	comments: t.array.isRequired,
-	addComments: t.func.isRequired,
-	postIndex:t.number.isRequired
+  comments: t.array.isRequired,
+  addComments: t.func.isRequired,
+  postIndex: t.number.isRequired
 };
 
 export default Comments;

@@ -1,13 +1,13 @@
-import { INCREMENT_LIKES, ADD_COMMENTS } from '../actions-types';
+import { INCREMENT_LIKES, ADD_COMMENTS } from "../actions-types";
 
-import * as APIClient from '../apiclient';
-import * as TYPES from '../actions-types';
-import * as UtilityMethod from '../UtilityMethod';
+import * as APIClient from "../apiclient";
+import * as TYPES from "../actions-types";
+import * as UtilityMethod from "../UtilityMethod";
 
 export const incrementLikes = ({ index }) => {
   return {
     type: INCREMENT_LIKES,
-    index,
+    index
   };
 };
 
@@ -17,8 +17,8 @@ export const addComments = ({ index, text, userInfo }) => {
     payload: {
       text,
       index,
-      ...userInfo,
-    },
+      ...userInfo
+    }
   };
 };
 
@@ -27,11 +27,11 @@ export const getUserData = (data, callback) => {
   return dispatch => {
     APIClient.googleAuth(data)
       .then(({ data }) => {
-        dispatch(({ type: TYPES.USER_DATA, payload: data }));
+        dispatch({ type: TYPES.USER_DATA, payload: data });
         callback();
       })
       .catch(error => {
-        dispatch({ type: 'ERROR', payload: error });
+        dispatch({ type: "ERROR", payload: error });
       });
   };
 };
@@ -48,7 +48,7 @@ export const getPost = () => {
         dispatch({ type: TYPES.POSTS, payload: data });
       })
       .catch(error => {
-        dispatch({ type: 'ERROR', payload: error });
+        dispatch({ type: "ERROR", payload: error });
       });
   };
 };
@@ -60,7 +60,7 @@ export const getAllPost = () => {
         dispatch({ type: TYPES.ALL_POST, payload: data.posts });
       })
       .catch(error => {
-        dispatch({ type: 'ERROR', payload: error });
+        dispatch({ type: "ERROR", payload: error });
       });
   };
 };
@@ -75,13 +75,18 @@ export const createPost = (data, callback) => {
 
 export const editPost = ({ data, index, postId }, callback) => {
   return dispatch => {
-    APIClient.editPost({ title: data.title, thumbnail: data.thumbnail, body: data.body, postId }).then(() => {
+    APIClient.editPost({
+      title: data.title,
+      thumbnail: data.thumbnail,
+      body: data.body,
+      postId
+    }).then(() => {
       dispatch({
         type: TYPES.EDITPOST,
         payload: { data, index }
       });
 
       callback();
-    })
-  }
-}
+    });
+  };
+};

@@ -41,10 +41,10 @@ class Posts extends React.Component {
 
     return (
       <section>
-        <Switch> 
-         <Route exact path="/myblogs" component={PostList} />
-         <Route exact path="/myblogs/:postId" component={PostDetails} />
-         <Route exact path="/myBlogs/editBlog/:postId" component={EditBlog} />
+        <Switch>
+          <Route exact path="/myblogs" component={PostList} />
+          <Route exact path="/myblogs/:postId" component={PostDetails} />
+          <Route exact path="/myBlogs/editBlog/:postId" component={EditBlog} />
         </Switch>
       </section>
     );
