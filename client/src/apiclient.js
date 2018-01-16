@@ -11,7 +11,7 @@ export const createPost = (params) => axios.post("api/blogs", {
     ...params
 });
 
-export const editPost = ({ params, postId }) => {
+export const editPost = ({ postId, ...params }) => {
   return axios.put(`/api/blogs/myblog/` + postId, {
    ...params 
   })

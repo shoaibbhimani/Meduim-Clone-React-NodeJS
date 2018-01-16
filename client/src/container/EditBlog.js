@@ -55,12 +55,12 @@ class CreatePost extends React.Component {
     const { title, thumbnail, reactMdeValue, postId, index, post } = this.state;
     const { editPost, history } = this.props;
     editPost({
-      params: {
-       title,
-       thumbnail,
-       body: reactMdeValue.text
+      data: {
+        ...post,
+        title,
+        thumbnail,
+        body: reactMdeValue.text,
       },
-      post,
       postId,
       index
     }, () => {
