@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-
+import { Switch, Route } from "react-router-dom";
 import PostItem from "../components/PostItem";
 import * as actions from "../action-creators";
 

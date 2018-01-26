@@ -38,10 +38,14 @@ const SocialMediaIcons = styled.section`
   cursor: pointer;
 `;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps)
+
   return {
     posts: state.posts.posts,
-    userInfo: state.userInfo
+    allPosts: state.allPosts.allPosts,
+    userInfo: state.userInfo,
+    allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1
   };
 };
 
@@ -56,11 +60,11 @@ class PostsDetails extends React.Component {
   }
 
   componentDidMount() {
-    const { match, incrementLikes, posts } = this.props;
+    const { match, incrementLikes, posts, allPosts, allPostSection } = this.props;
     const postIndex = parseInt(match.params.postId.split("-").pop());
     this.setState({
       postIndex,
-      post: posts[postIndex]
+      post: allPostSection ? allPosts[postIndex]: posts[postIndex]
     });
   }
 
@@ -114,9 +118,9 @@ class PostsDetails extends React.Component {
   };
 
   render() {
-    const { match, posts, incrementLikes } = this.props;
+    const { match, posts, incrementLikes, allPosts, allPostSection } = this.props;
     const { postIndex } = this.state;
-    const post = posts[postIndex];
+    const post = allPostSection ? allPosts[postIndex] : posts[postIndex];
 
     if (!post && postIndex === -1) {
       return null;

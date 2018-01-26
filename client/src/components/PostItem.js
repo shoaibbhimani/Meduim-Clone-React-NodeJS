@@ -60,12 +60,17 @@ class PostItem extends Component {
   };
 
   renderAuthorContent() {
-    const { post, index } = this.props;
+    const { post, index, allPostSection } = this.props;
     return (
       <PostLink>
-        <Link to={`myblogs/${post.title + "-" + index}`}>
-          <p>Read more</p>
-        </Link>
+        {
+          allPostSection ? <Link to={`allblog/${post.title + "-" + index}`}>
+            <p>Read more</p>
+          </Link> : <Link to={`myblogs/${post.title + "-" + index}`}>
+              <p>Read more</p>
+            </Link>
+        }
+        
         <p>{post.user_id.email}</p>
       </PostLink>
     );

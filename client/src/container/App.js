@@ -8,7 +8,7 @@ import Header from "./Header";
 import Posts from "./Post/index";
 import PostDetails from "./PostDetails.js";
 import CreatePost from "./CreatePost";
-import AllPost from "./AllPost";
+import AllPost from "./AllPost/index";
 
 import PrivateRoute from "../UIComponent/PrivateRoute";
 import * as UtilityMethod from "../UtilityMethod";
@@ -51,11 +51,11 @@ class App extends Component {
           setUserData={setUserData}
           toggleAuthentication={this.toggleAuthentication}
         />
-        <Route exact path="/allblog" component={AllPost} />
+        <Route exact path="/" render={() => <Redirect to="/allblog" />} />
+        <Route path="/allblog" component={AllPost} />
 
         {!isAuthenticating && (
           <Switch>
-            <Route exact path="/" render={() => <h2>Index Page</h2>} />
             <Route path="/myblogs" component={Posts} />
             <PrivateRoute
               exact
