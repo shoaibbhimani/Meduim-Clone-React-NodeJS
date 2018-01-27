@@ -41,6 +41,7 @@ const PostImage = styled.img`float: left;`;
 const PostExcerpt = styled.section`text-align: left;`;
 const PostLink = styled.section`text-align: left;`;
 const LikeIcon = styled.span`
+  cursor: pointer;
   & img {
     width: 20px;
     height: 20px;
@@ -119,7 +120,8 @@ class PostItem extends Component {
 }
 
 PostItem.propTypes = {
-  incrementLikes: t.func.isRequired,
+  incrementLikesAllPost: t.func.isRequired,
+  incrementLikesPost: t.func.isRequired,
   post: t.object.isRequired,
   allPostSection: t.bool.isRequired
 };

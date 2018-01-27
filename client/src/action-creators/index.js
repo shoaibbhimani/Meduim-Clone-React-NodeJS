@@ -1,14 +1,21 @@
-import { INCREMENT_LIKES, ADD_COMMENTS } from "../actions-types";
+import { INCREMENT_LIKES_POST, INCREMENT_LIKES_ALLPOST, ADD_COMMENTS,  } from "../actions-types";
 
 import * as APIClient from "../apiclient";
 import * as TYPES from "../actions-types";
 import * as UtilityMethod from "../UtilityMethod";
 
-export const incrementLikes = ({ index }) => {
+export const incrementLikesPost = ({ index }) => {
   return {
-    type: INCREMENT_LIKES,
+    type: INCREMENT_LIKES_POST,
     index
   };
+};
+
+export const incrementLikesAllPost = ({ index }) => {
+ return {
+   type: INCREMENT_LIKES_ALLPOST,
+   index
+ }
 };
 
 export const addComments = ({ index, text, userInfo }) => {

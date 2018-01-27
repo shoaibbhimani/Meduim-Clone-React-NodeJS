@@ -10,6 +10,21 @@ const all_postsReducers = (state = initialState, action) => {
     case TYPES.ALL_POST:
       return { isLoading: false, allPosts: [...action.payload] };
       break;
+    case TYPES.INCREMENT_LIKES_ALLPOST:
+      return {
+        ...state,
+        allPosts: state.allPosts.map((post, index) => {
+          if (action.index === index) {
+            return {
+              ...post,
+              likes: ++post.likes
+            }
+          }
+
+           return post;
+          
+        })
+      } 
     default:
       return initialState;
       break;

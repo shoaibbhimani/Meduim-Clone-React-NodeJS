@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 
 class PostList extends React.Component {
   render() {
-    const { incrementLikes, posts } = this.props;
+    const { incrementLikesPost, posts } = this.props;
     return (
       <section className="row">
         <section className="col-md-7">
@@ -27,7 +27,7 @@ class PostList extends React.Component {
             <ul>
               {posts.map((post, index) => (
                 <PostItem
-                  incrementLikes={incrementLikes}
+                  incrementLikes={incrementLikesPost}
                   key={index}
                   index={index}
                   post={post}

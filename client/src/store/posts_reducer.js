@@ -23,6 +23,21 @@ const postsReducers = (state = initialState, action) => {
           return post;
         })
       };
+    case TYPES.INCREMENT_LIKES_POST: 
+    return {
+      ...state,
+      posts: state.posts.map((post, index) => {
+        if(action.index === index){
+          return {
+            ...post,
+            likes: ++post.likes
+          }
+        }
+
+        return post;
+        
+      })
+    }  
     default:
       return initialState;
       break;
