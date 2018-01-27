@@ -26,7 +26,7 @@ router.get("/blog/:blogId", auth.isAuthenticated, async (req, res) => {
 
 router.get("/allblog", async (req, res) => {
   try {
-    const posts = await Blog.find({});
+    const posts = await Blog.find({}).populate("user_id");
     res.send({ posts });
   } catch (err) {
     console.log("err", err);

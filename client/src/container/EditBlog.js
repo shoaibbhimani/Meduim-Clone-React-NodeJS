@@ -35,7 +35,7 @@ class CreatePost extends React.Component {
   }
 
   componentDidMount() {
-    const { location, posts, match } = this.props;
+    const {  posts, match } = this.props;
     const index = match.params.postId.split("-").pop();
     const post = posts[index];
     this.setState({

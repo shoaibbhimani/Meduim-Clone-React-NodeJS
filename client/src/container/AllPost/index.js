@@ -1,17 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
-import { Switch, withRouter, Route, Link } from "react-router-dom";
+import { Switch, withRouter, Route } from "react-router-dom";
 
 //Components
-import PostItem from "../../components/PostItem";
-import EditBlog from "../EditBlog";
 import PostList from "./PostList";
 import PostDetails from "../PostDetails";
 
 //Action Creators
 import * as actions from "../../action-creators";
-import PrivateRoute from "../../UIComponent/PrivateRoute";
 
 const mapStateToProps = state => {
   return {
@@ -27,12 +23,8 @@ class Posts extends React.Component {
   }
 
   render() {
-    const {
-      posts,
-      isPostLoading,
-    } = this.props;
+    const { isPostLoading } = this.props;
 
-    console.log(isPostLoading)
     if (isPostLoading) {
       return null;
     }

@@ -2,7 +2,6 @@ import { INCREMENT_LIKES_POST, INCREMENT_LIKES_ALLPOST, ADD_COMMENTS,  } from ".
 
 import * as APIClient from "../apiclient";
 import * as TYPES from "../actions-types";
-import * as UtilityMethod from "../UtilityMethod";
 
 export const incrementLikesPost = ({ index, postId }) => {
   APIClient.inclikes({ postId })

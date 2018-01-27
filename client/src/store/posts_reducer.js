@@ -1,5 +1,4 @@
 import * as TYPES from "../actions-types";
-import * as UtilityMethod from "../UtilityMethod.js";
 
 const initialState = {
   isLoading: true,
@@ -10,7 +9,6 @@ const postsReducers = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.POSTS:
       return { isLoading: false, posts: [...action.payload.posts] };
-      break;
     case TYPES.EDITPOST:
       return {
         isLoading: false,

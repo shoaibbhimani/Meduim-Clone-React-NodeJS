@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
-import { GoogleLogin } from "react-google-login-component";
 
 import "../App.css";
 import Header from "./Header";
 import Posts from "./Post/index";
-import PostDetails from "./PostDetails.js";
 import CreatePost from "./CreatePost";
 import AllPost from "./AllPost/index";
 
@@ -43,7 +41,7 @@ class App extends Component {
   };
 
   render() {
-    const { isAuthenticated, setUserData, isAllPostLoading } = this.props;
+    const { isAuthenticated, setUserData } = this.props;
     const { isAuthenticating } = this.state;
     return (
       <div>

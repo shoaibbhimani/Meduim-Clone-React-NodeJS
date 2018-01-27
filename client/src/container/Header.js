@@ -34,7 +34,6 @@ class Header extends React.Component {
       getUserData,
       history,
       toggleAuthentication,
-      setUserData
     } = this.props;
     getUserData(
       {

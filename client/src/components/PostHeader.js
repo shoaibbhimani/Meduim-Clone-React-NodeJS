@@ -18,10 +18,10 @@ const UserName = styled.section`
   float: left;
 `;
 
-const PostHeader = ({ post }) => (
+const PostHeader = ({ postauthor }) => (
   <PostUserInfo className="clearfix">
-    <UserImage src={post.author.avatar} />
-    <UserName>{post.author.name}</UserName>
+    <UserImage src={postauthor.avatar} />
+    <UserName>{postauthor.firstName}</UserName>
   </PostUserInfo>
 );
 

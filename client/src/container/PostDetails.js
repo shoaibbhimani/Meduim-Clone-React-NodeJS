@@ -10,7 +10,6 @@ import likesIcon from "../svg-icons/like.svg";
 import PostHeader from "../components/PostHeader";
 import Comment from "./Comment.js";
 import * as actions from "../action-creators";
-import { incrementLikesAllPost, incrementLikesPost } from "../action-creators";
 
 const PostsDetailsWrapper = styled.section`
   width: 60%;
@@ -61,8 +60,8 @@ class PostsDetails extends React.Component {
   }
 
   componentDidMount() {
-    const { match, incrementLikes, posts, allPosts, allPostSection } = this.props;
-    const postIndex = parseInt(match.params.postId.split("-").pop());
+    const { match, posts, allPosts, allPostSection } = this.props;
+    const postIndex = parseInt(match.params.postId.split("-").pop(), 10);
     this.setState({
       postIndex,
       post: allPostSection ? allPosts[postIndex]: posts[postIndex]
@@ -79,7 +78,7 @@ class PostsDetails extends React.Component {
   };
 
   IconHandler = () => {
-    const { match, incrementLikesAllPost, incrementLikesPost, allPostSection } = this.props;
+    const { incrementLikesAllPost, incrementLikesPost, allPostSection } = this.props;
     const { postIndex, post } = this.state;
 
     if (allPostSection){
@@ -90,8 +89,8 @@ class PostsDetails extends React.Component {
   };
 
   renderPostHeader = () => {
-    return null;
-    return <PostHeader />;
+    const { post } = this.state;
+    return <PostHeader postauthor={post.user_id} />;
   };
 
   renderTitleContentThumbnail = () => {

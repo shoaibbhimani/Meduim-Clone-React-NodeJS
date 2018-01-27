@@ -37,7 +37,6 @@ class AddComment extends React.Component {
   };
 
   render() {
-    const { postIndex } = this.props;
     return (
       <section>
         <form onSubmit={this.submitComment}>

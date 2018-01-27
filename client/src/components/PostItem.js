@@ -6,8 +6,6 @@ import * as t from "prop-types";
 import { ReactMdePreview } from "react-mde";
 
 //Components
-import PostHeader from "./PostHeader";
-import Comments from "./Comments";
 import * as CSSConstant from "../CSSConstant";
 
 //Icons
@@ -38,7 +36,6 @@ const PostContent = styled.section`
 
 const PostImageWrapper = styled.section``;
 const PostImage = styled.img`float: left;`;
-const PostExcerpt = styled.section`text-align: left;`;
 const PostLink = styled.section`text-align: left;`;
 const LikeIcon = styled.span`
   cursor: pointer;
