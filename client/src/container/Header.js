@@ -52,6 +52,7 @@ class Header extends React.Component {
   logout = evt => {
     evt && evt.preventDefault();
     this.props.forgetUser();
+    this.props.history.push("/allblog");
   };
 
   render() {

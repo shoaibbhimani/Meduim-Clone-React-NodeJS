@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Switch, withRouter, Route } from "react-router-dom";
+import Loadable from 'react-loadable';
 
 //Components
 import PostList from "./PostList";
 import PostDetails from "../PostDetails";
-
-//Action Creators
 import * as actions from "../../action-creators";
+
+
 
 const mapStateToProps = state => {
   return {
