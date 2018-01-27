@@ -4,14 +4,17 @@ import * as APIClient from "../apiclient";
 import * as TYPES from "../actions-types";
 import * as UtilityMethod from "../UtilityMethod";
 
-export const incrementLikesPost = ({ index }) => {
+export const incrementLikesPost = ({ index, postId }) => {
+  APIClient.inclikes({ postId })
+    
   return {
     type: INCREMENT_LIKES_POST,
     index
   };
 };
 
-export const incrementLikesAllPost = ({ index }) => {
+export const incrementLikesAllPost = ({ index, postId  }) => {
+  APIClient.inclikes({ postId })
  return {
    type: INCREMENT_LIKES_ALLPOST,
    index

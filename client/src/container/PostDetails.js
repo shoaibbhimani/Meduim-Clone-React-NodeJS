@@ -79,13 +79,13 @@ class PostsDetails extends React.Component {
   };
 
   IconHandler = () => {
-    const { match, incrementLikesAllPost, incrementLikesPost,  allPostSection } = this.props;
-    const { postIndex } = this.state;
+    const { match, incrementLikesAllPost, incrementLikesPost, allPostSection } = this.props;
+    const { postIndex, post } = this.state;
 
     if (allPostSection){
-      incrementLikesAllPost({ index: postIndex })
+      incrementLikesAllPost({ index: postIndex, postId: post._id  })
     } else {
-      incrementLikesPost({ index: postIndex });
+      incrementLikesPost({ index: postIndex, postId: post._id });
     }
   };
 

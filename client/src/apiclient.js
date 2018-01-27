@@ -18,4 +18,8 @@ export const editPost = ({ postId, ...params }) => {
   });
 };
 
+export const inclikes = ({ postId }) => {
+  return axios.put(`/api/blogs/inclikes/` + postId)
+}
+
 export const getAllPost = () => axios.get("/api/blogs/allblog");

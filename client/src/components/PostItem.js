@@ -56,8 +56,8 @@ class PostItem extends Component {
   }
 
   likeIconHandler = () => {
-    const { incrementLikes, index } = this.props;
-    incrementLikes({ index });
+    const { incrementLikes, index, post } = this.props;
+    incrementLikes({ index, postId: post._id });
   };
 
   renderAuthorContent() {
@@ -120,8 +120,7 @@ class PostItem extends Component {
 }
 
 PostItem.propTypes = {
-  incrementLikesAllPost: t.func.isRequired,
-  incrementLikesPost: t.func.isRequired,
+  incrementLikes: t.func.isRequired,
   post: t.object.isRequired,
   allPostSection: t.bool.isRequired
 };

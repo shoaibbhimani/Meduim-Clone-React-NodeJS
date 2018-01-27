@@ -34,6 +34,25 @@ router.get("/allblog", async (req, res) => {
   }
 });
 
+router.put("/inclikes/:blogId", async (req, res) => {
+  const { blogId } = req.params;
+
+   const blogs = await Blog.findById({
+     _id: blogId
+   });
+
+   await Blog.findByIdAndUpdate({
+     _id: blogId
+   }, {
+       likes: ++blogs.likes
+   });
+
+   const result = await Blog.findById({ _id: blogId });
+
+  res.send(result)
+
+});
+
 router.post("/", auth.isAuthenticated, async (req, res) => {
   const { title, body, thumbnail } = req.body;
 
