@@ -42,7 +42,8 @@ morganbody(app);
 //Routes
 app
   .use("/api/auth", require("./routes/authRoutes"))
-  .use("/api/blogs", require("./routes/blogRoutes"));
+  .use("/api/blogs", require("./routes/blogRoutes"))
+  .use("/api/blog", require("./routes/commentRoutes"))
 
 if (process.env.NODE_ENV === "production") {
   //seting our static assets

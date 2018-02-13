@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
-  commentUserId: {
+  user: {
     type: Schema.ObjectId,
     ref: "User",
     required: "You must supply an author"
@@ -11,11 +11,11 @@ const commentSchema = new Schema({
     type: String,
     required: true
   },
-  blogId: {
+  blog: {
     type: Schema.ObjectId,
     ref: "Blog",
     required: "You must supply an Blog"
   }
 });
 
-mongoose.model("comments", commentSchema);
+mongoose.model("Comments", commentSchema);
