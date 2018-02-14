@@ -36,7 +36,8 @@ router.put("/:blogId/:commentId/comment", auth.isAuthenticated, async (req, res)
       new: true,
       runValidators: true
   });
-res.send(comment);
+  
+  res.send(comment);
 });
 
 module.exports = router;

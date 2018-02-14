@@ -37,21 +37,20 @@ const CommentText = styled.section`
 
 class Comments extends React.Component {
   render() {
-    const { comments, addComments, postIndex } = this.props;
+    const { comments, postIndex } = this.props;
     return (
       <CommentContainer>
         {comments.map((commentsItem, index) => (
           <CommentItem key={index} className="row">
             <CommentAvatar>
-              <CommentImage src={commentsItem.avatar} />
-              <CommentName>{commentsItem.name}</CommentName>
+              <CommentImage src={commentsItem.user.avatar} />
+              <CommentName>{commentsItem.user.firstName}</CommentName>
             </CommentAvatar>
             <CommentText>
-              <p style={{ padding: "4px" }}>{commentsItem.text}</p>
+              <p style={{ padding: "4px" }}>{commentsItem.commentText}</p>
             </CommentText>
           </CommentItem>
         ))}
-        <AddComment postIndex={postIndex} addComments={addComments} />
       </CommentContainer>
     );
   }

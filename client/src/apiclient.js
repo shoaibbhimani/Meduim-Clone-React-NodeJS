@@ -23,3 +23,10 @@ export const inclikes = ({ postId }) => {
 }
 
 export const getAllPost = () => axios.get("/api/blogs/allblog");
+
+//comments
+export const getCommentOfPost = ({ blogId }) => axios.get(`/api/blog/${blogId}/comment`)
+
+export const postComment = ({ blogId, text }) => axios.post(`/api/blog/${blogId}/comment`, {
+  text
+});

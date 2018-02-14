@@ -25,7 +25,11 @@ const blogSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
-  }
+  },
+  comments: [{
+    type: Schema.ObjectId,
+    ref: "Comments"
+  }]
 });
 
 mongoose.model("Blog", blogSchema);

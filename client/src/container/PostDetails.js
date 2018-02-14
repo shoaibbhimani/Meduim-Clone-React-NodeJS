@@ -9,7 +9,11 @@ import likesIcon from "../svg-icons/like.svg";
 //Components
 import PostHeader from "../components/PostHeader";
 import Comment from "./Comment.js";
+import AddComment from "../components/AddComment"
+
 import * as actions from "../action-creators";
+import * as APIClient from "../apiclient";
+import * as UtilityMethod from "../UtilityMethod"
 
 const PostsDetailsWrapper = styled.section`
   width: 60%;
@@ -55,25 +59,45 @@ class PostsDetails extends React.Component {
 
     this.state = {
       postIndex: -1,
-      post: {}
+      post: {},
+      comments: []
     };
   }
 
   componentDidMount() {
     const { match, posts, allPosts, allPostSection } = this.props;
     const postIndex = parseInt(match.params.postId.split("-").pop(), 10);
+    const post = allPostSection ? allPosts[postIndex] : posts[postIndex];
+
     this.setState({
       postIndex,
-      post: allPostSection ? allPosts[postIndex]: posts[postIndex]
+      post
     });
+
+    APIClient.getCommentOfPost({ blogId: post._id }).then(({ data }) => {
+      this.setState({
+        comments: data
+      });
+    }).catch(() => {
+      console.log("Error")
+    });
+
   }
 
   addComments = ({ text, index }) => {
     const { userInfo } = this.props;
-    this.props.addComments({
-      text,
-      index,
-      userInfo: userInfo
+    const { post, comments } = this.state;
+    this.setState({
+      comments: comments.concat({
+        commentText: text,
+        user: UtilityMethod.getLocalStorage().user
+      })
+    })    
+   
+
+    APIClient.postComment({
+      blogId: post._id,
+      text
     });
   };
 
@@ -111,12 +135,11 @@ class PostsDetails extends React.Component {
     );
   };
 
-  renderComments = post => {
-    return null;
-
+  renderComments = () => {
+    const { comments } = this.state;
     return (
       <Comment
-        comments={post.comments}
+        comments={comments}
         addComments={this.addComments}
         postIndex={this.state.postIndex}
       />
@@ -143,7 +166,8 @@ class PostsDetails extends React.Component {
         {this.renderPostHeader()}
 
         {this.renderTitleContentThumbnail()}
-        {this.renderComments(post)}
+        {this.renderComments()}
+        <AddComment addComments={this.addComments} />
       </PostsDetailsWrapper>
     );
   }

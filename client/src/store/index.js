@@ -8,6 +8,7 @@ import todos from "./todos_reducer.js";
 import posts from "./posts_reducer.js";
 import user from "./user_reducer.js";
 import allPosts from "./all_post_reducers";
+import comments from "./comments_reducers";
 
 //you apply any middleware here
 const createStoreWithMiddleware = applyMiddleware(
@@ -21,7 +22,8 @@ const store = combineReducers({
   todos,
   posts,
   user,
-  allPosts
+  allPosts,
+  comments
 });
 
 export default createStoreWithMiddleware(
