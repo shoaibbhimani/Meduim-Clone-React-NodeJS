@@ -43,13 +43,12 @@ const SocialMediaIcons = styled.section`
 `;
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps)
-
   return {
     posts: state.posts.posts,
     allPosts: state.allPosts.allPosts,
     userInfo: state.userInfo,
-    allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1
+    allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1,
+    comments: state.comments
   };
 };
 
@@ -74,31 +73,19 @@ class PostsDetails extends React.Component {
       post
     });
 
-    APIClient.getCommentOfPost({ blogId: post._id }).then(({ data }) => {
-      this.setState({
-        comments: data
-      });
-    }).catch(() => {
-      console.log("Error")
-    });
-
+    this.props.getComments({ blogId: post._id });
   }
 
   addComments = ({ text, index }) => {
     const { userInfo } = this.props;
     const { post, comments } = this.state;
-    this.setState({
-      comments: comments.concat({
-        commentText: text,
-        user: UtilityMethod.getLocalStorage().user
-      })
-    })    
+    
    
-
+    /*
     APIClient.postComment({
       blogId: post._id,
       text
-    });
+    });*/
   };
 
   IconHandler = () => {
@@ -136,7 +123,7 @@ class PostsDetails extends React.Component {
   };
 
   renderComments = () => {
-    const { comments } = this.state;
+    const { comments } = this.props;
     return (
       <Comment
         comments={comments}

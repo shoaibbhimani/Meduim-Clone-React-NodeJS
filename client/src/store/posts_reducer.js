@@ -37,8 +37,7 @@ const postsReducers = (state = initialState, action) => {
       })
     }  
     default:
-      return initialState;
-      break;
+      return state
   }
 };
 

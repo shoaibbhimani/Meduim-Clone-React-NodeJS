@@ -20,17 +20,6 @@ export const incrementLikesAllPost = ({ index, postId  }) => {
  }
 };
 
-export const addComments = ({ index, text, userInfo }) => {
-  return {
-    type: ADD_COMMENTS,
-    payload: {
-      text,
-      index,
-      ...userInfo
-    }
-  };
-};
-
 //Auth
 export const getUserData = (data, callback) => {
   return dispatch => {
@@ -98,4 +87,20 @@ export const editPost = ({ data, index, postId }, callback) => {
       callback();
     });
   };
+};
+
+
+//Comments
+export const getComments = ({ blogId }) => {
+  return dispatch => {
+    APIClient.getCommentOfPost({
+      blogId
+    }).then(({ data }) => {
+        
+        dispatch({
+          type: TYPES.LOAD_COMMENTS,
+          payload: data 
+        })
+    })
+  }
 };

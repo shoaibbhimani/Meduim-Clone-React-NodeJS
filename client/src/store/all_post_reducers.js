@@ -26,8 +26,7 @@ const all_postsReducers = (state = initialState, action) => {
         })
       } 
     default:
-      return initialState;
-      break;
+      return state;
   }
 };
 
