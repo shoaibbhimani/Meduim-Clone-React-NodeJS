@@ -76,6 +76,10 @@ class PostsDetails extends React.Component {
     this.props.getComments({ blogId: post._id });
   }
 
+  componentWillUnmount(){
+    this.props.removeAllComments();
+  }
+
   addComments = ({ text, index }) => {
     const { userInfo } = this.props;
     const { post, comments } = this.state;

@@ -104,3 +104,9 @@ export const getComments = ({ blogId }) => {
     })
   }
 };
+
+export const removeAllComments = () => {
+  return {
+    type: TYPES.DELETE_ALL_COMMENTS
+  }
+}

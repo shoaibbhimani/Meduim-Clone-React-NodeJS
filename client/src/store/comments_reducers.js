@@ -9,6 +9,8 @@ const commentReducer = (state = initialState, action) => {
          return [...action.payload];
         case TYPES.ADD_COMMENT:
          return [...state, action.payload] 
+        case TYPES.DELETE_ALL_COMMENTS:
+         return initialState; 
         default:
          return state;
     }
