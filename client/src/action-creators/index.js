@@ -105,6 +105,23 @@ export const getComments = ({ blogId }) => {
   }
 };
 
+export const createComment = ({ text, user, blogId }) => {
+  //Send API request
+  APIClient.postComment({
+    blogId,
+    text
+  });
+
+  return  {
+    type: TYPES.ADD_COMMENT,
+    payload: {
+      blog: blogId,
+      commentText: text,
+      user
+    }
+  }
+}
+
 export const removeAllComments = () => {
   return {
     type: TYPES.DELETE_ALL_COMMENTS

@@ -46,9 +46,10 @@ const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts.posts,
     allPosts: state.allPosts.allPosts,
-    userInfo: state.userInfo,
+    user: state.user.user,
+    isAuthenticated: state.user.isAuthenticated,
     allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1,
-    comments: state.comments
+    comments: state.comments,
   };
 };
 
@@ -81,15 +82,14 @@ class PostsDetails extends React.Component {
   }
 
   addComments = ({ text, index }) => {
-    const { userInfo } = this.props;
+    const { createComment, user } = this.props;
     const { post, comments } = this.state;
     
-   
-    /*
-    APIClient.postComment({
-      blogId: post._id,
-      text
-    });*/
+    createComment({
+      text,
+      user,
+      blogId: post._id
+    }); 
   };
 
   IconHandler = () => {
@@ -138,7 +138,7 @@ class PostsDetails extends React.Component {
   };
 
   render() {
-    const { match, posts, incrementLikes, allPosts, allPostSection } = this.props;
+    const { match, posts, incrementLikes, allPosts, allPostSection, isAuthenticated } = this.props;
     const { postIndex } = this.state;
     const post = allPostSection ? allPosts[postIndex] : posts[postIndex];
 
@@ -158,7 +158,7 @@ class PostsDetails extends React.Component {
 
         {this.renderTitleContentThumbnail()}
         {this.renderComments()}
-        <AddComment addComments={this.addComments} />
+        {isAuthenticated && <AddComment addComments={this.addComments} />}
       </PostsDetailsWrapper>
     );
   }
