@@ -13,13 +13,14 @@ const CommentContainer = styled.section`
 
 class Comments extends React.Component {
   render() {
-    const { comments, postIndex, editCreateComment, post } = this.props;
+    const { comments, postIndex, editCreateComment, post, user_id } = this.props;
     return (
       <CommentContainer>
         {comments.map((commentsItem, index) => (
           <CommentItem 
              editCreateComment={editCreateComment}
              key={index} 
+             user_id={user_id}
              post={post}
              commentsItem={commentsItem} />
         ))}

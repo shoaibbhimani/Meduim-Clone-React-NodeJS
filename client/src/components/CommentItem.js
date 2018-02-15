@@ -82,9 +82,12 @@ class CommentItem extends React.Component {
     }
 
     renderCommentItem = () => {
-        const { commentsItem } = this.props;
+        const { commentsItem, user_id } = this.props;
+        const isCommentAuthor = commentsItem.user._id === user_id;
+        const toggleEditing = isCommentAuthor ? this.toggleEditing : null;
+
         return (
-            <div onClick={this.toggleEditing}>
+            <div onClick={toggleEditing}>
                 <CommentAvatar>
                     <CommentImage src={commentsItem.user.avatar} />
                     <CommentName>{commentsItem.user.firstName}</CommentName>

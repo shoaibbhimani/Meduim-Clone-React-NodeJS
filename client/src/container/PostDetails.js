@@ -127,12 +127,13 @@ class PostsDetails extends React.Component {
   };
 
   renderComments = () => {
-    const { comments, editCreateComment } = this.props;
+    const { comments, editCreateComment, user } = this.props;
     const { post } = this.state;
     return (
       <Comment
         comments={comments}
         post={post}
+        user_id={user._id}
         addComments={this.addComments}
         editCreateComment={editCreateComment}
         postIndex={this.state.postIndex}
