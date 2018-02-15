@@ -107,19 +107,41 @@ export const getComments = ({ blogId }) => {
 
 export const createComment = ({ text, user, blogId }) => {
   //Send API request
-  APIClient.postComment({
-    blogId,
-    text
-  });
-
-  return  {
-    type: TYPES.ADD_COMMENT,
-    payload: {
-      blog: blogId,
-      commentText: text,
-      user
-    }
+  return dispatch => {
+    APIClient.postComment({
+      blogId,
+      text
+    }).then(() => {
+      dispatch({
+        type: TYPES.ADD_COMMENT,
+        payload: {
+          blog: blogId,
+          commentText: text,
+          user
+        }
+      })
+    }).catch(() => {
+      console.log("errrr")
+    });
   }
+};
+
+export const editCreateComment = ({ text, commentId, blogId }) => {
+ 
+  APIClient.editComment({
+    text,
+    commentId,
+    blogId
+  })
+
+  return {
+    type: TYPES.EDITCOMMENT,
+    payload: {
+      text,
+      commentId
+  }
+};
+
 }
 
 export const removeAllComments = () => {

@@ -127,11 +127,14 @@ class PostsDetails extends React.Component {
   };
 
   renderComments = () => {
-    const { comments } = this.props;
+    const { comments, editCreateComment } = this.props;
+    const { post } = this.state;
     return (
       <Comment
         comments={comments}
+        post={post}
         addComments={this.addComments}
+        editCreateComment={editCreateComment}
         postIndex={this.state.postIndex}
       />
     );
@@ -157,8 +160,8 @@ class PostsDetails extends React.Component {
         {this.renderPostHeader()}
 
         {this.renderTitleContentThumbnail()}
-        {this.renderComments()}
         {isAuthenticated && <AddComment addComments={this.addComments} />}
+        {this.renderComments()}
       </PostsDetailsWrapper>
     );
   }

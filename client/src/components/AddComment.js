@@ -1,11 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 
+import * as CSSContant from "../CSSConstant"
+
 const Textarea = styled.textarea`
   width: 100%;
   min-height: 120px;
   border: 1px solid #ebebeb;
   padding: 9px;
+`;
+
+const Form = styled.form`
+ padding: 35px;
+`;
+
+const ButtonContainer = styled.section`
+ text-align: center;
+`
+
+const Button = styled.button`
+  padding: 7px;
+  width: 22%;
+  margin: 6px auto;
+  background: black;
+  font-family: ${CSSContant.raleway}  
+  color: white;
+  border: none;
 `;
 
 class AddComment extends React.Component {
@@ -39,10 +59,12 @@ class AddComment extends React.Component {
   render() {
     return (
       <section>
-        <form onSubmit={this.submitComment}>
+        <Form onSubmit={this.submitComment}>
           <Textarea value={this.state.text} onChange={this.changeText} />
-          <button type="submit">Add Comment</button>
-        </form>
+          <ButtonContainer>
+            <Button type="submit">Add Comment</Button>
+          </ButtonContainer>
+        </Form>
       </section>
     );
   }

@@ -30,3 +30,7 @@ export const getCommentOfPost = ({ blogId }) => axios.get(`/api/blog/${blogId}/c
 export const postComment = ({ blogId, text }) => axios.post(`/api/blog/${blogId}/comment`, {
   text
 });
+
+export const editComment = ({ blogId, text, commentId }) => axios.put(`/api/blog/${blogId}/${commentId}/comment`, {
+  text
+});
