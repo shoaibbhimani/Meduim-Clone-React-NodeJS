@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
-import "../App.css";
+//Components
 import Header from "./Header";
-import Posts from "./Posts/index";
 import CreatePost from "./CreatePost";
-import AllPost from "./AllPost/index";
-
+import PostList from "./PostList";
+import PostDetails from "./PostDetails";
+import EditBlog from "./EditBlog";
 import PrivateRoute from "../UIComponent/PrivateRoute";
-import * as UtilityMethod from "../UtilityMethod";
+
 import * as actions from "../action-creators";
+import * as UtilityMethod from "../UtilityMethod";
 
 const mapStateToProps = state => ({
   isAuthenticated: state.user.isAuthenticated,
@@ -49,12 +50,14 @@ class App extends Component {
           setUserData={setUserData}
           toggleAuthentication={this.toggleAuthentication}
         />
-        <Route exact path="/" render={() => <Redirect to="/allblog" />} />
-        <Route path="/allblog" component={Posts} />
 
         {!isAuthenticating && (
           <Switch>
-            <Route path="/myblogs" component={Posts} />
+            <Route exact path="/" render={() => <Redirect to="/allblog" />} />
+            <Route exact path="/allblog" component={PostList} />
+            <Route exact path="/allblog/:postId" component={PostDetails} />
+            <Route exact path="/myblogs" component={PostList} />
+            <Route exact path="/myblogs/:postId" component={PostDetails} />
             <PrivateRoute
               exact
               path="/create_post"

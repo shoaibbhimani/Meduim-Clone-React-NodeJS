@@ -35,8 +35,12 @@ const PostContent = styled.section`
 `;
 
 const PostImageWrapper = styled.section``;
-const PostImage = styled.img`float: left;`;
-const PostLink = styled.section`text-align: left;`;
+const PostImage = styled.img`
+  float: left;
+`;
+const PostLink = styled.section`
+  text-align: left;
+`;
 const LikeIcon = styled.span`
   cursor: pointer;
   & img {
@@ -50,25 +54,28 @@ class PostItem extends Component {
     super();
     this.renderAuthorContent = this.renderAuthorContent.bind(this);
     this.renderLikes = this.renderLikes.bind(this);
+    this.likeIconHandler = this.likeIconHandler.bind(this);
   }
 
-  likeIconHandler = () => {
+  likeIconHandler() {
     const { incrementLikes, index, post } = this.props;
     incrementLikes({ index, postId: post._id });
-  };
+  }
 
   renderAuthorContent() {
-    const { post, index, allPostSection } = this.props;
+    const { post, index, isAllPostSection } = this.props;
     return (
       <PostLink>
-        {
-          allPostSection ? <Link to={`allblog/${post.title + "-" + index}`}>
+        {isAllPostSection ? (
+          <Link to={`allblog/${post.title + "-" + index}`}>
             <p>Read more</p>
-          </Link> : <Link to={`myblogs/${post.title + "-" + index}`}>
-              <p>Read more</p>
-            </Link>
-        }
-        
+          </Link>
+        ) : (
+          <Link to={`myblogs/${post.title + "-" + index}`}>
+            <p>Read more</p>
+          </Link>
+        )}
+
         <p>{post.user_id.email}</p>
       </PostLink>
     );
@@ -89,7 +96,7 @@ class PostItem extends Component {
   }
 
   render() {
-    const { post, index, allPostSection } = this.props;
+    const { post, index, isAllPostSection } = this.props;
     const linkPostTitle =
       UtilityMethod.lowerCaseRemoveSpecialChar(post.title) + "-" + index;
 
@@ -106,7 +113,7 @@ class PostItem extends Component {
           <ReactMdePreview markdown={post.body} />
         </PostContent>
 
-        {!allPostSection && (
+        {!isAllPostSection && (
           <Link to={`myBlogs/editBlog/${linkPostTitle}`}>Edit</Link>
         )}
         {this.renderAuthorContent()}
@@ -119,11 +126,11 @@ class PostItem extends Component {
 PostItem.propTypes = {
   incrementLikes: t.func.isRequired,
   post: t.object.isRequired,
-  allPostSection: t.bool.isRequired
+  isAllPostSection: t.bool.isRequired
 };
 
 PostItem.defaultProps = {
-  allPostSection: false
+  isAllPostSection: false
 };
 
 export default PostItem;

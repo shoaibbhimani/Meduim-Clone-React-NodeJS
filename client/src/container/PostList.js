@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom"
 
-import PostItem from "../../components/PostItem";
-import * as actions from "../../action-creators";
-import * as CSSConstant from "../../CSSConstant";
-import * as UtilityMethod from "../../UtilityMethod";
+import PostItem from "../components/PostItem";
+import * as actions from "../action-creators";
+import * as CSSConstant from "../CSSConstant";
+import * as UtilityMethod from "../UtilityMethod";
 
 const PostWrapper = styled.section`
   padding: 12px;
@@ -19,18 +20,42 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 class PostList extends React.Component {
+  state = { currentPostSection: "" };
+
   componentDidMount() {
-    const { isAllPostSection, getAllPost, getPost } = this.props;
+
+    this.getPosts(this.props);
+  }
+
+  getPosts = ({ isAllPostSection, getAllPost, getPost }) => {
+    // const { isAllPostSection, getAllPost, getPost } = this.props;
+    let currentPostSection = null;
+
     if (isAllPostSection) {
       getAllPost();
+      currentPostSection = "allPosts";
     } else {
       getPost();
+      currentPostSection = "posts";
+    }
+
+    this.setState({ currentPostSection });
+  };
+
+  componentWillReceiveProps(nextProps){
+    //whether we are on same routes
+    if(nextProps.location.pathname !==  this.props.location.pathname){
+       this.getPosts(nextProps); 
     }
   }
 
   render() {
-    const { incrementLikesAllPost, posts, isAllPostSection } = this.props;
+    const { incrementLikesAllPost, posts } = this.props;
+    const { currentPostSection } = this.state;
+    let isAllPostSection = currentPostSection === "allPosts";
+    
     return <section className="row">
+        dasdasds
         <section className="col-md-7">
           <PostWrapper>
             <ul>
@@ -40,7 +65,6 @@ class PostList extends React.Component {
                   isAllPostSection={isAllPostSection}
                   key={index}
                   index={index}
-                  allPostSection={true}
                   post={post}
                 />
               ))}
@@ -52,4 +76,4 @@ class PostList extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, actions)(PostList);
+export default withRouter(connect(mapStateToProps, actions)(PostList));
