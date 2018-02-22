@@ -34,3 +34,8 @@ export const lowerCaseRemoveSpecialChar = value => {
     .trim()
     .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, "");
 };
+
+
+/* Check whether it is allpost section */ 
+
+export const isAllPostSection = ownProps => ownProps.location.pathname.indexOf("/myblogs") === -1;

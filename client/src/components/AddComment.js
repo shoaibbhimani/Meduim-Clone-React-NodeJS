@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 import * as CSSContant from "../CSSConstant"
 
-const Textarea = styled.textarea`
+const Textarea = styled.input`
   width: 100%;
   min-height: 120px;
-  border: 1px solid #ebebeb;
+  border: 1px solid #ebebeb !important;
   padding: 9px;
 `;
 
@@ -19,8 +19,8 @@ const ButtonContainer = styled.section`
 `
 
 const Button = styled.button`
-  padding: 7px;
-  width: 22%;
+  padding: 7px 4px;
+  width: 140px;
   margin: 6px auto;
   background: black;
   font-family: ${CSSContant.raleway}  

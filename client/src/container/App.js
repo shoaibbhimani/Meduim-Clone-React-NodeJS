@@ -4,7 +4,7 @@ import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 import "../App.css";
 import Header from "./Header";
-import Posts from "./Post/index";
+import Posts from "./Posts/index";
 import CreatePost from "./CreatePost";
 import AllPost from "./AllPost/index";
 
@@ -50,7 +50,7 @@ class App extends Component {
           toggleAuthentication={this.toggleAuthentication}
         />
         <Route exact path="/" render={() => <Redirect to="/allblog" />} />
-        <Route path="/allblog" component={AllPost} />
+        <Route path="/allblog" component={Posts} />
 
         {!isAuthenticating && (
           <Switch>
