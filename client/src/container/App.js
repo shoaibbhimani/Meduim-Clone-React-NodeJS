@@ -31,8 +31,9 @@ class App extends Component {
     const getData = UtilityMethod.getLocalStorage();
     if (getData) {
       this.props.setUserData(getData);
-      this.toggleAuthentication(false);
     }
+    
+    this.toggleAuthentication(false);
   }
 
   toggleAuthentication = value => {

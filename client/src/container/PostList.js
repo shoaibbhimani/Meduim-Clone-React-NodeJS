@@ -23,7 +23,6 @@ class PostList extends React.Component {
   state = { currentPostSection: "" };
 
   componentDidMount() {
-
     this.getPosts(this.props);
   }
 
