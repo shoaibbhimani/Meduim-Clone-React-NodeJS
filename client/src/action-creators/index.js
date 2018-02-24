@@ -1,23 +1,27 @@
-import { INCREMENT_LIKES_POST, INCREMENT_LIKES_ALLPOST, ADD_COMMENTS,  } from "../actions-types";
+import {
+  INCREMENT_LIKES_POST,
+  INCREMENT_LIKES_ALLPOST,
+  ADD_COMMENTS
+} from "../actions-types";
 
 import * as APIClient from "../apiclient";
 import * as TYPES from "../actions-types";
 
 export const incrementLikesPost = ({ index, postId }) => {
-  APIClient.inclikes({ postId })
-    
+  APIClient.inclikes({ postId });
+
   return {
     type: INCREMENT_LIKES_POST,
     index
   };
 };
 
-export const incrementLikesAllPost = ({ index, postId  }) => {
-  APIClient.inclikes({ postId })
- return {
-   type: INCREMENT_LIKES_ALLPOST,
-   index
- }
+export const incrementLikesAllPost = ({ index, postId }) => {
+  APIClient.inclikes({ postId });
+  return {
+    type: INCREMENT_LIKES_ALLPOST,
+    index
+  };
 };
 
 //Auth
@@ -89,20 +93,18 @@ export const editPost = ({ data, index, postId }, callback) => {
   };
 };
 
-
 //Comments
 export const getComments = ({ blogId }) => {
   return dispatch => {
     APIClient.getCommentOfPost({
       blogId
     }).then(({ data }) => {
-        
-        dispatch({
-          type: TYPES.LOAD_COMMENTS,
-          payload: data 
-        })
-    })
-  }
+      dispatch({
+        type: TYPES.LOAD_COMMENTS,
+        payload: data
+      });
+    });
+  };
 };
 
 export const createComment = ({ text, user, blogId }) => {
@@ -111,41 +113,41 @@ export const createComment = ({ text, user, blogId }) => {
     APIClient.postComment({
       blogId,
       text
-    }).then(() => {
-      dispatch({
-        type: TYPES.ADD_COMMENT,
-        payload: {
-          blog: blogId,
-          commentText: text,
-          user
-        }
+    })
+      .then(() => {
+        dispatch({
+          type: TYPES.ADD_COMMENT,
+          payload: {
+            blog: blogId,
+            commentText: text,
+            user
+          }
+        });
       })
-    }).catch(() => {
-      console.log("errrr")
-    });
-  }
+      .catch(() => {
+        console.log("errrr");
+      });
+  };
 };
 
 export const editCreateComment = ({ text, commentId, blogId }) => {
- 
   APIClient.editComment({
     text,
     commentId,
     blogId
-  })
+  });
 
   return {
     type: TYPES.EDITCOMMENT,
     payload: {
       text,
       commentId
-  }
+    }
+  };
 };
-
-}
 
 export const removeAllComments = () => {
   return {
     type: TYPES.DELETE_ALL_COMMENTS
-  }
-}
+  };
+};

@@ -9,11 +9,11 @@ import likesIcon from "../svg-icons/like.svg";
 //Components
 import PostHeader from "../components/PostHeader";
 import Comment from "./Comment.js";
-import AddComment from "../components/AddComment"
+import AddComment from "../components/AddComment";
 
 import * as actions from "../action-creators";
 import * as APIClient from "../apiclient";
-import * as UtilityMethod from "../UtilityMethod"
+import * as UtilityMethod from "../UtilityMethod";
 
 const PostsDetailsWrapper = styled.section`
   width: 60%;
@@ -33,7 +33,9 @@ const PostContent = styled.section`
   text-align: left;
 `;
 
-const PostImage = styled.img`max-width: 100%;`;
+const PostImage = styled.img`
+  max-width: 100%;
+`;
 
 const SocialMediaIcons = styled.section`
   position: absolute;
@@ -49,7 +51,7 @@ const mapStateToProps = (state, ownProps) => {
     user: state.user.user,
     isAuthenticated: state.user.isAuthenticated,
     allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1,
-    comments: state.comments,
+    comments: state.comments
   };
 };
 
@@ -77,27 +79,31 @@ class PostsDetails extends React.Component {
     this.props.getComments({ blogId: post._id });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.removeAllComments();
   }
 
   addComments = ({ text, index }) => {
     const { createComment, user } = this.props;
     const { post, comments } = this.state;
-    
+
     createComment({
       text,
       user,
       blogId: post._id
-    }); 
+    });
   };
 
   IconHandler = () => {
-    const { incrementLikesAllPost, incrementLikesPost, allPostSection } = this.props;
+    const {
+      incrementLikesAllPost,
+      incrementLikesPost,
+      allPostSection
+    } = this.props;
     const { postIndex, post } = this.state;
 
-    if (allPostSection){
-      incrementLikesAllPost({ index: postIndex, postId: post._id  })
+    if (allPostSection) {
+      incrementLikesAllPost({ index: postIndex, postId: post._id });
     } else {
       incrementLikesPost({ index: postIndex, postId: post._id });
     }
@@ -142,7 +148,14 @@ class PostsDetails extends React.Component {
   };
 
   render() {
-    const { match, posts, incrementLikes, allPosts, allPostSection, isAuthenticated } = this.props;
+    const {
+      match,
+      posts,
+      incrementLikes,
+      allPosts,
+      allPostSection,
+      isAuthenticated
+    } = this.props;
     const { postIndex } = this.state;
     const post = allPostSection ? allPosts[postIndex] : posts[postIndex];
 

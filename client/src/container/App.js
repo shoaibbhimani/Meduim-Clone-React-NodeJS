@@ -32,7 +32,7 @@ class App extends Component {
     if (getData) {
       this.props.setUserData(getData);
     }
-    
+
     this.toggleAuthentication(false);
   }
 

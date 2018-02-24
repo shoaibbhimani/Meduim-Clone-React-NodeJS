@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom";
 
 import PostItem from "../components/PostItem";
 import * as actions from "../action-creators";
@@ -41,10 +41,10 @@ class PostList extends React.Component {
     this.setState({ currentPostSection });
   };
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     //whether we are on same routes
-    if(nextProps.location.pathname !==  this.props.location.pathname){
-       this.getPosts(nextProps); 
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      this.getPosts(nextProps);
     }
   }
 
@@ -52,9 +52,9 @@ class PostList extends React.Component {
     const { incrementLikesAllPost, posts } = this.props;
     const { currentPostSection } = this.state;
     let isAllPostSection = currentPostSection === "allPosts";
-    
-    return <section className="row">
-        dasdasds
+
+    return (
+      <section className="row">
         <section className="col-md-7">
           <PostWrapper>
             <ul>
@@ -71,7 +71,8 @@ class PostList extends React.Component {
           </PostWrapper>
         </section>
         <section className="col-md-5">About this website and post</section>
-      </section>;
+      </section>
+    );
   }
 }
 

@@ -11,7 +11,9 @@ import * as actions from "../action-creators";
 
 const CreatePostContainer = styled.section``;
 
-const ButtonContainer = styled.section`text-align: center;`;
+const ButtonContainer = styled.section`
+  text-align: center;
+`;
 
 const initialState = {
   reactMdeValue: { text: "", selection: null },

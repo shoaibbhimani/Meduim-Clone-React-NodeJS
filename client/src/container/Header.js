@@ -30,11 +30,7 @@ const mapStateToProps = state => ({
 
 class Header extends React.Component {
   onSuccess = googleUser => {
-    const {
-      getUserData,
-      history,
-      toggleAuthentication,
-    } = this.props;
+    const { getUserData, history, toggleAuthentication } = this.props;
     getUserData(
       {
         googleId: googleUser.getId(),
@@ -72,7 +68,9 @@ class Header extends React.Component {
             {!isAuthenticated ? (
               <GoogleContainer key={0}>
                 <GoogleLogin
-                  socialId={"83911294138-5vtlktil0du2ihh2lipki6jmtmefbc2l.apps.googleusercontent.com"}
+                  socialId={
+                    "83911294138-5vtlktil0du2ihh2lipki6jmtmefbc2l.apps.googleusercontent.com"
+                  }
                   scope="profile"
                   fetchBasicProfile={true}
                   responseHandler={this.onSuccess}

@@ -11,7 +11,9 @@ import * as actions from "../action-creators";
 
 const CreatePostContainer = styled.section``;
 
-const ButtonContainer = styled.section`text-align: center;`;
+const ButtonContainer = styled.section`
+  text-align: center;
+`;
 
 const mapStateToProps = state => {
   return {
@@ -35,7 +37,7 @@ class CreatePost extends React.Component {
   }
 
   componentDidMount() {
-    const {  posts, match } = this.props;
+    const { posts, match } = this.props;
     const index = match.params.postId.split("-").pop();
     const post = posts[index];
     this.setState({
