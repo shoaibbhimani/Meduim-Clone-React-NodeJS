@@ -16,7 +16,6 @@ import * as UtilityMethod from "../UtilityMethod";
 const mapStateToProps = state => ({
   isAuthenticated: state.user.isAuthenticated,
   isAuthenticating: state.user.isAuthenticating,
-  isAllPostLoading: state.allPosts.isLoading
 });
 
 class App extends Component {
@@ -51,7 +50,6 @@ class App extends Component {
         {!isAuthenticating && <Switch>
             <Route exact path="/" render={() => <Redirect to="/allblog" />} />
             <Route path="/:posts(allblog|myblogs)" component={PostList} />
-            <Route exact path="/myblogs/editBlog/:postId" component={EditBlog} />
             <PrivateRoute exact path="/create_post" {...this.props} isAuthenticated={isAuthenticated} component={CreatePost} />
           </Switch>}
       </div>;

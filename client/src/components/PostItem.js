@@ -114,7 +114,7 @@ class PostItem extends Component {
         </PostContent>
 
         {!isAllPostSection && (
-          <Link to={`myBlogs/editBlog/${linkPostTitle}`}>Edit</Link>
+          <Link to={`myblogs/editblog/${linkPostTitle}`}>Edit</Link>
         )}
         {this.renderAuthorContent()}
         {this.renderLikes()}

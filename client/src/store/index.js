@@ -7,7 +7,6 @@ import reduxThunk from "redux-thunk";
 import todos from "./todos_reducer.js";
 import posts from "./posts_reducer.js";
 import user from "./user_reducer.js";
-import allPosts from "./all_post_reducers";
 import comments from "./comments_reducers";
 
 //you apply any middleware here
@@ -22,7 +21,6 @@ const store = combineReducers({
   todos,
   posts,
   user,
-  allPosts,
   comments
 });
 

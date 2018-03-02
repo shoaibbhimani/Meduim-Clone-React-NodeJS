@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import { withRouter, Switch, Route } from "react-router-dom";
 
 import PostItem from "../../components/PostItem";
-import * as actions from "../../action-creators"
+import * as actions from "../../action-creators";
 import * as CSSConstant from "../../CSSConstant";
 import PostList from "./PostList";
 import PostDetails from "../PostDetails";
+import EditBlog from "../EditBlog";
 
 const PostWrapper = styled.section`
   padding: 12px;
@@ -17,9 +18,9 @@ const PostWrapper = styled.section`
 const mapStateToProps = (state, ownProps) => {
   return {
     isLoading: state.posts.isLoading,
-    allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1,
-  }
-}
+    allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1
+  };
+};
 
 class Posts extends React.Component {
   componentDidMount() {
@@ -31,21 +32,23 @@ class Posts extends React.Component {
       getPost();
     }
   }
-  
+
   render() {
     const { match, isLoading } = this.props;
-    
-    if(isLoading){
-      return <div>Loading......</div>
+
+    if (isLoading) {
+      return <div>Loading......</div>;
     }
 
     return (
       <section className="row">
         <Switch>
           <Route exact path={`${match.url}`} component={PostList} />
+          <Route exact path={`${match.url}/:postId`} component={PostDetails} />
           <Route
-            path={`${match.url}/:postId`}
-            component={PostDetails}
+            exact
+            path={`${match.url}/editblog/:postId`}
+            component={EditBlog}
           />
         </Switch>
       </section>
