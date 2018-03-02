@@ -10,9 +10,9 @@ import PostList from "./PostList";
 import PostDetails from "../PostDetails";
 import EditBlog from "../EditBlog";
 
-const PostWrapper = styled.section`
-  padding: 12px;
+const PostListWrapper = styled.section`
   font-family: ${CSSConstant.raleway};
+  background: #fafafa;
 `;
 
 const mapStateToProps = (state, ownProps) => {
@@ -41,7 +41,7 @@ class Posts extends React.Component {
     }
 
     return (
-      <section className="row">
+      <PostListWrapper>
         <Switch>
           <Route exact path={`${match.url}`} component={PostList} />
           <Route exact path={`${match.url}/:postId`} component={PostDetails} />
@@ -51,7 +51,7 @@ class Posts extends React.Component {
             component={EditBlog}
           />
         </Switch>
-      </section>
+      </PostListWrapper>
     );
   }
 }

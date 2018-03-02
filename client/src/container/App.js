@@ -15,7 +15,7 @@ import * as UtilityMethod from "../UtilityMethod";
 
 const mapStateToProps = state => ({
   isAuthenticated: state.user.isAuthenticated,
-  isAuthenticating: state.user.isAuthenticating,
+  isAuthenticating: state.user.isAuthenticating
 });
 
 class App extends Component {
@@ -44,15 +44,28 @@ class App extends Component {
   render() {
     const { isAuthenticated, setUserData } = this.props;
     const { isAuthenticating } = this.state;
-    return <div>
-        <Header setUserData={setUserData} toggleAuthentication={this.toggleAuthentication} />
+    return (
+      <div>
+        <Header
+          setUserData={setUserData}
+          toggleAuthentication={this.toggleAuthentication}
+        />
 
-        {!isAuthenticating && <Switch>
+        {!isAuthenticating && (
+          <Switch>
             <Route exact path="/" render={() => <Redirect to="/allblog" />} />
             <Route path="/:posts(allblog|myblogs)" component={PostList} />
-            <PrivateRoute exact path="/create_post" {...this.props} isAuthenticated={isAuthenticated} component={CreatePost} />
-          </Switch>}
-      </div>;
+            <PrivateRoute
+              exact
+              path="/create_post"
+              {...this.props}
+              isAuthenticated={isAuthenticated}
+              component={CreatePost}
+            />
+          </Switch>
+        )}
+      </div>
+    );
   }
 }
 

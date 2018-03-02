@@ -16,16 +16,39 @@ import * as UtilityMethod from "../UtilityMethod";
 const PostItemWrapper = styled.li`
   border: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 6px;
-  padding: 5px;
+  padding: 9px;
   border-radius: 3px;
+  background: white;
 
   & .mde-preview .mde-preview-content {
     border: none;
   }
+
+  & .mde-help {
+    display: none;
+  }
 `;
 
-const PostTitle = styled.section`
+const PostHeader = styled.section``;
+const User = styled.span`
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  & > img {
+    max-width: 100%;
+    border-radius: 50%;
+  }
+`;
+
+const UserInfo = styled.span`
+  color: ${props => props.theme.greenColor};
+  margin-left: 9px;
+`;
+
+
+const PostTitle = styled.h3`
   font-size: 19px;
+  font-family: ${props => props.theme.textColor};
   text-align: left;
 `;
 
@@ -38,9 +61,14 @@ const PostImageWrapper = styled.section``;
 const PostImage = styled.img`
   float: left;
 `;
+
 const PostLink = styled.section`
   text-align: left;
+  & a {
+    color: rgba(0,0,0,0.3);
+  }
 `;
+
 const LikeIcon = styled.span`
   cursor: pointer;
   & img {
@@ -102,12 +130,15 @@ class PostItem extends Component {
 
     return (
       <PostItemWrapper className="clearfix">
-        {post.thumbnail && (
-          <PostImageWrapper className="clearfix">
-            <PostImage className="img-responsive" src={post.thumbnail} />
-          </PostImageWrapper>
-        )}
-
+        <PostHeader>
+          <User>
+            <img src={post.user_id.avatar} />
+          </User>
+          <UserInfo>
+             {post.user_id.firstName}
+          </UserInfo>
+        </PostHeader>
+       
         <PostTitle>{post.title}</PostTitle>
         <PostContent>
           <ReactMdePreview markdown={post.body} />

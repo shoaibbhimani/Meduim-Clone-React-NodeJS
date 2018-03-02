@@ -18,9 +18,11 @@ const NavBar = styled.nav`
 
 const GoogleContainer = styled.li`
   & button {
-    background: white;
-    border: 1px solid #ccc;
-    color: #ddd;
+    padding: 9px;
+    background: #3C7AFC;
+    border: none;
+    border-radius: 3px;
+    color: white;
   }
 `;
 

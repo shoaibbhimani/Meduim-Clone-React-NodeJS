@@ -15,6 +15,10 @@ import * as actions from "../action-creators";
 import * as APIClient from "../apiclient";
 import * as UtilityMethod from "../UtilityMethod";
 
+const PostsInfo = styled.section`
+  background: white;
+`;
+
 const PostsDetailsWrapper = styled.section`
   width: 60%;
   margin: 0 auto;
@@ -154,7 +158,7 @@ class PostsDetails extends React.Component {
       allPostSection,
       isAuthenticated
     } = this.props;
-    
+
     const { postIndex } = this.state;
     const post = posts[postIndex];
 
@@ -163,19 +167,21 @@ class PostsDetails extends React.Component {
     }
 
     return (
-      <PostsDetailsWrapper>
-        <SocialMediaIcons>
-          <section>
-            <img onClick={this.IconHandler} src={likesIcon} />
-          </section>
-          <section style={{ textAlign: "center" }}>{post.likes}</section>
-        </SocialMediaIcons>
-        {this.renderPostHeader()}
+      <PostsInfo>
+        <PostsDetailsWrapper>
+          <SocialMediaIcons>
+            <section>
+              <img onClick={this.IconHandler} src={likesIcon} />
+            </section>
+            <section style={{ textAlign: "center" }}>{post.likes}</section>
+          </SocialMediaIcons>
+          {this.renderPostHeader()}
 
-        {this.renderTitleContentThumbnail()}
-        {isAuthenticated && <AddComment addComments={this.addComments} />}
-        {this.renderComments()}
-      </PostsDetailsWrapper>
+          {this.renderTitleContentThumbnail()}
+          {isAuthenticated && <AddComment addComments={this.addComments} />}
+          {this.renderComments()}
+        </PostsDetailsWrapper>
+      </PostsInfo>
     );
   }
 }
