@@ -47,7 +47,6 @@ const SocialMediaIcons = styled.section`
 const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts.posts,
-    allPosts: state.allPosts.allPosts,
     user: state.user.user,
     isAuthenticated: state.user.isAuthenticated,
     allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1,
@@ -67,9 +66,9 @@ class PostsDetails extends React.Component {
   }
 
   componentDidMount() {
-    const { match, posts, allPosts, allPostSection } = this.props;
+    const { match, posts, allPostSection } = this.props;
     const postIndex = parseInt(match.params.postId.split("-").pop(), 10);
-    const post = allPostSection ? allPosts[postIndex] : posts[postIndex];
+    const post = posts[postIndex];
 
     this.setState({
       postIndex,
@@ -152,12 +151,12 @@ class PostsDetails extends React.Component {
       match,
       posts,
       incrementLikes,
-      allPosts,
       allPostSection,
       isAuthenticated
     } = this.props;
+    
     const { postIndex } = this.state;
-    const post = allPostSection ? allPosts[postIndex] : posts[postIndex];
+    const post = posts[postIndex];
 
     if (!post && postIndex === -1) {
       return null;

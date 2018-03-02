@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import PostItem from "../components/PostItem";
-import * as actions from "../action-creators";
-import * as CSSConstant from "../CSSConstant";
-import * as UtilityMethod from "../UtilityMethod";
+import PostItem from "../../components/PostItem";
+import * as actions from "../../action-creators";
+import * as CSSConstant from "../../CSSConstant";
+import * as UtilityMethod from "../../UtilityMethod";
 
 const PostWrapper = styled.section`
   padding: 12px;
@@ -15,15 +15,20 @@ const PostWrapper = styled.section`
 
 const mapStateToProps = (state, ownProps) => {
   const isAllPostSection = UtilityMethod.isAllPostSection(ownProps);
-  let posts = isAllPostSection ? state.allPosts.allPosts : state.posts.posts;
-  return { posts, isAllPostSection };
+  return { posts: state.posts.posts, isAllPostSection };
 };
 
 class PostList extends React.Component {
   state = { currentPostSection: "" };
 
+  componentDidMount() {
+    this.getPosts(this.props);
+  }
+
   getPosts = ({ isAllPostSection, getAllPost, getPost }) => {
+    // const { isAllPostSection, getAllPost, getPost } = this.props;
     let currentPostSection = null;
+
     if (isAllPostSection) {
       getAllPost();
       currentPostSection = "allPosts";
@@ -47,7 +52,6 @@ class PostList extends React.Component {
     const { currentPostSection } = this.state;
     let isAllPostSection = currentPostSection === "allPosts";
 
-    return <h2>dsad</h2>
     return (
       <section className="row">
         <section className="col-md-7">

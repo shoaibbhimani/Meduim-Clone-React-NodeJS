@@ -47,7 +47,7 @@ export const getPost = () => {
   return dispatch => {
     APIClient.getPost()
       .then(({ data }) => {
-        dispatch({ type: TYPES.POSTS, payload: data });
+        dispatch({ type: TYPES.POSTS, payload: data.posts });
       })
       .catch(error => {
         dispatch({ type: "ERROR", payload: error });
@@ -59,7 +59,7 @@ export const getAllPost = () => {
   return dispatch => {
     APIClient.getAllPost()
       .then(({ data }) => {
-        dispatch({ type: TYPES.ALL_POST, payload: data.posts });
+        dispatch({ type: TYPES.POSTS, payload: data.posts });
       })
       .catch(error => {
         dispatch({ type: "ERROR", payload: error });

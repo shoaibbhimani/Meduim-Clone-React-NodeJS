@@ -8,7 +8,7 @@ const initialState = {
 const postsReducers = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.POSTS:
-      return { isLoading: false, posts: [...action.payload.posts] };
+      return { isLoading: false, posts: [...action.payload] };
     case TYPES.EDITPOST:
       return {
         isLoading: false,

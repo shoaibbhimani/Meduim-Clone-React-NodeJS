@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const auth = require("../middlewares/auth");
 
 const Blog = mongoose.model("Blog");
+const User = mongoose.model("User");
+
 
 router.get("/myblog", auth.isAuthenticated, async (req, res) => {
   const posts = await Blog.find({
@@ -34,23 +36,33 @@ router.get("/allblog", async (req, res) => {
   }
 });
 
-router.put("/inclikes/:blogId", async (req, res) => {
+router.put("/inclikes/:blogId", auth.isAuthenticated, async (req, res) => {
   const { blogId } = req.params;
 
-   const blogs = await Blog.findById({
-     _id: blogId
-   });
+  //Get user
+  const user = await User.findOneAndUpdate(
+    {
+      _id: req.user_id
+    },
+    {
+      $push: { likes: blogId }
+    },
+    { new: true }
+  );
 
-   await Blog.findByIdAndUpdate({
-     _id: blogId
-   }, {
-       likes: ++blogs.likes
-   });
+  const result = await Blog.findByIdAndUpdate(
+    {
+      _id: blogId
+    },
+    {
+      $push: { likes: req.user_id }
+    },
+    {
+      new: true
+    }
+  );
 
-   const result = await Blog.findById({ _id: blogId });
-
-  res.send(result)
-
+  res.send(result);
 });
 
 router.post("/", auth.isAuthenticated, async (req, res) => {
