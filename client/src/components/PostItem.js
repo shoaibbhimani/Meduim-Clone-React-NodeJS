@@ -23,7 +23,7 @@ const PostItemWrapper = styled.li`
   & .mde-preview .mde-preview-content {
     border: none;
   }
-
+  /* TO Hide Markdown text */
   & .mde-help {
     display: none;
   }
@@ -77,6 +77,14 @@ const LikeIcon = styled.span`
   }
 `;
 
+const LikeWrapper = styled.section`
+ float: left;
+`;
+
+const CommentCount = styled.section`
+  float: right;
+`;
+
 class PostItem extends Component {
   constructor() {
     super();
@@ -103,22 +111,28 @@ class PostItem extends Component {
             <p>Read more</p>
           </Link>
         )}
-
-        <p>{post.user_id.email}</p>
       </PostLink>
     );
   }
 
   renderLikes() {
-    const { post } = this.props;
+    const { post, isAuthenticated } = this.props;
+
+    if(!isAuthenticated){
+      return null;
+    }
+    
     return (
       <section className="clearfix">
-        <section onClick={this.likeIconHandler}>
+        <LikeWrapper onClick={this.likeIconHandler}>
           <LikeIcon>
             <img src={likesIcon} />
           </LikeIcon>
           <span style={{ marginLeft: "2.5px" }}>{post.likes}</span>
-        </section>
+        </LikeWrapper>
+        <CommentCount>
+          {post.comments.length}
+        </CommentCount>
       </section>
     );
   }
@@ -157,7 +171,8 @@ class PostItem extends Component {
 PostItem.propTypes = {
   incrementLikes: t.func.isRequired,
   post: t.object.isRequired,
-  isAllPostSection: t.bool.isRequired
+  isAllPostSection: t.bool.isRequired,
+  isAuthenticated: t.bool.isRequired,
 };
 
 PostItem.defaultProps = {

@@ -15,7 +15,11 @@ const PostWrapper = styled.section`
 
 const mapStateToProps = (state, ownProps) => {
   const isAllPostSection = UtilityMethod.isAllPostSection(ownProps);
-  return { posts: state.posts.posts, isAllPostSection };
+  return { 
+    posts: state.posts.posts,
+    isAllPostSection,
+    isAuthenticated: state.user.isAuthenticated
+  };
 };
 
 class PostList extends React.Component {
@@ -48,7 +52,7 @@ class PostList extends React.Component {
   }
 
   render() {
-    const { incrementLikesAllPost, posts, match } = this.props;
+    const { incrementLikesAllPost, posts, match, isAuthenticated } = this.props;
     const { currentPostSection } = this.state;
     let isAllPostSection = currentPostSection === "allPosts";
 
@@ -61,6 +65,7 @@ class PostList extends React.Component {
                 <PostItem
                   incrementLikes={incrementLikesAllPost}
                   isAllPostSection={isAllPostSection}
+                  isAuthenticated={isAuthenticated}
                   key={index}
                   index={index}
                   post={post}

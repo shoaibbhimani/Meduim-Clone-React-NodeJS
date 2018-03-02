@@ -21,7 +21,14 @@ router.post("/:blogId/comment", auth.isAuthenticated, async (req, res) => {
     user: req.user_id,
     commentText: req.body.text,
     blog: req.params.blogId
-  }).save()
+  }).save();
+
+  const posts = await Blog.findOne({
+    _id: req.params.blogId
+  });
+
+  posts.comments.push(comment);
+  posts.save();
   res.send(comment);
 });
 
