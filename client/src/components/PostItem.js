@@ -94,7 +94,7 @@ class PostItem extends Component {
 
   likeIconHandler() {
     const { incrementLikes, index, userInfo, post } = this.props;
-    incrementLikes({ index, postId: post._id, userId: userInfo.user._id });
+    incrementLikes({ postIndex:index, postId: post._id, userId: userInfo.user._id });
   }
 
   renderAuthorContent() {

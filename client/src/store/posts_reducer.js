@@ -22,79 +22,51 @@ const postsReducers = (state = initialState, action) => {
         })
       };
     case TYPES.INCREMENT_LIKES_POST:    
+/*
+index,
+    userId,
+    postId
+*/ 
+
+  
+
+    const addOrRemoveLikes = () => {
+      const post = state.posts[action.postIndex];
+      
+      //Check whether user exist in post likes array
+      const userIdIndex = post.likes.findIndex((like) => {
+        return like.toString() === action.userId.toString();
+      });
+
+      //If User id exist then remove it
+      if(userIdIndex !== -1){
+        return {
+          ...post,
+          likes: [
+            ...post.likes.slice(0, userIdIndex),
+            ...post.likes.slice(userIdIndex+1),
+          ]
+        }
+      } else {
+        //If user do not exist then add It
+        return {
+          ...post,
+          likes: post.likes.concat(action.userId)
+        }
+      }
+    }
+
     return {
       ...state,
-      posts: state.posts.map((post, index) => {
-        if(action.index === index){
-          
-          const userIdIndex = post.likes.findIndex((like) => {
-              return like.toString() === action.userId.toString();
-          });
-
-          console.log(userIdIndex)
-
-          if(userIdIndex !== -1){
-            return {
-              ...post,
-              likes: [
-                ...post.likes.slice(0, userIdIndex),
-                ...post.likes.slice(userIdIndex+1),
-              ]
-            }
-          } else {
-            return {
-              ...post,
-              likes: post.likes.concat(action.userId)
-            }
-          }
-       
-        }
-
-        return post;
-        
-      })
-    }  
+      posts: [
+        ...state.posts.slice(0, action.postIndex),
+        addOrRemoveLikes(),
+        ...state.posts.slice(action.postIndex+1)
+      ]
+    }
     default:
       return state
   }
 };
 
-/*
-const postsReducers = (state = initialState, action) => {
-  switch (action.type) {
-    case POSTS:
-      return state;
-    case INCREMENT_LIKES:
-      const newItem = {
-        ...state[action.index],
-        likes: state[action.index].likes + 1
-      };
-
-      return state.map((post, index) => {
-        if (index === action.index) {
-          return {
-            ...post,
-            likes: post.likes + 1
-          };
-        }
-
-        return post;
-      });
-    case ADD_COMMENTS:
-      return state.map((post, index) => {
-        if (index === action.payload.index) {
-          const { index, ...comment } = action.payload;
-          return {
-            ...post,
-            comments: [...post.comments, comment]
-          };
-        }
-
-        return post;
-      });
-    default:
-      return state;
-  }
-};
-*/
 export default postsReducers;
