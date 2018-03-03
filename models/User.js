@@ -17,7 +17,7 @@ const UserSchema = new Schema({
   firstName: String,
   lastName: String,
   avatar: String,
-  likes: [{ type: Schema.ObjectId, ref: "Blog" }]
+  blogliked: [{ type: Schema.ObjectId, ref: "Blog" }]
 });
 
 UserSchema.methods.favorite = function(id){

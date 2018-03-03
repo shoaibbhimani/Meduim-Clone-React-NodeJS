@@ -7,20 +7,14 @@ import {
 import * as APIClient from "../apiclient";
 import * as TYPES from "../actions-types";
 
-export const incrementLikesPost = ({ index, postId }) => {
+export const incrementLikesPost = ({ index, postId, userId }) => {
   APIClient.inclikes({ postId });
 
   return {
     type: INCREMENT_LIKES_POST,
-    index
-  };
-};
-
-export const incrementLikesAllPost = ({ index, postId }) => {
-  APIClient.inclikes({ postId });
-  return {
-    type: INCREMENT_LIKES_ALLPOST,
-    index
+    index,
+    userId,
+    postId
   };
 };
 

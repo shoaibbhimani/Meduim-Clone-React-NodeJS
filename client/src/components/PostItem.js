@@ -10,6 +10,7 @@ import * as CSSConstant from "../CSSConstant";
 
 //Icons
 import likesIcon from "../svg-icons/like.svg";
+import likesIcon1 from "../svg-icons/like2.svg";
 import * as UtilityMethod from "../UtilityMethod";
 
 //Styles
@@ -45,7 +46,6 @@ const UserInfo = styled.span`
   margin-left: 9px;
 `;
 
-
 const PostTitle = styled.h3`
   font-size: 19px;
   font-family: ${props => props.theme.textColor};
@@ -65,20 +65,19 @@ const PostImage = styled.img`
 const PostLink = styled.section`
   text-align: left;
   & a {
-    color: rgba(0,0,0,0.3);
+    color: rgba(0, 0, 0, 0.3);
   }
 `;
 
-const LikeIcon = styled.span`
+const HearIcon = styled.span`
   cursor: pointer;
-  & img {
-    width: 20px;
-    height: 20px;
+  & i {
+    color: ${props => props.isLiked ? " #00ab6b": "black"};
   }
 `;
 
 const LikeWrapper = styled.section`
- float: left;
+  float: left;
 `;
 
 const CommentCount = styled.section`
@@ -94,8 +93,8 @@ class PostItem extends Component {
   }
 
   likeIconHandler() {
-    const { incrementLikes, index, post } = this.props;
-    incrementLikes({ index, postId: post._id });
+    const { incrementLikes, index, userInfo, post } = this.props;
+    incrementLikes({ index, postId: post._id, userId: userInfo.user._id });
   }
 
   renderAuthorContent() {
@@ -116,23 +115,22 @@ class PostItem extends Component {
   }
 
   renderLikes() {
-    const { post, isAuthenticated } = this.props;
+    const { post, userInfo } = this.props;
 
-    if(!isAuthenticated){
+    if (!userInfo.isAuthenticated) {
       return null;
     }
-    
+
     return (
       <section className="clearfix">
         <LikeWrapper onClick={this.likeIconHandler}>
-          <LikeIcon>
-            <img src={likesIcon} />
-          </LikeIcon>
-          <span style={{ marginLeft: "2.5px" }}>{post.likes}</span>
+          <HearIcon isLiked={userInfo.user.blogliked.includes(post._id)}>
+              <i className="fa fa-heart-o" />
+          </HearIcon>
+          <span style={{ marginLeft: "2.5px" }}>
+          </span>
         </LikeWrapper>
-        <CommentCount>
-          {post.comments.length}
-        </CommentCount>
+        <CommentCount>{post.comments.length}</CommentCount>
       </section>
     );
   }
@@ -148,11 +146,9 @@ class PostItem extends Component {
           <User>
             <img src={post.user_id.avatar} />
           </User>
-          <UserInfo>
-             {post.user_id.firstName}
-          </UserInfo>
+          <UserInfo>{post.user_id.firstName}</UserInfo>
         </PostHeader>
-       
+
         <PostTitle>{post.title}</PostTitle>
         <PostContent>
           <ReactMdePreview markdown={post.body} />
@@ -171,8 +167,8 @@ class PostItem extends Component {
 PostItem.propTypes = {
   incrementLikes: t.func.isRequired,
   post: t.object.isRequired,
-  isAllPostSection: t.bool.isRequired,
-  isAuthenticated: t.bool.isRequired,
+  userInfo: t.object.isRequired,
+  isAllPostSection: t.bool.isRequired
 };
 
 PostItem.defaultProps = {

@@ -30,6 +30,23 @@ const userReducer = (state = initialState, action) => {
         isAuthenticated: true,
         isAuthenticating: false
       };
+    case TYPES.INCREMENT_LIKES_POST:
+     const userBlogIndex = state.user.blogliked.findIndex((postId) => {
+       return postId.toString() === action.postId
+     });
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          blogliked: userBlogIndex !== -1
+            ? [
+              ...state.user.blogliked.slice(0, userBlogIndex),
+              ...state.user.blogliked.slice(userBlogIndex+1),
+            ]
+            : state.user.blogliked.concat(action.postId)
+        }
+      };
     case TYPES.FORGOT_USER:
       UtilityMethod.deleteLocalStorage();
       return {

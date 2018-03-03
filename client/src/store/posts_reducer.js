@@ -21,15 +21,33 @@ const postsReducers = (state = initialState, action) => {
           return post;
         })
       };
-    case TYPES.INCREMENT_LIKES_POST: 
+    case TYPES.INCREMENT_LIKES_POST:    
     return {
       ...state,
       posts: state.posts.map((post, index) => {
         if(action.index === index){
-          return {
-            ...post,
-            likes: ++post.likes
+          
+          const userIdIndex = post.likes.findIndex((like) => {
+              return like.toString() === action.userId.toString();
+          });
+
+          console.log(userIdIndex)
+
+          if(userIdIndex !== -1){
+            return {
+              ...post,
+              likes: [
+                ...post.likes.slice(0, userIdIndex),
+                ...post.likes.slice(userIdIndex+1),
+              ]
+            }
+          } else {
+            return {
+              ...post,
+              likes: post.likes.concat(action.userId)
+            }
           }
+       
         }
 
         return post;

@@ -27,12 +27,21 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const getData = UtilityMethod.getLocalStorage();
-    if (getData) {
-      this.props.setUserData(getData);
+    // If user data exist sent request to get updated user data
+    const userData = UtilityMethod.getLocalStorage();
+
+    if (userData) {
+      UtilityMethod.setGlobalAxiosHeader(userData.jwt);
+      this.props.getUserData({
+        googleId: userData.user.googleId
+      }, () => {
+        this.toggleAuthentication(false);
+      })
+    } else {
+      this.toggleAuthentication(false);
     }
 
-    this.toggleAuthentication(false);
+   
   }
 
   toggleAuthentication = value => {

@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   return { 
     posts: state.posts.posts,
     isAllPostSection,
-    isAuthenticated: state.user.isAuthenticated
+    userInfo: state.user
   };
 };
 
@@ -52,7 +52,7 @@ class PostList extends React.Component {
   }
 
   render() {
-    const { incrementLikesAllPost, posts, match, isAuthenticated } = this.props;
+    const { incrementLikesPost, posts, match, userInfo } = this.props;
     const { currentPostSection } = this.state;
     let isAllPostSection = currentPostSection === "allPosts";
 
@@ -63,12 +63,12 @@ class PostList extends React.Component {
             <ul>
               {posts.map((post, index) => (
                 <PostItem
-                  incrementLikes={incrementLikesAllPost}
+                  incrementLikes={incrementLikesPost}
                   isAllPostSection={isAllPostSection}
-                  isAuthenticated={isAuthenticated}
                   key={index}
                   index={index}
                   post={post}
+                  userInfo={userInfo}
                 />
               ))}
             </ul>

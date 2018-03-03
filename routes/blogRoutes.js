@@ -39,30 +39,41 @@ router.get("/allblog", async (req, res) => {
 router.put("/inclikes/:blogId", auth.isAuthenticated, async (req, res) => {
   const { blogId } = req.params;
 
-  //Get user
-  const user = await User.findOneAndUpdate(
-    {
-      _id: req.user_id
-    },
-    {
-      $push: { likes: blogId }
-    },
-    { new: true }
-  );
-
-  const result = await Blog.findByIdAndUpdate(
-    {
-      _id: blogId
-    },
-    {
-      $push: { likes: req.user_id }
-    },
-    {
-      new: true
+  //Checking whether Blog Exists in Users
+  const results = await User.find({
+    blogliked: {
+      $in: [blogId]
     }
-  );
+  }); 
+  
+  if(results.length){
+    await Blog.findByIdAndUpdate(blogId, {
+      $pullAll: {
+        likes: [req.user_id]
+      }
+    });
 
-  res.send(result);
+    await User.findByIdAndUpdate(req.user_id, {
+      $pullAll: {
+        blogliked: [blogId]
+      }
+    });
+
+  } else {
+    await Blog.findByIdAndUpdate(blogId, {
+      $addToSet: {
+        likes: req.user_id
+      }
+    });
+  
+    const user = await User.findByIdAndUpdate(req.user_id, {
+      $addToSet: {
+        blogliked: blogId
+      }
+    });  
+  }
+
+  res.sendStatus(200);
 });
 
 router.post("/", auth.isAuthenticated, async (req, res) => {

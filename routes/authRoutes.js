@@ -22,11 +22,8 @@ router.post("/", async (req, res) => {
       email,
       avatar: `https://gravatar.com/avatar/${md5(email)}?s=200`
     });
-    try {
-      user = await userInstance.save();
-    } catch (err) {
-      console.log("Err", err);
-    }
+
+    user = await userInstance.save();
   }
 
   const token = await jwt.sign(
