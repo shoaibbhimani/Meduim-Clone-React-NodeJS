@@ -48,10 +48,17 @@ const SocialMediaIcons = styled.section`
   cursor: pointer;
 `;
 
+const HearIcon = styled.span`
+  cursor: pointer;
+  & i {
+    color: ${props => (props.isLiked ? " #00ab6b" : "black")};
+  }
+`;
+
 const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts.posts,
-    user: state.user.user,
+    userInfo: state.user.user,
     isAuthenticated: state.user.isAuthenticated,
     allPostSection: ownProps.location.pathname.indexOf("/myblogs") === -1,
     comments: state.comments
@@ -87,29 +94,25 @@ class PostsDetails extends React.Component {
   }
 
   addComments = ({ text, index }) => {
-    const { createComment, user } = this.props;
+    const { createComment, userInfo } = this.props;
     const { post, comments } = this.state;
 
     createComment({
       text,
-      user,
+      user: userInfo,
       blogId: post._id
     });
   };
 
   IconHandler = () => {
-    const {
-      incrementLikesAllPost,
-      incrementLikesPost,
-      allPostSection
-    } = this.props;
+    const { userInfo, incrementLikesPost } = this.props;
     const { postIndex, post } = this.state;
 
-    if (allPostSection) {
-      incrementLikesAllPost({ index: postIndex, postId: post._id });
-    } else {
-      incrementLikesPost({ index: postIndex, postId: post._id });
-    }
+    incrementLikesPost({
+      postIndex,
+      postId: post._id,
+      userId: userInfo._id
+    });
   };
 
   renderPostHeader = () => {
@@ -136,13 +139,13 @@ class PostsDetails extends React.Component {
   };
 
   renderComments = () => {
-    const { comments, editCreateComment, user } = this.props;
+    const { comments, editCreateComment, userInfo } = this.props;
     const { post } = this.state;
     return (
       <Comment
         comments={comments}
         post={post}
-        user_id={user._id}
+        user_id={userInfo._id}
         addComments={this.addComments}
         editCreateComment={editCreateComment}
         postIndex={this.state.postIndex}
@@ -156,7 +159,8 @@ class PostsDetails extends React.Component {
       posts,
       incrementLikes,
       allPostSection,
-      isAuthenticated
+      isAuthenticated,
+      userInfo
     } = this.props;
 
     const { postIndex } = this.state;
@@ -169,11 +173,10 @@ class PostsDetails extends React.Component {
     return (
       <PostsInfo>
         <PostsDetailsWrapper>
-          <SocialMediaIcons>
-            <section>
-              <img onClick={this.IconHandler} src={likesIcon} />
-            </section>
-            <section style={{ textAlign: "center" }}>{post.likes}</section>
+          <SocialMediaIcons onClick={this.IconHandler}>
+            <HearIcon isLiked={userInfo.blogliked.includes(post._id)}>
+              <i className="fa fa-heart-o" />
+            </HearIcon>
           </SocialMediaIcons>
           {this.renderPostHeader()}
 

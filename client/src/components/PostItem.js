@@ -72,7 +72,7 @@ const PostLink = styled.section`
 const HearIcon = styled.span`
   cursor: pointer;
   & i {
-    color: ${props => props.isLiked ? " #00ab6b": "black"};
+    color: ${props => (props.isLiked ? " #00ab6b" : "black")};
   }
 `;
 
@@ -94,7 +94,11 @@ class PostItem extends Component {
 
   likeIconHandler() {
     const { incrementLikes, index, userInfo, post } = this.props;
-    incrementLikes({ postIndex:index, postId: post._id, userId: userInfo.user._id });
+    incrementLikes({
+      postIndex: index,
+      postId: post._id,
+      userId: userInfo.user._id
+    });
   }
 
   renderAuthorContent() {
@@ -125,10 +129,9 @@ class PostItem extends Component {
       <section className="clearfix">
         <LikeWrapper onClick={this.likeIconHandler}>
           <HearIcon isLiked={userInfo.user.blogliked.includes(post._id)}>
-              <i className="fa fa-heart-o" />
+            <i className="fa fa-heart-o" />
           </HearIcon>
-          <span style={{ marginLeft: "2.5px" }}>
-          </span>
+          <span style={{ marginLeft: "2.5px" }} />
         </LikeWrapper>
         <CommentCount>{post.comments.length}</CommentCount>
       </section>

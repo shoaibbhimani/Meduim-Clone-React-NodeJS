@@ -26,6 +26,8 @@ router.post("/", async (req, res) => {
     user = await userInstance.save();
   }
 
+  console.log(user)
+
   const token = await jwt.sign(
     {
       user_id: user.id

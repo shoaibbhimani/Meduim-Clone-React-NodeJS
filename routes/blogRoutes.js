@@ -7,7 +7,6 @@ const auth = require("../middlewares/auth");
 const Blog = mongoose.model("Blog");
 const User = mongoose.model("User");
 
-
 router.get("/myblog", auth.isAuthenticated, async (req, res) => {
   const posts = await Blog.find({
     user_id: req.user_id
@@ -39,38 +38,46 @@ router.get("/allblog", async (req, res) => {
 router.put("/inclikes/:blogId", auth.isAuthenticated, async (req, res) => {
   const { blogId } = req.params;
 
-  //Checking whether Blog Exists in Users
-  const results = await User.find({
-    blogliked: {
-      $in: [blogId]
+  try {
+    //Checking whether Blog Exists in Users
+    const user = await User.findOne({
+      _id: req.user_id
+    });
+
+    //check there user has already liked this blog
+    const isExist = user.blogliked.findIndex((b) => {
+      // we need to use toString because it is object
+      return b.toString() === blogId.toString()
+    });
+
+    if (isExist !== -1) {
+      await Blog.findByIdAndUpdate(blogId, {
+        $pullAll: {
+          likes: [req.user_id]
+        }
+      });
+
+      await User.findByIdAndUpdate(req.user_id, {
+        $pullAll: {
+          blogliked: [blogId]
+        }
+      });
+    } else {
+      await Blog.findByIdAndUpdate(blogId, {
+        $addToSet: {
+          likes: req.user_id
+        }
+      });
+
+      const user = await User.findByIdAndUpdate(req.user_id, {
+        $addToSet: {
+          blogliked: blogId
+        }
+      });
     }
-  }); 
-  
-  if(results.length){
-    await Blog.findByIdAndUpdate(blogId, {
-      $pullAll: {
-        likes: [req.user_id]
-      }
-    });
-
-    await User.findByIdAndUpdate(req.user_id, {
-      $pullAll: {
-        blogliked: [blogId]
-      }
-    });
-
-  } else {
-    await Blog.findByIdAndUpdate(blogId, {
-      $addToSet: {
-        likes: req.user_id
-      }
-    });
-  
-    const user = await User.findByIdAndUpdate(req.user_id, {
-      $addToSet: {
-        blogliked: blogId
-      }
-    });  
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(304);
   }
 
   res.sendStatus(200);
