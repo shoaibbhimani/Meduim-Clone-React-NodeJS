@@ -40,7 +40,7 @@ router.put("/inclikes/:blogId", auth.isAuthenticated, async (req, res) => {
 
   try {
     //Checking whether Blog Exists in Users
-    const user = await User.findOne({
+    await User.findOne({
       _id: req.user_id
     });
 
@@ -51,32 +51,36 @@ router.put("/inclikes/:blogId", auth.isAuthenticated, async (req, res) => {
     });
 
     if (isExist !== -1) {
+      //Remove From Blog likes array
       await Blog.findByIdAndUpdate(blogId, {
         $pullAll: {
           likes: [req.user_id]
         }
       });
 
+      //Remove from User blogliked array
       await User.findByIdAndUpdate(req.user_id, {
         $pullAll: {
           blogliked: [blogId]
         }
       });
     } else {
+
+      //Add this userId to Blog likes array 
       await Blog.findByIdAndUpdate(blogId, {
         $addToSet: {
           likes: req.user_id
         }
       });
 
-      const user = await User.findByIdAndUpdate(req.user_id, {
+      //Add blogId to user blogliked array
+     await User.findByIdAndUpdate(req.user_id, {
         $addToSet: {
           blogliked: blogId
         }
       });
     }
   } catch (error) {
-    console.log(error);
     return res.sendStatus(304);
   }
 
