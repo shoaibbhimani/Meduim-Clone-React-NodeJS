@@ -174,7 +174,7 @@ class PostsDetails extends React.Component {
       <PostsInfo>
         <PostsDetailsWrapper>
           <SocialMediaIcons onClick={this.IconHandler}>
-            <HearIcon isLiked={userInfo.blogliked.includes(post._id)}>
+            <HearIcon isLiked={ isAuthenticated ? userInfo.blogliked.includes(post._id) : null}>
               <i className="fa fa-heart-o" />
             </HearIcon>
           </SocialMediaIcons>
