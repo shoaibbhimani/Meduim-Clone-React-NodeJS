@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 const morganbody = require("morgan-body");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
+require("express-async-errors");
 
 //Databases
 require("./models/User");
@@ -56,5 +57,22 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+//error handler
+if (app.get("env") === "production") {
+  app.use((error, req, res, next) => {
+    res.status(req.status || 500).send({
+      message: error.message
+    });
+  });
+}
+
+app.use((error, req, res, next) => {
+  res.status(req.status || 500).send({
+    message: error.message,
+    stack: error.stack
+  });
+});
+
 
 module.exports = app;

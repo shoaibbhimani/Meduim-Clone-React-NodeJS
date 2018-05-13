@@ -31,7 +31,8 @@ const blogSchema = new Schema({
       type: Schema.ObjectId,
       ref: "Comments"
     }
-  ]
+  ],
+  tags: []
 });
 
 mongoose.model("Blog", blogSchema);

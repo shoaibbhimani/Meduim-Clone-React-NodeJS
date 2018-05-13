@@ -2,6 +2,7 @@ import React from "react";
 import ReactMde, { ReactMdeCommands } from "react-mde";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import Select from 'react-select';
 
 import "normalize.css/normalize.css";
 import "react-mde/lib/styles/css/react-mde-all.css";
@@ -18,8 +19,18 @@ const ButtonContainer = styled.section`
 const initialState = {
   reactMdeValue: { text: "", selection: null },
   title: "",
-  thumbnail: ""
+  thumbnail: "",
+  tags: []
 };
+
+const FLAVOURS = [
+	{ label: 'Chocolate', value: 'chocolate' },
+	{ label: 'Vanilla', value: 'vanilla' },
+	{ label: 'Strawberry', value: 'strawberry' },
+	{ label: 'Caramel', value: 'caramel' },
+	{ label: 'Cookies and Cream', value: 'cookiescream' },
+	{ label: 'Peppermint', value: 'peppermint' },
+];
 
 class CreatePost extends React.Component {
   constructor(props) {
@@ -61,8 +72,12 @@ class CreatePost extends React.Component {
     });
   };
 
+  addTags = (value) => {
+		this.setState({ tags: value });    
+  };
+
   render() {
-    const { title, thumbnail } = this.state;
+    const { title, thumbnail, tags } = this.state;
     return (
       <CreatePostContainer>
         <section className="row">
@@ -103,6 +118,15 @@ class CreatePost extends React.Component {
                 />
               </div>
             </section>
+
+            <Select
+              multi
+              onChange={this.addTags}
+              options={FLAVOURS}
+              placeholder="Select your favourite(s)"
+              value={tags}
+              simpleValue
+            />
 
             <ButtonContainer>
               <button className="btn btn-large" type="submit">

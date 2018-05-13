@@ -14,7 +14,7 @@ router.get("/:blogId/comment", async (req, res) => {
   }).populate("user");
 
   res.send(blogcomments);
-})
+});
 
 router.post("/:blogId/comment", auth.isAuthenticated, async (req, res) => {
   const comment = await new Comment({
@@ -28,25 +28,31 @@ router.post("/:blogId/comment", auth.isAuthenticated, async (req, res) => {
   });
 
   posts.comments.push(comment);
-  posts.save();
+  await posts.save();
   res.send(comment);
 });
 
-router.put("/:blogId/:commentId/comment", auth.isAuthenticated, async (req, res) => {
-  const commentState = {
-    user: req.user_id,
-    commentText: req.body.text,
-    blog: req.params.blogId
-  };
+router.put(
+  "/:blogId/:commentId/comment",
+  auth.isAuthenticated,
+  async (req, res) => {
+    const commentState = {
+      user: req.user_id,
+      commentText: req.body.text,
+      blog: req.params.blogId
+    };
 
-  
+    const comment = await Comment.findByIdAndUpdate(
+      req.params.commentId,
+      commentState,
+      {
+        new: true,
+        runValidators: true
+      }
+    );
 
-  const comment = await Comment.findByIdAndUpdate(req.params.commentId, commentState, {
-    new: true,
-    runValidators: true
-  });
-
-  res.send(comment);
-});
+    res.send(comment);
+  }
+);
 
 module.exports = router;
