@@ -1,4 +1,7 @@
 import axios from "axios";
+import { NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+export const toast = NotificationManager;
 
 export const getLocalStorage = () => {
   return JSON.parse(localStorage.getItem("mediumcloneuser"));

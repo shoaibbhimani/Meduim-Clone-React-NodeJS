@@ -97,7 +97,8 @@ class PostItem extends Component {
     incrementLikes({
       postIndex: index,
       postId: post._id,
-      userId: userInfo.user._id
+      userId: userInfo.user._id,
+      isLiked: userInfo.user.blogliked.includes(post._id)
     });
   }
 

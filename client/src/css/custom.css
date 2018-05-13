@@ -1,0 +1,7 @@
+.react-select__value-container {
+	max-height: 30px !important;
+}
+
+.react-select__menu {
+	max-height: 71px !important;
+}

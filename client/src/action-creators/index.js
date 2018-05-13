@@ -4,17 +4,24 @@ import {
   ADD_COMMENTS
 } from "../actions-types";
 
+import * as UtilityMethod  from "../UtilityMethod.js"
 import * as APIClient from "../apiclient";
 import * as TYPES from "../actions-types";
 
-export const incrementLikesPost = ({ postIndex, postId, userId }) => {
-  APIClient.inclikes({ postId });
-
-  return {
-    type: INCREMENT_LIKES_POST,
-    postIndex,
-    userId,
-    postId
+export const incrementLikesPost = ({ postIndex, postId, userId, isLiked }) => {
+  return dispatch => {
+    APIClient.inclikes({ postId }).then(() => {
+      dispatch({
+        type: INCREMENT_LIKES_POST,
+        postIndex,
+        userId,
+        postId
+      });
+      const message = isLiked ? "Unliked" : "liked";
+      UtilityMethod.toast.success(`Successfully ${message} this post`)
+    }).catch(() => {
+      UtilityMethod.toast.error("something wen't wrong", "error")
+    })
   };
 };
 

@@ -8,12 +8,14 @@ import "normalize.css/normalize.css";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import "font-awesome/css/font-awesome.css";
 
+
 import * as actions from "../action-creators";
 
 const CreatePostContainer = styled.section``;
 
 const ButtonContainer = styled.section`
   text-align: center;
+  margin-top: 5px;
 `;
 
 const initialState = {
@@ -72,8 +74,8 @@ class CreatePost extends React.Component {
     });
   };
 
-  addTags = (value) => {
-		this.setState({ tags: value });    
+  addTags = (tags) => {
+		this.setState({ tags: tags });    
   };
 
   render() {
@@ -120,16 +122,19 @@ class CreatePost extends React.Component {
             </section>
 
             <Select
-              multi
+              isMulti={true}
+              simpleValue
               onChange={this.addTags}
               options={FLAVOURS}
               placeholder="Select your favourite(s)"
               value={tags}
-              simpleValue
+              onBlur={() => {
+                debugger
+              }}
             />
 
             <ButtonContainer>
-              <button className="btn btn-large" type="submit">
+              <button className="btn btn-medium" type="submit">
                 Create Post
               </button>
             </ButtonContainer>
