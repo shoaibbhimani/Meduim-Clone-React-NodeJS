@@ -8,7 +8,7 @@
     "client": "cd client && yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild":
-      "yarn clean cache && cd client && yarn install --production=false && yarn build"
+      "yarn cache clean && cd client && yarn install --production=false && yarn build"
   },
   "engines": {
     "node": "8.6.x",
