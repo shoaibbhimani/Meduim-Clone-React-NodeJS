@@ -1,7 +1,9 @@
 import axios from "axios";
-import { NotificationManager} from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
+import { NotificationManager } from "react-notifications";
+import "react-notifications/lib/notifications.css";
 export const toast = NotificationManager;
+
+const encodeURI = window.encodeURIComponent;
 
 export const getLocalStorage = () => {
   return JSON.parse(localStorage.getItem("mediumcloneuser"));
@@ -32,13 +34,13 @@ export const setGlobalAxiosHeader = jwt => {
  */
 
 export const lowerCaseRemoveSpecialChar = value => {
-  return value
+  return encodeURI(value
     .toLowerCase()
     .trim()
-    .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, "");
+    .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, ""));
 };
 
+/* Check whether it is allpost section */
 
-/* Check whether it is allpost section */ 
-
-export const isAllPostSection = ownProps => ownProps.location.pathname.indexOf("/myblogs") === -1;
+export const isAllPostSection = ownProps =>
+  ownProps.location.pathname.indexOf("/myblogs") === -1;

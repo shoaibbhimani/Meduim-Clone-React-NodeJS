@@ -2,17 +2,16 @@ import React from "react";
 import ReactMde, { ReactMdeCommands } from "react-mde";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import Select from 'react-select';
+import Select from "react-select";
 
 import "normalize.css/normalize.css";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import "font-awesome/css/font-awesome.css";
 
-
 import * as actions from "../action-creators";
+import * as Constant from "../Constant.js";
 
 const CreatePostContainer = styled.section``;
-
 const ButtonContainer = styled.section`
   text-align: center;
   margin-top: 5px;
@@ -25,15 +24,6 @@ const initialState = {
   tags: []
 };
 
-const FLAVOURS = [
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Caramel', value: 'caramel' },
-	{ label: 'Cookies and Cream', value: 'cookiescream' },
-	{ label: 'Peppermint', value: 'peppermint' },
-];
-
 class CreatePost extends React.Component {
   constructor(props) {
     super(props);
@@ -42,13 +32,14 @@ class CreatePost extends React.Component {
 
   onSubmit = event => {
     event.preventDefault();
-    const { title, thumbnail, reactMdeValue } = this.state;
+    const { title, thumbnail, reactMdeValue,tags } = this.state;
     const { createPost, history } = this.props;
     createPost(
       {
         title,
         thumbnail,
-        body: reactMdeValue.text
+        body: reactMdeValue.text,
+        tags: tags.map((t) => t.value)
       },
       () => {
         history.push("/myblogs");
@@ -74,8 +65,8 @@ class CreatePost extends React.Component {
     });
   };
 
-  addTags = (tags) => {
-		this.setState({ tags: tags });    
+  addTags = tags => {
+    this.setState({ tags: tags });
   };
 
   render() {
@@ -125,12 +116,9 @@ class CreatePost extends React.Component {
               isMulti={true}
               simpleValue
               onChange={this.addTags}
-              options={FLAVOURS}
+              options={Constant.TAGLIST}
               placeholder="Select your favourite(s)"
               value={tags}
-              onBlur={() => {
-                debugger
-              }}
             />
 
             <ButtonContainer>

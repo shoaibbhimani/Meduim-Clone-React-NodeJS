@@ -10,10 +10,11 @@ import * as CSSConstant from "../CSSConstant";
 
 const NavBar = styled.nav`
   background: none;
-  font-family: ${CSSConstant.raleway};
+  font-family: ${props => props.theme.raleway};
   & a {
     color: black;
   }
+  box-shadow: 0 0 30px rgba(7, 51, 84, 0.17);
 `;
 
 const GoogleContainer = styled.li`
@@ -59,7 +60,7 @@ class Header extends React.Component {
       <NavBar>
         <div className="nav-wrapper">
           <NavLink to="/" className="brand-logo center">
-            <h5>React-Redux-NodeJS-Medium-Clone</h5>
+            <h5>Medium Clone</h5>
           </NavLink>
           <ul className="left hide-on-med-and-down">
             <li>

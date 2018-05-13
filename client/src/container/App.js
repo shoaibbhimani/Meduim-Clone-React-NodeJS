@@ -19,12 +19,9 @@ const mapStateToProps = state => ({
 });
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isAuthenticating: true
-    };
-  }
+  state = {
+    isAuthenticating: true
+  };
 
   componentDidMount() {
     // If user data exist sent request to get updated user data
@@ -32,16 +29,17 @@ class App extends Component {
 
     if (userData) {
       UtilityMethod.setGlobalAxiosHeader(userData.jwt);
-      this.props.getUserData({
-        googleId: userData.user.googleId
-      }, () => {
-        this.toggleAuthentication(false);
-      })
+      this.props.getUserData(
+        {
+          googleId: userData.user.googleId
+        },
+        () => {
+          this.toggleAuthentication(false);
+        }
+      );
     } else {
       this.toggleAuthentication(false);
     }
-
-   
   }
 
   toggleAuthentication = value => {

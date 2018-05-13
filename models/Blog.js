@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const CommentSchema = require("./Comments");
+const ObjectId = mongoose.Types.ObjectId;
 
 const blogSchema = new Schema({
   user_id: {
@@ -17,10 +18,12 @@ const blogSchema = new Schema({
     type: String,
     required: true
   },
-  likes: [{
-    type: Schema.ObjectId,
-    ref: 'User'
-  }],
+  likes: [
+    {
+      type: Schema.ObjectId,
+      ref: "User"
+    }
+  ],
   thumbnail: String,
   created: {
     type: Date,
@@ -34,5 +37,22 @@ const blogSchema = new Schema({
   ],
   tags: []
 });
+
+blogSchema.statics.getTagsList = function() {
+  return this.aggregate([
+    { $unwind: "$tags" },
+    { $group: { _id: "$tags", count: { $sum: 1 } } },
+    { $sort: { count: -1 } }
+  ]);
+};
+
+blogSchema.statics.getCurrentUserTagList = function(user_id) {
+  return this.aggregate([
+     { $match: { user_id: ObjectId(user_id) } },
+     { $unwind: "$tags"},
+     { $group: { _id: "$tags", count: { $sum: 1 } } },
+     { $sort: { count: -1 }}
+    ]);
+};
 
 mongoose.model("Blog", blogSchema);

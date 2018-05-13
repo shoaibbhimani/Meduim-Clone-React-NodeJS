@@ -8,13 +8,19 @@ const Blog = mongoose.model("Blog");
 const User = mongoose.model("User");
 
 router.get("/myblog", auth.isAuthenticated, async (req, res) => {
-  const posts = await Blog.find({
-    user_id: req.user_id
-  })
+  const params = req.query.tag
+    ? { user_id: req.user_id, tags: { $in: [req.query.tag] } }
+    : { user_id: req.user_id };
+
+  const postPromise = Blog.find(params)
     .populate("user_id")
     .sort({ created: -1 });
 
-  res.send({ posts });
+  const tagsPromise = Blog.getCurrentUserTagList(req.user_id);
+
+  const [posts, tags] = await Promise.all([postPromise, tagsPromise]);
+
+  res.send({ posts, tags });
 });
 
 router.get("/blog/:blogId", auth.isAuthenticated, async (req, res) => {
@@ -26,8 +32,16 @@ router.get("/blog/:blogId", auth.isAuthenticated, async (req, res) => {
 });
 
 router.get("/allblog", async (req, res) => {
-  const posts = await Blog.find({}).populate("user_id").sort({ created: -1 });
-  res.send({ posts });
+  const params = req.query.tag ? { tags: { $in: [req.query.tag] } } : {};
+  const postPromise = Blog.find(params)
+    .populate("user_id")
+    .sort({ created: -1 });
+
+  const tagsPromise = Blog.getTagsList();
+
+  const [posts, tags] = await Promise.all([postPromise, tagsPromise]);
+
+  res.send({ posts, tags });
 });
 
 router.put("/inclikes/:blogId", auth.isAuthenticated, async (req, res) => {
@@ -64,7 +78,7 @@ router.put("/inclikes/:blogId", auth.isAuthenticated, async (req, res) => {
 router.post("/", auth.isAuthenticated, async (req, res) => {
   const { title, body, thumbnail, tags } = req.body;
 
-  const blog = new Blog({
+  const blog = await new Blog({
     user_id: req.user_id,
     title,
     body,

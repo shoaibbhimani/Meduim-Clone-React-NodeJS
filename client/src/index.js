@@ -5,8 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components"; 
 import {NotificationContainer} from 'react-notifications';
 
-
-
 import "./css/lib.css";
 import "./css/custom.css";
 import App from "./container/App.js";

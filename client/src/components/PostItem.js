@@ -5,20 +5,17 @@ import styled from "styled-components";
 import * as t from "prop-types";
 import { ReactMdePreview } from "react-mde";
 
-//Components
-import * as CSSConstant from "../CSSConstant";
-
 //Icons
-import likesIcon from "../svg-icons/like.svg";
-import likesIcon1 from "../svg-icons/like2.svg";
 import * as UtilityMethod from "../UtilityMethod";
 
 //Styles
+
+//Layouts
 const PostItemWrapper = styled.li`
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 6px;
-  padding: 9px;
-  border-radius: 3px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 43px #d6dee4;
+  border-radius: 7px;
+  overflow: hidden;
   background: white;
 
   & .mde-preview .mde-preview-content {
@@ -30,44 +27,82 @@ const PostItemWrapper = styled.li`
   }
 `;
 
-const PostHeader = styled.section``;
-const User = styled.span`
-  width: 50px;
-  height: 50px;
-  display: inline-block;
-  & > img {
-    max-width: 100%;
-    border-radius: 50%;
-  }
+const ThumbnailWrapper = styled.section`
+  background: url(${props => props.url});
+  min-height: 224px;
 `;
 
-const UserInfo = styled.span`
-  color: ${props => props.theme.greenColor};
-  margin-left: 9px;
+const ContentWrapper = styled.section``;
+
+const PostHeader = styled.section`
+  float: right;
+  margin-right: 11px;
+  margin-top: 9px;
 `;
+
+//Content
+const Excerpt = styled.section``;
 
 const PostTitle = styled.h3`
   font-size: 19px;
   font-family: ${props => props.theme.textColor};
   text-align: left;
+  padding: 3px 9px;
 `;
 
 const PostContent = styled.section`
-  font-family: ${CSSConstant.playfair};
+  font-family: ${props => props.theme.playfair};
   color: rgba(0, 0, 0, 0.54) !important;
-`;
-
-const PostImageWrapper = styled.section``;
-const PostImage = styled.img`
-  float: left;
+  padding: 3px 9px;
 `;
 
 const PostLink = styled.section`
+  padding: 3px 9px;
   text-align: left;
   & a {
     color: rgba(0, 0, 0, 0.3);
   }
 `;
+
+//Footer
+const Footer = styled.section`
+  padding: 3px 5px;
+  border-top: 0.5px solid #ecebeb;
+`;
+
+const User = styled.span`
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  & > img {
+    max-width: 100%;
+    border: 3px solid #eaeaea;
+    border-radius: 50%;
+  }
+`;
+
+const UserInfo = styled.section`
+  float: right;
+  margin-right: 20px;
+  margin-top: 3px;
+`;
+
+const Name = styled.span`
+  color: ${props => props.theme.greenColor};
+  margin-left: 9px;
+  font-family: ${props => props.theme.playfair};
+`;
+
+const LikeWrapper = styled.section`
+  display: flex;
+  width: 50px;
+  height: 50px;
+  float: left;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CommentCount = styled.section`float: right;`;
 
 const HearIcon = styled.span`
   cursor: pointer;
@@ -76,50 +111,61 @@ const HearIcon = styled.span`
   }
 `;
 
-const LikeWrapper = styled.section`
-  float: left;
-`;
-
-const CommentCount = styled.section`
-  float: right;
-`;
-
 class PostItem extends Component {
-  constructor() {
-    super();
-    this.renderAuthorContent = this.renderAuthorContent.bind(this);
-    this.renderLikes = this.renderLikes.bind(this);
-    this.likeIconHandler = this.likeIconHandler.bind(this);
-  }
+  static PropTypes = {
+    incrementLikes: t.func.isRequired,
+    post: t.object.isRequired,
+    userInfo: t.object.isRequired,
+    isAllPostSection: t.bool.isRequired
+  };
 
-  likeIconHandler() {
+  likeIconHandler = () => {
     const { incrementLikes, index, userInfo, post } = this.props;
+
     incrementLikes({
       postIndex: index,
       postId: post._id,
       userId: userInfo.user._id,
       isLiked: userInfo.user.blogliked.includes(post._id)
     });
-  }
+  };
 
-  renderAuthorContent() {
+  renderExcerpt = () => {
+    const { post } = this.props;
+
+    return (
+      <Excerpt>
+        <PostTitle>{post.title}</PostTitle>
+        <PostContent>
+          <ReactMdePreview markdown={post.body} />
+        </PostContent>
+      </Excerpt>
+    );
+  };
+
+  renderLinks = () => {
     const { post, index, isAllPostSection } = this.props;
+    const linkPostTitle =
+      UtilityMethod.lowerCaseRemoveSpecialChar(post.title) + "-" + index;
     return (
       <PostLink>
         {isAllPostSection ? (
-          <Link to={`allblog/${post.title + "-" + index}`}>
+          <Link to={`allblog/${linkPostTitle}`}>
             <p>Read more</p>
           </Link>
         ) : (
-          <Link to={`myblogs/${post.title + "-" + index}`}>
-            <p>Read more</p>
-          </Link>
+          <div>
+            <Link to={`myblogs/editblog/${linkPostTitle}`}>Edit</Link>
+            <Link to={`myblogs/${linkPostTitle}`}>
+              <p>Read more</p>
+            </Link>
+          </div>
         )}
       </PostLink>
     );
-  }
+  };
 
-  renderLikes() {
+  renderLikes = () => {
     const { post, userInfo } = this.props;
 
     if (!userInfo.isAuthenticated) {
@@ -127,17 +173,21 @@ class PostItem extends Component {
     }
 
     return (
-      <section className="clearfix">
+      <Footer className="clearfix">
         <LikeWrapper onClick={this.likeIconHandler}>
           <HearIcon isLiked={userInfo.user.blogliked.includes(post._id)}>
             <i className="fa fa-heart-o" />
           </HearIcon>
-          <span style={{ marginLeft: "2.5px" }} />
         </LikeWrapper>
-        <CommentCount>{post.comments.length}</CommentCount>
-      </section>
+        <UserInfo>
+          <User>
+            <img src={post.user_id.avatar} />
+          </User>
+          <Name>{post.user_id.firstName}</Name>
+        </UserInfo>
+      </Footer>
     );
-  }
+  };
 
   render() {
     const { post, index, isAllPostSection } = this.props;
@@ -146,34 +196,18 @@ class PostItem extends Component {
 
     return (
       <PostItemWrapper className="clearfix">
-        <PostHeader>
-          <User>
-            <img src={post.user_id.avatar} />
-          </User>
-          <UserInfo>{post.user_id.firstName}</UserInfo>
-        </PostHeader>
+        <ThumbnailWrapper url={post.thumbnail} />
 
-        <PostTitle>{post.title}</PostTitle>
-        <PostContent>
-          <ReactMdePreview markdown={post.body} />
-        </PostContent>
+        <ContentWrapper>
+          {this.renderExcerpt()}
 
-        {!isAllPostSection && (
-          <Link to={`myblogs/editblog/${linkPostTitle}`}>Edit</Link>
-        )}
-        {this.renderAuthorContent()}
-        {this.renderLikes()}
+          {this.renderLinks()}
+          {this.renderLikes()}
+        </ContentWrapper>
       </PostItemWrapper>
     );
   }
 }
-
-PostItem.propTypes = {
-  incrementLikes: t.func.isRequired,
-  post: t.object.isRequired,
-  userInfo: t.object.isRequired,
-  isAllPostSection: t.bool.isRequired
-};
 
 PostItem.defaultProps = {
   isAllPostSection: false

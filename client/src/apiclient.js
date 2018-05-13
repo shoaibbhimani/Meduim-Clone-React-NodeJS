@@ -5,7 +5,9 @@ export const googleAuth = params =>
     ...params
   });
 
-export const getPost = () => axios.get("/api/blogs/myblog");
+export const getPost = ({ tag }) => axios.get(`/api/blogs/myblog`,{
+    params: { tag }
+  });
 
 export const createPost = params =>
   axios.post("api/blogs", {
@@ -22,7 +24,10 @@ export const inclikes = ({ postId }) => {
   return axios.put(`/api/blogs/inclikes/` + postId);
 };
 
-export const getAllPost = () => axios.get("/api/blogs/allblog");
+export const getAllPost = ({ tag }) =>
+  axios.get(`/api/blogs/allblog`, {
+    params: { tag }
+  });
 
 //comments
 export const getCommentOfPost = ({ blogId }) =>

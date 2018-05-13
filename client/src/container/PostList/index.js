@@ -2,17 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter, Switch, Route } from "react-router-dom";
+import queryString from 'query-string';
 
 import PostItem from "../../components/PostItem";
 import * as actions from "../../action-creators";
-import * as CSSConstant from "../../CSSConstant";
 import PostList from "./PostList";
 import PostDetails from "../PostDetails";
 import EditBlog from "../EditBlog";
 
 const PostListWrapper = styled.section`
-  font-family: ${CSSConstant.raleway};
+  font-family: ${props => props.theme.raleway};
   background: #fafafa;
+  min-height: 100vh;
 `;
 
 const mapStateToProps = (state, ownProps) => {
@@ -24,12 +25,14 @@ const mapStateToProps = (state, ownProps) => {
 
 class Posts extends React.Component {
   componentDidMount() {
-    const { allPostSection, getAllPost, getPost } = this.props;
+    const { allPostSection, getAllPost, getPost, match, location } = this.props;
+
+    const parsed = queryString.parse(location.search);
 
     if (allPostSection) {
-      getAllPost();
+      getAllPost({ tag: parsed.tag });
     } else {
-      getPost();
+      getPost({ tag: parsed.tag });
     }
   }
 

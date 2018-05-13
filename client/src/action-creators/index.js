@@ -4,24 +4,26 @@ import {
   ADD_COMMENTS
 } from "../actions-types";
 
-import * as UtilityMethod  from "../UtilityMethod.js"
+import * as UtilityMethod from "../UtilityMethod.js";
 import * as APIClient from "../apiclient";
 import * as TYPES from "../actions-types";
 
 export const incrementLikesPost = ({ postIndex, postId, userId, isLiked }) => {
   return dispatch => {
-    APIClient.inclikes({ postId }).then(() => {
-      dispatch({
-        type: INCREMENT_LIKES_POST,
-        postIndex,
-        userId,
-        postId
+    APIClient.inclikes({ postId })
+      .then(() => {
+        dispatch({
+          type: INCREMENT_LIKES_POST,
+          postIndex,
+          userId,
+          postId
+        });
+        const message = isLiked ? "Unliked" : "liked";
+        UtilityMethod.toast.success(`Successfully ${message} this post`);
+      })
+      .catch(() => {
+        UtilityMethod.toast.error("something wen't wrong", "error");
       });
-      const message = isLiked ? "Unliked" : "liked";
-      UtilityMethod.toast.success(`Successfully ${message} this post`)
-    }).catch(() => {
-      UtilityMethod.toast.error("something wen't wrong", "error")
-    })
   };
 };
 
@@ -44,11 +46,14 @@ export const forgetUser = () => ({ type: TYPES.FORGOT_USER });
 export const setUserData = data => ({ type: TYPES.USER_DATA, payload: data });
 
 //Blogs
-export const getPost = () => {
+export const getPost = ({ tag }) => {
   return dispatch => {
-    APIClient.getPost()
+    APIClient.getPost({ tag })
       .then(({ data }) => {
-        dispatch({ type: TYPES.POSTS, payload: data.posts });
+        dispatch({
+          type: TYPES.POSTS,
+          payload: { posts: data.posts, tags: data.tags }
+        });
       })
       .catch(error => {
         dispatch({ type: "ERROR", payload: error });
@@ -56,11 +61,11 @@ export const getPost = () => {
   };
 };
 
-export const getAllPost = () => {
+export const getAllPost = ({ tag }) => {
   return dispatch => {
-    APIClient.getAllPost()
+    APIClient.getAllPost({ tag  })
       .then(({ data }) => {
-        dispatch({ type: TYPES.POSTS, payload: data.posts });
+        dispatch({ type: TYPES.POSTS, payload: { posts: data.posts, tags: data.tags } });
       })
       .catch(error => {
         dispatch({ type: "ERROR", payload: error });
