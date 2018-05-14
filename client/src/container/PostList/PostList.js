@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter, NavLink } from "react-router-dom";
-import queryString from "query-string";
+import qs from "qs";
 
 import PostItem from "../../components/PostItem";
 import * as actions from "../../action-creators";
@@ -13,7 +13,9 @@ const PostWrapper = styled.section`
   font-family: ${props => props.theme.raleway};
 `;
 
-const Tags = styled.ul`margin: 14px 0;`;
+const Tags = styled.ul`
+  margin: 14px 0;
+`;
 
 const TagList = styled.li`
   display: inline-block;
@@ -31,7 +33,7 @@ const TagList = styled.li`
   }
 
   &:hover {
-   background: #676dd0;  
+    background: #676dd0;
   }
 `;
 
@@ -52,7 +54,7 @@ class PostList extends React.Component {
 
   getPosts = ({ isAllPostSection, getAllPost, getPost, match, location }) => {
     let currentPostSection = null;
-    const parsed = queryString.parse(location.search);
+    const parsed = qs.parse(location.search.slice(1));
     if (isAllPostSection) {
       getAllPost({ tag: parsed.tag });
       currentPostSection = "allPosts";

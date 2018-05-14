@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { withRouter, Switch, Route } from "react-router-dom";
-import queryString from 'query-string';
+import qs from "qs";
 
 import PostItem from "../../components/PostItem";
 import * as actions from "../../action-creators";
@@ -27,7 +27,7 @@ class Posts extends React.Component {
   componentDidMount() {
     const { allPostSection, getAllPost, getPost, match, location } = this.props;
 
-    const parsed = queryString.parse(location.search);
+    const parsed = qs.parse(location.search.slice(1));
 
     if (allPostSection) {
       getAllPost({ tag: parsed.tag });
