@@ -21,6 +21,7 @@ const postsReducers = (state = initialState, action) => {
         posts: state.posts.map((post, index) => {
           if (parseInt(action.payload.index) === index) {
             return {
+              ...post,
               ...action.payload.data
             };
           }
@@ -28,7 +29,6 @@ const postsReducers = (state = initialState, action) => {
         })
       };
     case TYPES.INCREMENT_LIKES_POST:
-
       const addOrRemoveLikes = () => {
         const post = state.posts[action.postIndex];
 

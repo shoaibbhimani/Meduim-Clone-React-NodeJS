@@ -102,7 +102,9 @@ const LikeWrapper = styled.section`
   justify-content: center;
 `;
 
-const CommentCount = styled.section`float: right;`;
+const CommentCount = styled.section`
+  float: right;
+`;
 
 const HearIcon = styled.span`
   cursor: pointer;

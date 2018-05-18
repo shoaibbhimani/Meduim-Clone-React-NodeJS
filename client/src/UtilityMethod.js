@@ -34,13 +34,18 @@ export const setGlobalAxiosHeader = jwt => {
  */
 
 export const lowerCaseRemoveSpecialChar = value => {
-  return encodeURI(value
-    .toLowerCase()
-    .trim()
-    .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, ""));
+  return encodeURI(
+    value
+      .toLowerCase()
+      .trim()
+      .replace(/[&-\/\\#,+()$~%.'":*?<>{} ]/g, "")
+  );
 };
 
 /* Check whether it is allpost section */
 
 export const isAllPostSection = ownProps =>
   ownProps.location.pathname.indexOf("/myblogs") === -1;
+
+export const titleCase = str =>
+  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();

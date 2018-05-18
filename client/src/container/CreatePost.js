@@ -10,8 +10,12 @@ import "font-awesome/css/font-awesome.css";
 
 import * as actions from "../action-creators";
 import * as Constant from "../Constant.js";
+import * as UtilityMethods from "../UtilityMethod";
 
-const CreatePostContainer = styled.section``;
+const CreatePostContainer = styled.section`
+  background: white;
+`;
+
 const ButtonContainer = styled.section`
   text-align: center;
   margin-top: 5px;
@@ -21,7 +25,14 @@ const initialState = {
   reactMdeValue: { text: "", selection: null },
   title: "",
   thumbnail: "",
-  tags: []
+  tags: [],
+  isEditing: false
+};
+
+const mapStateToProps = state => {
+  return {
+    posts: state.posts.posts
+  };
 };
 
 class CreatePost extends React.Component {
@@ -30,21 +41,78 @@ class CreatePost extends React.Component {
     this.state = initialState;
   }
 
+  componentDidMount() {
+    this.getDefaultState();
+  }
+
+  getDefaultState = () => {
+    const { posts, match, location } = this.props;
+    const isEditing = location.pathname.indexOf("editblog") !== -1;
+
+    if (!isEditing) {
+      return;
+    }
+
+    const index = match.params.postId.split("-").pop();
+    const post = posts[index];
+
+    this.setState({
+      reactMdeValue: { text: post.body, selection: null },
+      title: post.title,
+      thumbnail: post.thumbnail,
+      postId: post._id,
+      post: post,
+      index,
+      tags: post.tags.map(p => ({
+        value: p,
+        label: UtilityMethods.titleCase(p)
+      })),
+      isEditing
+    });
+  };
+
   onSubmit = event => {
     event.preventDefault();
-    const { title, thumbnail, reactMdeValue,tags } = this.state;
-    const { createPost, history } = this.props;
-    createPost(
-      {
-        title,
-        thumbnail,
-        body: reactMdeValue.text,
-        tags: tags.map((t) => t.value)
-      },
-      () => {
-        history.push("/myblogs");
-      }
-    );
+    const {
+      title,
+      thumbnail,
+      reactMdeValue,
+      tags,
+      isEditing,
+      postId,
+      index
+    } = this.state;
+    const { createPost, history, editPost, location } = this.props;
+
+    if (isEditing) {
+      editPost(
+        {
+          data: {
+            title,
+            thumbnail,
+            body: reactMdeValue.text,
+            tags: tags.map(t => t.value)
+          },
+          postId,
+          index
+        },
+        () => {
+          history.push("/myblogs");
+        }
+      );
+    } else {
+      createPost(
+        {
+          title,
+          thumbnail,
+          body: reactMdeValue.text,
+          tags: tags.map(t => t.value)
+        },
+        () => {
+          history.push("/myblogs");
+        }
+      );
+    }
 
     this.setState(initialState);
   };
@@ -123,7 +191,7 @@ class CreatePost extends React.Component {
 
             <ButtonContainer>
               <button className="btn btn-medium" type="submit">
-                Create Post
+                {this.state.isEditing ? "Edit Post" : "Create Post"}
               </button>
             </ButtonContainer>
           </form>
@@ -134,4 +202,4 @@ class CreatePost extends React.Component {
   }
 }
 
-export default connect(null, actions)(CreatePost);
+export default connect(mapStateToProps, actions)(CreatePost);

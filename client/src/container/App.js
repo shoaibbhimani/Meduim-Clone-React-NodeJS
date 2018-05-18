@@ -7,7 +7,6 @@ import Header from "./Header";
 import CreatePost from "./CreatePost";
 import PostList from "./PostList/index";
 import PostDetails from "./PostDetails";
-import EditBlog from "./EditBlog";
 import PrivateRoute from "../UIComponent/PrivateRoute";
 
 import * as actions from "../action-creators";

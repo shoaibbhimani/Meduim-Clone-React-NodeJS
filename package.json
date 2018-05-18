@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node start.js",
     "server": "nodemon start.js",
-    "client": "cd client && yarn start",
+    "client": "cd client && yarn install && yarn start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild":
       "yarn cache clean && cd client && yarn install --production=false && yarn build"

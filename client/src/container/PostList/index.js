@@ -8,7 +8,7 @@ import PostItem from "../../components/PostItem";
 import * as actions from "../../action-creators";
 import PostList from "./PostList";
 import PostDetails from "../PostDetails";
-import EditBlog from "../EditBlog";
+import CreatePost from "../CreatePost";
 
 const PostListWrapper = styled.section`
   font-family: ${props => props.theme.raleway};
@@ -51,7 +51,7 @@ class Posts extends React.Component {
           <Route
             exact
             path={`${match.url}/editblog/:postId`}
-            component={EditBlog}
+            component={CreatePost}
           />
         </Switch>
       </PostListWrapper>
