@@ -8,7 +8,7 @@ import PostItem from "../../components/PostItem";
 import * as actions from "../../action-creators";
 import PostList from "./PostList";
 import PostDetails from "../PostDetails";
-import CreatePost from "../CreatePost";
+import CreatePost from "../CreateEditPost";
 
 const PostListWrapper = styled.section`
   font-family: ${props => props.theme.raleway};

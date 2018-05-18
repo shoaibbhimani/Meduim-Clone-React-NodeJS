@@ -4,7 +4,7 @@ import { Route, withRouter, Switch, Redirect } from "react-router-dom";
 
 //Components
 import Header from "./Header";
-import CreatePost from "./CreatePost";
+import CreatePost from "./CreateEditPost";
 import PostList from "./PostList/index";
 import PostDetails from "./PostDetails";
 import PrivateRoute from "../UIComponent/PrivateRoute";

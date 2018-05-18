@@ -9,7 +9,7 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 import "font-awesome/css/font-awesome.css";
 
 import * as actions from "../action-creators";
-import * as Constant from "../Constant.js";
+import * as Constant from "./CreateEditPost.js";
 import * as UtilityMethods from "../UtilityMethod";
 
 const CreatePostContainer = styled.section`
