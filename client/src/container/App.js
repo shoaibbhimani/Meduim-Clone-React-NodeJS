@@ -8,6 +8,7 @@ import CreatePost from "./CreateEditPost";
 import PostList from "./PostList/index";
 import PostDetails from "./PostDetails";
 import PrivateRoute from "../UIComponent/PrivateRoute";
+import UserSetting from "./UserSetting";
 
 import * as actions from "../action-creators";
 import * as UtilityMethod from "../UtilityMethod";
@@ -67,6 +68,13 @@ class App extends Component {
               {...this.props}
               isAuthenticated={isAuthenticated}
               component={CreatePost}
+            />
+            <PrivateRoute
+              exact
+              path="/setting"
+              {...this.props}
+              isAuthenticated={isAuthenticated}
+              component={UserSetting}
             />
           </Switch>
         )}
