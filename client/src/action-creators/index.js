@@ -45,6 +45,22 @@ export const forgetUser = () => ({ type: TYPES.FORGOT_USER });
 
 export const setUserData = data => ({ type: TYPES.USER_DATA, payload: data });
 
+//Modify User Data
+export const editUserdata = (data, callback) => {
+  return dispatch => {
+    APIClient.editUserData(data)
+      .then(({ data }) => {
+        callback && callback({ data });
+        UtilityMethod.toast.success(`Successfully Edited Setting`);
+        dispatch({ type: TYPES.USER_DATA, payload: data });
+      })
+      .catch(error => {
+        UtilityMethod.toast.error("something wen't wrong", "error");
+        dispatch({ type: "ERROR", payload: error });
+      });
+  };
+};
+
 //Blogs
 export const getPost = ({ tag }) => {
   return dispatch => {
@@ -63,9 +79,12 @@ export const getPost = ({ tag }) => {
 
 export const getAllPost = ({ tag }) => {
   return dispatch => {
-    APIClient.getAllPost({ tag  })
+    APIClient.getAllPost({ tag })
       .then(({ data }) => {
-        dispatch({ type: TYPES.POSTS, payload: { posts: data.posts, tags: data.tags } });
+        dispatch({
+          type: TYPES.POSTS,
+          payload: { posts: data.posts, tags: data.tags }
+        });
       })
       .catch(error => {
         dispatch({ type: "ERROR", payload: error });

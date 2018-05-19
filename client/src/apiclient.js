@@ -1,11 +1,16 @@
 import axios from "axios";
 
+//Auth
 export const googleAuth = params =>
   axios.post("/api/auth", {
     ...params
   });
 
-export const getPost = ({ tag }) => axios.get(`/api/blogs/myblog`,{
+export const editUserData = params => axios.put("/api/auth", params);
+
+//Post
+export const getPost = ({ tag }) =>
+  axios.get(`/api/blogs/myblog`, {
     params: { tag }
   });
 

@@ -36,4 +36,30 @@ router.post("/", async (req, res) => {
   res.send({ jwt: token, user });
 });
 
+router.put("/", async (req, res) => {
+  const { firstName, lastName, email } = req.body;
+
+  let user = await User.findByIdAndUpdate(
+    {
+      _id: req.user_id
+    },
+    {
+      $set: { firstName, lastName, email }
+    },
+    {
+      new: true,
+      runValidators: true
+    }
+  );
+
+  const token = await jwt.sign(
+    {
+      user_id: req.user_id
+    },
+    keys.token
+  );
+
+  res.send({ jwt: token, user });
+});
+
 module.exports = router;
